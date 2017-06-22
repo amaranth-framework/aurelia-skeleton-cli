@@ -1,5 +1,5 @@
 {
-  "name": "aurelia-skeleton",
+  "name": "waiter-ninja-admin",
   "type": "project:application",
   "platform": {
     "id": "web",
@@ -97,10 +97,50 @@
           "node_modules/requirejs/require.js"
         ],
         "dependencies": [
+          "extend",
+          "text",
+          "jquery",
+          {
+            "name": "bootstrap",
+            "path": "../node_modules/bootstrap/dist",
+            "main": "js/bootstrap.min",
+            "deps": [
+              "jquery"
+            ],
+            "exports": "$",
+            "resources": [
+              "css/bootstrap.min.css"
+            ]
+          },
+          {
+            "name": "gentelella",
+            "path": "../node_modules/gentelella/build",
+            "main": "js/custom.min.js",
+            "resources": [
+              "css/custom.min.css"
+            ]
+          },
+          {
+            "name": "crypto",
+            "path": "../node_modules/crypto",
+            "main": "sha1.js"
+          },
+          {
+            "name": "uuid",
+            "path": "../node_modules/uuid",
+            "main": "index.js"
+          }
+        ]
+      },
+      {
+        "name": "aurelia-bundle.js",
+        "dependencies": [
+          "aurelia-api",
           "aurelia-binding",
           "aurelia-bootstrapper",
           "aurelia-dependency-injection",
           "aurelia-event-aggregator",
+          "aurelia-fetch-client",
           "aurelia-framework",
           "aurelia-history",
           "aurelia-history-browser",
@@ -118,7 +158,6 @@
           "aurelia-task-queue",
           "aurelia-templating",
           "aurelia-templating-binding",
-          "text",
           {
             "name": "aurelia-templating-resources",
             "path": "../node_modules/aurelia-templating-resources/dist/amd",
@@ -134,19 +173,6 @@
             "path": "../node_modules/aurelia-testing/dist/amd",
             "main": "aurelia-testing",
             "env": "dev"
-          }
-        ]
-      },
-      {
-        "name": "gentelella-bundle.js",
-        "dependencies": [
-          {
-            "name":"jquery",
-            "path":"../node_modules/gentelella",
-            "main":"build/js/custom.min.js",
-            "resources": [
-              "build/css/custom.min.css"
-            ]
           }
         ]
       }

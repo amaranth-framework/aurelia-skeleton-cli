@@ -1,3 +1,29 @@
 <template>
-  <h1>${message}</h1>
+    <require from="bootstrap/css/bootstrap.min.css"></require>
+    <!-- + For gentelella theme, uncomment the following -->
+    <require from="gentelella/css/custom.min.css"></require>
+
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <!-- <component ></component> -->
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav"><div class="nav_menu"></div></div>
+            <!-- /top navigation -->
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <router-view></router-view>
+            </div>
+            <!-- /page content -->
+
+            <!-- footer content -->
+            <footer>
+                <!-- <component ></component> -->
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
 </template>
