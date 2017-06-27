@@ -2,6 +2,8 @@
     <ul class="nav" class.bind="style">
         <li repeat.for="route in routes">
             <a route-href="{ route.bind: route.name, params.bind: route.params || {} }">${route.title}</a>
+            <!-- <compose if.bind="route.routes" containerless mode-view="components/nav/nav"
+                model.bind="{ routes: route.routes, settings }"></compose> -->
         </li>
     </ul>
 </template>

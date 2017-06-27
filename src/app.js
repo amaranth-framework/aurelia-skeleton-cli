@@ -19,7 +19,8 @@ export class App {
                 name: 'dashboard',
                 moduleId: 'templates/home/home',
                 nav: true,
-                title: 'Dashboard'
+                title: 'Dashboard',
+                group: 'side-nav'
             }
         ]);
 

@@ -1,5 +1,7 @@
 import { Component } from 'features/views/component';
 
+import _ from 'lodash';
+
 export class ComponentNav extends Component {
     /**
      * @see ModelView:defaultSettings
@@ -13,10 +15,19 @@ export class ComponentNav extends Component {
         service: {},               // possible service settings for component
         services: {},              // possible services settings for component
 
-        routes: []
+        routes: [],
+        filter: {}
     }
     /**
      * @see ModelView::overrideSettingsKey
      */
     overrideSettingsKey = 'components.nav';
+    /**
+     * [filteredRoutes description]
+     * @method filteredRoutes
+     * @return {Array}       [description]
+     */
+    get filteredRoutes() {
+        return _.filter(this.settings.routes || this.router.routes, this.settings.filter);
+    }
 }

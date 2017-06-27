@@ -28,7 +28,8 @@ define('app',['exports'], function (exports) {
                 name: 'dashboard',
                 moduleId: 'templates/home/home',
                 nav: true,
-                title: 'Dashboard'
+                title: 'Dashboard',
+                group: 'side-nav'
             }]);
 
             this.router = router;
@@ -160,7 +161,7 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('components/nav/nav',['exports', 'features/views/component'], function (exports, _component) {
+define('components/nav/nav',['exports', 'features/views/component', 'lodash'], function (exports, _component, _lodash) {
     'use strict';
 
     Object.defineProperty(exports, "__esModule", {
@@ -168,11 +169,37 @@ define('components/nav/nav',['exports', 'features/views/component'], function (e
     });
     exports.ComponentNav = undefined;
 
+    var _lodash2 = _interopRequireDefault(_lodash);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
             throw new TypeError("Cannot call a class as a function");
         }
     }
+
+    var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
 
     function _possibleConstructorReturn(self, call) {
         if (!self) {
@@ -219,9 +246,17 @@ define('components/nav/nav',['exports', 'features/views/component'], function (e
                 service: {},
                 services: {},
 
-                routes: []
+                routes: [],
+                filter: {}
             }, _this.overrideSettingsKey = 'components.nav', _temp), _possibleConstructorReturn(_this, _ret);
         }
+
+        _createClass(ComponentNav, [{
+            key: 'filteredRoutes',
+            get: function get() {
+                return _lodash2.default.filter(this.settings.routes || this.router.routes, this.settings.filter);
+            }
+        }]);
 
         return ComponentNav;
     }(_component.Component);
