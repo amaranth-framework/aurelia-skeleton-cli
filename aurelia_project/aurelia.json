@@ -46,7 +46,13 @@
     "elements": "resources/elements",
     "attributes": "resources/attributes",
     "valueConverters": "resources/value-converters",
-    "bindingBehaviors": "resources/binding-behaviors"
+    "bindingBehaviors": "resources/binding-behaviors",
+    "assets": [
+      {
+        "src": "./node_modules/font-awesome/fonts/**/*.*",
+        "dest": "./fonts"
+      }
+    ]
   },
   "testFramework": {
     "id": "jasmine",
@@ -100,6 +106,7 @@
           "extend",
           "text",
           "jquery",
+          "uuid-js",
           {
             "name": "bootstrap",
             "path": "../node_modules/bootstrap/dist",
@@ -121,20 +128,21 @@
             ]
           },
           {
-            "name": "crypto",
-            "path": "../node_modules/crypto",
-            "main": "sha1.js"
+            "name": "i18next-xhr-backend",
+            "path": "../node_modules/i18next-xhr-backend",
+            "main": "i18nextXHRBackend.min"
           },
           {
-            "name": "uuid",
-            "path": "../node_modules/uuid",
-            "main": "index.js"
+            "name": "i18next",
+            "path": "../node_modules/i18next",
+            "main": "i18next.min"
           }
         ]
       },
       {
         "name": "aurelia-bundle.js",
         "dependencies": [
+          "aurelia-animator-css",
           "aurelia-api",
           "aurelia-binding",
           "aurelia-bootstrapper",
@@ -159,6 +167,16 @@
           "aurelia-templating",
           "aurelia-templating-binding",
           {
+            "name": "aurelia-configuration",
+            "path": "../node_modules/aurelia-configuration/dist/amd",
+            "main": "index"
+          },
+          {
+            "name": "aurelia-i18n",
+            "path": "../node_modules/aurelia-i18n/dist/amd",
+            "main": "index"
+          },
+          {
             "name": "aurelia-templating-resources",
             "path": "../node_modules/aurelia-templating-resources/dist/amd",
             "main": "aurelia-templating-resources"
@@ -173,6 +191,11 @@
             "path": "../node_modules/aurelia-testing/dist/amd",
             "main": "aurelia-testing",
             "env": "dev"
+          },
+          {
+            "name": "aurelia-validation",
+            "path": "../node_modules/aurelia-validation/dist/amd",
+            "main": "aurelia-validation"
           }
         ]
       }

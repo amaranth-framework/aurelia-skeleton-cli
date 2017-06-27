@@ -2,15 +2,15 @@
     <require from="bootstrap/css/bootstrap.min.css"></require>
     <!-- + For gentelella theme, uncomment the following -->
     <require from="gentelella/css/custom.min.css"></require>
+    <require from="app.css"></require>
 
     <div class="container body">
         <div class="main_container">
-            <div class="col-md-3 left_col">
-                <!-- <component ></component> -->
-            </div>
-
+            <!-- left navigation -->
+            <compose containerless view-model="components/nav/left/left" model.bind="{}"></compose>
+            <!-- /left navigation -->
             <!-- top navigation -->
-            <div class="top_nav"><div class="nav_menu"></div></div>
+            <compose containerless view-model="components/nav/top/top" model.bind="{}"></compose>
             <!-- /top navigation -->
 
             <!-- page content -->

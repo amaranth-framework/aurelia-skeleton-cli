@@ -1,11 +1,11 @@
-// import { AureliaConfiguration } from 'aurelia-configuration';
+import { AureliaConfiguration } from 'aurelia-configuration';
 import { Config as API } from 'aurelia-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { inject, LogManager } from 'aurelia-framework';
-// import { I18N } from 'aurelia-i18n';
+import { I18N } from 'aurelia-i18n';
 import { Router } from 'aurelia-router';
 
-import { uuid } from 'uuid';
+import UUID from 'uuid-js';
 
 import { extend, className, parentClassName } from 'features/utils';
 
@@ -15,7 +15,7 @@ import { extend, className, parentClassName } from 'features/utils';
  * @link https://www.danyow.net/inversion-of-control-with-aurelia-part-1/
  */
 @inject(API, AureliaConfiguration, EventAggregator, I18N, Router)
-export class AbstractView {
+export class View {
     /*************************************************************************************
      * Inherited
      *************************************************************************************/
@@ -34,7 +34,7 @@ export class AbstractView {
         this.events = events;
         this.router = router;
 
-        this.uuid = uuid;
+        this.uuid = UUID.create(4);
     }
     /**
      * Implement this hook if you want to perform custom logic just before your view-model is displayed. You can
@@ -128,14 +128,14 @@ export class AbstractView {
     /**
      * Default View Settings. Can be null
      * @type {Object|null}
+     * @var defaultSettings;
      */
-    defaultSettings = null;
     /**
      * Override Settings Key.
      * If using 'aurelia-configuration', this key will be used to extract over writing settings from application config.
      * @type {String}
+     * @var overrideSettingsKey;
      */
-    overrideSettingsKey = false;
     /**
      * Specific init function for each model view. AbstravView will call it at the end of the activate method.
      * Generaly this method may be async.
@@ -184,6 +184,9 @@ export class AbstractView {
      * @return {Object}
      */
     get overrideSettings() {
+        if (!this.overrideSettingsKey || this.overrideSettingsKey.length === 0) {
+            throw new Error(`Class '${className(this)}' has no 'overrideSettings' defined.`);
+        }
         if (!this._overrideSettings) {
             this._overrideSettings = this.config.get(this.overrideSettingsKey) || {};
         }

@@ -1,0 +1,16 @@
+<template>
+    <div class="top_nav">
+        <div class="nav_menu">
+            <nav>
+                <div class="nav toggle">
+                    <a id="menu_toggle" click.trigger="toggleLeftNav()"><i class="fa fa-bars"></i></a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li repeat.for="component of settings.components" class="component component--${component.type}" class.bind="settings.styles[component.type]">
+                        <compose containerless view-model.bind="component.module" model.bind="{ settings: component.settings }"></compose>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</template>

@@ -1,15 +1,8 @@
-import { View } from 'features/views/view';
+import { Component } from 'features/views/component';
 
-/**
- * Abstract Component View (usable with <compose>)
- */
-export class Component extends View {
+export class ComponentNavTopInbox extends Component {
     /**
      * @see ModelView:defaultSettings
-     * In Template and Component class, this variable is named different because ECMAScript does not suppoer
-     * super.property. This artifice needs to be made in order to quit duplicating settings content all over
-     * the extending classes.
-     * @type {Object}
      */
     defaultSettings = {
         style: '',                 // component's style - list of classes add to the component to be able to format it.
@@ -20,4 +13,8 @@ export class Component extends View {
         service: {},               // possible service settings for component
         services: {}               // possible services settings for component
     }
+    /**
+     * @see ModelView::overrideSettingsKey
+     */
+    overrideSettingsKey = 'components.nav-top-inbox';
 }

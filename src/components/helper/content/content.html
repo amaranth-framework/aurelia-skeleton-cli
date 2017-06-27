@@ -1,0 +1,10 @@
+<template>
+    <div class.bind="settings.layout">
+        <section>
+            <h1 t="[html]${settings.title}" if.bind="settings.title" class="policy__title"></h1>
+        </section>
+        <section repeat.for="component of settings.components" class="component component--${component.type}" class.bind="settings.styles[component.type]">
+            <compose containerless view-model.bind="component.module" model.bind="{ settings: component.settings }"></compose>
+        </section>
+    </div>
+</template>

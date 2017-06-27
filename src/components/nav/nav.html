@@ -1,0 +1,7 @@
+<template>
+    <ul class="nav" class.bind="style">
+        <li repeat.for="route in routes">
+            <a route-href="{ route.bind: route.name, params.bind: route.params || {} }">${route.title}</a>
+        </li>
+    </ul>
+</template>
