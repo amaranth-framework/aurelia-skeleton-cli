@@ -1,28 +1,10 @@
 <template>
-    <div class="col-md-3 left_col">
-        <div class="left_col scroll-view">
-            <div repeat.for="component of settings.components" class="component component--${component.type}"
-                    class.bind="settings.styles[component.type]">
-                <compose containerless view.bind="component.view || (component.module + '.html')"
-                    view-model.bind="component.module" model.bind="{ settings: component.settings }"></compose>
-                <div class="clearfix"></div>
-            </div>
-        <!-- logo component -->
-        <!-- <compose containerless view-model="components/helper/logo/logo" model.bind="{ settings: settings.logoSettings }"></compose> -->
-        <!-- /logo component -->
-        <!-- <div class="clearfix"></div> -->
-        <!-- logo component -->
-        <!-- <compose containerless view-model="components/helper/profile/profile" model.bind="{ settings: settings.profileSettings }"></compose> -->
-        <!-- /logo component -->
-        <!-- <div class="clearfix"></div> -->
-        <!-- menu component -->
-        <!-- <compose containerless view-model="components/helper/profile/profile" model.bind="{ settings: settings.profileSettings }"></compose> -->
-        <!-- /menu component -->
-        </div>
+    <require from="components/nav/left/left.css"></require>
+
+    <div repeat.for="component of settings.components" class="component component--${component.type}"
+            class.bind="settings.styles[component.type]">
+        <compose containerless view.bind="component.view || (component.module + '.html')"
+            view-model.bind="component.module" model.bind="{ settings: component.settings }"></compose>
+        <div class="clearfix"></div>
     </div>
-    <!-- <ul class="nav navbar-nav navbar-right">
-        <li repeat.for="component of settings.components" class="component component--${component.type}" class.bind="settings.styles[component.type]">
-            <compose containerless view-model.bind="component.module" model.bind="{ settings: component.settings }"></compose>
-        </li>
-    </ul> -->
 </template>

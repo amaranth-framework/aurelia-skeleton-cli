@@ -15,14 +15,28 @@ export class ComponentNavTop extends ComponentHelperContent {
 
         components: [
             {
+                type: 'navbar-nav-left',
+                module: 'components/nav/nav',
+                settings: {
+                    style: 'navbar-nav'
+                }
+            },
+            {
                 type: 'top-user',
-                module: 'components/nav/top/user/user'
+                module: 'components/nav/top/user/user',
+                settings: {
+                    style: 'navbar-nav'
+                }
             },
             {
                 type: 'top-inbox',
                 module: 'components/nav/top/inbox/inbox'
             }
-        ]
+        ],
+
+        navbar: {
+            style: 'navbar-nav'
+        }
     }
     /**
      * @see ModelView::overrideSettingsKey

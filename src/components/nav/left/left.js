@@ -20,13 +20,19 @@ export class ComponentNavLeft extends ComponentHelperContent {
             },
             {
                 type: 'left-profile',
-                module: 'model/user/user',
-                view: 'model/user/left-profile.html'
-            }/*,
+                module: 'models/user/user',
+                view: 'models/user/left-profile.html'
+            },
             {
-                type: 'top-user',
-                module: 'components/helper/logo/logo'
-            }*/
+                type: 'left-nav',
+                module: 'components/nav/nav',
+                settings: {
+                    content: {
+                        title: 'General'
+                    },
+                    filter: { nav: true }
+                }
+            }
         ]
     }
     /**

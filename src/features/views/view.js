@@ -28,13 +28,26 @@ export class View {
      * @param {Router} router Aurelia Router module
      */
     constructor(api, config, events, i18n, router) {
-        this.api = api.getEndpoint('api');
+        /**
+         * @type {???}
+         */
+        this.rest = api.getEndpoint('rest');
+        /**
+         * @type {???}
+         */
+        this.configApi = api.getEndpoint('config');
         if (i18n) { this.i18n = i18n; }
         this.config = config;
         this.events = events;
         this.router = router;
-
-        this.uuid = UUID.create(4);
+        /**
+         * @type {String}
+         */
+        this.__uuid = UUID.create(4);
+        /**
+         * @type {Logger}
+         */
+        this.logger = LogManager.getLogger(`${parentClassName(this)}/${className(this)}`);
     }
     /**
      * Implement this hook if you want to perform custom logic just before your view-model is displayed. You can
@@ -146,36 +159,34 @@ export class View {
      * Merge settings
      * @method mergeSettings
      */
-    mergeSettings() {
-        // in case a `defaultSettings` object exists, merge the `settings` object passed by @model
-        // ofer the default settings.
+    async mergeSettings() {
+        this.settings = this.settings || {};
+        // in case a `defaultSettings` object exists, merge the `settings` object passed by @model ofer the default settings.
         if (this.defaultSettings) {
             // this.logger.debug('ModelView::mergeSettings => overrideSettingsKey: ', this.overrideSettingsKey);
             // this.logger.debug('ModelView::mergeSettings => defaultSettings: ', extend({}, this.modelDefaultSettings || {}), this.defaultSettings);
             let defaultSettings = extend(true, this.modelDefaultSettings || {}, this.defaultSettings || {});
             delete this.modelDefaultSettings;
             // this.logger.debug('ModelView::mergeSettings => settings split:', defaultSettings, this.overrideSettings, extend({}, this.settings || {}));
-            this.settings = extend(true, {}, defaultSettings, this.overrideSettings, this.settings || {});
+            this.settings = extend(
+                true,                               // recursive merge
+                {},                                 // cloning into a new object
+                defaultSettings,                    // default settings provided by class definition
+                this.overrideSettings,              // global settings provided by config.json
+                this.settings,                      // settings obtained from application route
+                                                    // settings provided by config file mentioned in `_settingsPath`
+                (this.settings && this.settings._settingsPath) ?
+                    await this.configApi.get(`${this.settings._settingsPath}.json`) : {}
+            );
             // this.logger.debug('ModelView::mergeSettings => settings:', this.settings);
         }
     }
     /**
-     *
+     * Convert View to string
      * @return {String}
      */
     toString() {
-        return `view@${this.uuid}`;
-    }
-    /**
-     * Logger Getter
-     * @method logger
-     * @return {Logger}
-     */
-    get logger() {
-        if (!this._logger) {
-            this._logger = LogManager.getLogger(`${parentClassName(this)}/${className(this)}`);
-        }
-        return this._logger;
+        return `view@${this.__uuid}`;
     }
     /**
      * Getter for component override settings. This settings should globaly override settings defined in a component's

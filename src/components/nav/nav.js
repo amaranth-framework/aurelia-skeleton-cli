@@ -18,16 +18,45 @@ export class ComponentNav extends Component {
         routes: [],
         filter: {}
     }
+    activate(...args) {
+        super.activate(...args);
+        this.logger.debug('filteredRoutes', this.filteredRoutes);
+    }
     /**
      * @see ModelView::overrideSettingsKey
      */
     overrideSettingsKey = 'components.nav';
     /**
+     * Search for a list of routes, by their name
+     * @param  {Array}   names
+     * @return {Array[Object]}
+     */
+    findRoutes(names) {
+        return names.map((name) => this.findRoute(name));
+    }
+    /**
+     * Search for a route name in the routes array
+     * @param  {String} name
+     * @return {Object}
+     */
+    findRoute(name) {
+        return _.find(this.router.routes, {name: name}) || {name: name};
+    }
+    /**
      * [filteredRoutes description]
-     * @method filteredRoutes
-     * @return {Array}       [description]
+     * @return {Array}
      */
     get filteredRoutes() {
-        return _.filter(this.settings.routes || this.router.routes, this.settings.filter);
+        return _.filter(
+            (this.settings.routes.length) ? this.settings.routes : this.router.routes,
+            this.settings.filter
+        );
+    }
+    /**
+     * Determine whether is navbar-nav or not.
+     * @return {Boolean}
+     */
+    get isNavbarNav() {
+        return this.settings.style && this.settings.style.match(/navbar-nav/);
     }
 }

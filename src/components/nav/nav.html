@@ -1,9 +1,31 @@
 <template>
-    <ul class="nav" class.bind="style">
-        <li repeat.for="route in routes">
-            <a route-href="{ route.bind: route.name, params.bind: route.params || {} }">${route.title}</a>
-            <!-- <compose if.bind="route.routes" containerless mode-view="components/nav/nav"
-                model.bind="{ routes: route.routes, settings }"></compose> -->
+    <ul if.bind="filteredRoutes.length" class="nav" class.bind="style">
+        <li repeat.for="route of filteredRoutes">
+            <a if.bind="!isNavbarNav" click.trigger="router.navigateToRoute(route.name, route.params || {})"
+                href="#">${route.title}</a>
+            <a if.bind="isNavbarNav" click.trigger="router.navigateToRoute(route.name, route.params || {})"
+                    href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                    aria-expanded="false">
+                ${route.title}
+                <span if.bind="route.routes && route.routes.length" class="caret"></span>
+            </a>
+            <ul if.bind="route.routes && route.routes.length" class.bind="isNavbarNav ? 'dropdown-menu' : 'nav'">
+                <li repeat.for="subroute of findRoutes(route.routes || [])">
+                    <a if.bind="!isNavbarNav" click.trigger="router.navigateToRoute(subroute.name, subroute.params || {})"
+                        href="#">${subroute.title}</a>
+                    <a if.bind="isNavbarNav" click.trigger="router.navigateToRoute(subroute.name, subroute.params || {})"
+                            href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">
+                        ${subroute.title}
+                        <span if.bind="subroute.routes && subroute.routes.length" class="caret"></span>
+                    </a>
+                    <ul if.bind="subroute.routes && subroute.routes.length" class.bind="isNavbarNav ? 'dropdown-menu' : 'nav'">
+                        <li repeat.for="subsubroute of findRoutes(subroute.routes || [])">
+                            <a href="#" click.trigger="router.navigateToRoute(subsubroute.name, subsubroute.params || {})">${subsubroute.title}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </li>
     </ul>
 </template>

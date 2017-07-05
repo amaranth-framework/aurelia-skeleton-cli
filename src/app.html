@@ -1,29 +1,31 @@
 <template>
     <require from="bootstrap/css/bootstrap.min.css"></require>
     <!-- + For gentelella theme, uncomment the following -->
-    <require from="gentelella/css/custom.min.css"></require>
+    <!-- <require from="gentelella/css/custom.min.css"></require> -->
     <require from="app.css"></require>
 
-    <div class="container body">
-        <div class="main_container">
-            <!-- left navigation -->
-            <compose containerless view-model="components/nav/left/left" model.bind="{}"></compose>
-            <!-- /left navigation -->
-            <!-- top navigation -->
-            <compose containerless view-model="components/nav/top/top" model.bind="{}"></compose>
-            <!-- /top navigation -->
-
-            <!-- page content -->
-            <div class="right_col" role="main">
-                <router-view></router-view>
-            </div>
-            <!-- /page content -->
-
-            <!-- footer content -->
-            <footer>
-                <!-- <component ></component> -->
-            </footer>
-            <!-- /footer content -->
-        </div>
-    </div>
+    <!-- left navigation -->
+    <nav-left class="col-md-2">
+        <compose containerless view-model="components/nav/left/left"></compose>
+    </nav-left>
+    <!-- /left navigation -->
+    <!--  application content -->
+    <content>
+        <!-- top navigation -->
+        <nav-top>
+            <compose containerless view-model="components/nav/top/top"></compose>
+        </nav-top>
+        <!-- /top navigation -->
+        <!-- page content -->
+        <main-app>
+            <router-view></router-view>
+        </main-app>
+        <!-- /page content -->
+        <!-- footer content -->
+        <footer>
+            <!-- <component ></component> -->
+        </footer>
+        <!-- /footer content -->
+    </content>
+    <!--  /application content -->
 </template>

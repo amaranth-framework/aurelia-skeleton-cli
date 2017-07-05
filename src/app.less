@@ -1,2 +1,19 @@
 
 @import "../node_modules/font-awesome/less/font-awesome.less";
+@import "./variables.less";
+
+body {
+    display: flex;
+}
+
+nav-left {
+    background: @color-dark;
+    flex: 1 1 20%;
+    height: 100vh;
+    max-width: 20%;
+}
+
+content {
+    flex: 1 1 80%;
+    max-width: 80%;
+}
