@@ -1,10 +1,9 @@
 <template>
     <require from="components/nav/left/left.css"></require>
-
+    <h3 t="[html]${settings.title}" if.bind="settings.title" class="component-title"></h3>
     <div repeat.for="component of settings.components" class="component component--${component.type}"
             class.bind="settings.styles[component.type]">
         <compose containerless view.bind="component.view || (component.module + '.html')"
             view-model.bind="component.module" model.bind="{ settings: component.settings }"></compose>
-        <div class="clearfix"></div>
     </div>
 </template>

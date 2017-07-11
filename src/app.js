@@ -41,7 +41,6 @@ export class App {
      * @param  {AppRouter}            router
      */
     configureRouter(config, router) {
-        this.logger.info('configureRouter', config, router);
         config.title = 'Planteaza pentru Romania';
         if (window.location.hostname !== 'localhost' && window.location.port !== 9000) {
             config.options.pushState = true;

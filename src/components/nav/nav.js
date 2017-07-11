@@ -20,7 +20,6 @@ export class ComponentNav extends Component {
     }
     activate(...args) {
         super.activate(...args);
-        this.logger.debug('filteredRoutes', this.filteredRoutes);
     }
     /**
      * @see ModelView::overrideSettingsKey

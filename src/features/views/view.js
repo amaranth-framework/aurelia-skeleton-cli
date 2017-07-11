@@ -82,7 +82,7 @@ export class View {
 
         this.events.subscribeOnce('session:ready', result => !this.initialized ? this.init() : false);
 
-        if (this.config.get('session.ready') && !this.initialized) {
+        if (!this.initialized) {
             this.init();
         }
     }
