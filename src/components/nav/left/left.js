@@ -37,7 +37,17 @@ export class ComponentNavLeft extends ComponentHelperContent {
                     content: {
                         title: 'General'
                     },
-                    filter: { nav: true }
+                    filter: { group: 'left-general', nav: true }
+                }
+            },
+            {
+                type: 'left-nav',
+                module: 'components/nav/nav',
+                settings: {
+                    content: {
+                        title: 'Forms, Tables & Widgets'
+                    },
+                    filter: { group: 'left-forms', nav: true }
                 }
             }
         ]

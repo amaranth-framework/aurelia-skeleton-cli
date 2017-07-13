@@ -122,12 +122,9 @@
             ]
           },
           {
-            "name": "gentelella",
-            "path": "../node_modules/gentelella/build",
-            "main": "js/custom.min.js",
-            "resources": [
-              "css/custom.min.css"
-            ]
+            "name": "chance",
+            "path": "../node_modules/chance/dist",
+            "main": "chance.min"
           },
           {
             "name": "i18next-xhr-backend",

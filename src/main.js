@@ -25,7 +25,7 @@ export function configure(aurelia) {
         .plugin('aurelia-validation')
         .plugin('aurelia-api', config => {
             config
-                .registerEndpoint('api', '/ws/', {
+                .registerEndpoint('rest', '/ws/', {
                     credentials: 'same-origin',
                     headers: {
                         'Content-Type': 'application/json'

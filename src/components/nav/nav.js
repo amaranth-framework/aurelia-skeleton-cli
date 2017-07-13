@@ -18,9 +18,6 @@ export class ComponentNav extends Component {
         routes: [],
         filter: {}
     }
-    activate(...args) {
-        super.activate(...args);
-    }
     /**
      * @see ModelView::overrideSettingsKey
      */

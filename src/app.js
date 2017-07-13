@@ -67,24 +67,24 @@ export class App {
                 moduleId: 'templates/home/home',
                 nav: true,
                 title: 'Dashboard',
-                group: 'side-nav'
+                group: 'left-general'
             },
             {
-                route: 'test1',
-                name: 'test1',
-                moduleId: 'templates/home/home',
+                route: 'forms',
+                name: 'forms',
+                moduleId: 'templates/forms/forms',
                 nav: true,
-                title: 'Dashboard',
-                group: 'side-nav',
-                routes: [ 'test1-child' ]
+                title: 'Forms',
+                group: 'left-forms'//,
+                // routes: [ 'test1-child' ]
             },
             {
-                route: 'test1-child',
-                name: 'test1-child',
-                moduleId: 'templates/home/home',
-                nav: false,
-                title: 'Dashboard',
-                group: 'side-nav'
+                route: 'tables',
+                name: 'tables',
+                moduleId: 'templates/tables/tables',
+                nav: true,
+                title: 'Tables',
+                group: 'left-forms'
             }
         ]);
     }
