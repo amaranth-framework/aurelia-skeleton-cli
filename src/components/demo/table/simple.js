@@ -8,7 +8,9 @@ export class ComponentTableDemoSimple extends ComponentHelperTable {
 		style: '',                 // component's style - list of classes add to the component to be able to format it.
 		styles: {},                // set of classes that can be used throughout different sections of the component
 
-		content: {},               // translation keys for different text/html components in the template
+		content: {                 // translation keys for different text/html components in the template
+			caption: false
+		},
 
 		service: 'general.json',   // possible service settings for component
 		services: {}               // possible services settings for component

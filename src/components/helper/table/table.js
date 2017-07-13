@@ -36,6 +36,13 @@ export class ComponentHelperTable extends Component {
             })
         }
     }
+	/**
+	 * @see View::activate()
+	 */
+	activate(...args) {
+		super.activate(...args);
+		console.log(this.settings);
+	}
     /**
      * Mark table in loading state.
      */

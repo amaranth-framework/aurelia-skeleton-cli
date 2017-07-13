@@ -1,5 +1,35 @@
 <template>
-	<h2>Table Samples</h2>
-
-	<compose containerless view="components/helper/table/table.html" view-model="components/demo/table/simple"></compose>
+	<div class="container-fluid">
+		<div class="row">
+			<compose containerless view-model="components/helper/page-title/page-title" model.bind="{ settings: settings.pageTitle }" ></compose>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<h3>Basic Table</h3>
+			<div class="col-md-12">
+				<form class="form-horizontal">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="table-style-basic" class="col-sm-2 control-label">Table Style</label>
+							<div class="col-sm-10">
+								<select class="form-control" id="table-style-basic" value.bind="tableStyle">
+									<option value="">none</option>
+									<option value="table-hover">.table-hover</option>
+									<option value="table-bordered">.table-bordered</option>
+									<option value="table-striped">.table-striped</option>
+									<option value="table-responsive">.table-responsive</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="col-md-6"></div> -->
+				</form>
+			</div>
+			<div class="col-md-12">
+				<compose containerless view="components/helper/table/table.html" view-model="components/demo/table/simple"
+					model.bind="{ settings: { style: tableStyle } }" ></compose>
+			</div>
+		</div>
+	</div>
 </template>

@@ -14,12 +14,18 @@ export class TemplateTables extends Template {
 		content: {},        // translation keys for different text/html components in the template
 
 		service: {},        // possible service settings for templates
-		services: {}        // possible services settings for templates
+		services: {},       // possible services settings for templates
+
+		pageTitle: {
+			content: {
+				title: 'Tables'
+			}
+		}
 	}
     /**
      * @see ModelView::overrideSettingsKey
      */
     overrideSettingsKey = 'templates.tables';
-	
+
 
 }
