@@ -45,7 +45,7 @@ export class App {
         if (window.location.hostname !== 'localhost' && window.location.port !== 9000) {
             config.options.pushState = true;
         }
-        config.mapUnknownRoutes('templates/status/404');
+        config.mapUnknownRoutes(PLATFORM.moduleName('templates/status/404'));
         this.mapRoutes(config);
         // comment the line above and uncomment the one below, to load your router config from a REST service
         // this.mapRoutesFromREST(config);

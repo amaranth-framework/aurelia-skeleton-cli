@@ -1,9 +1,8 @@
 // import { LogManager } from 'aurelia-framework';
 
-export ChunkMap = {
-	USER: 'user',
-	MAP: 'user'
-	// ..
+export class ChunkMap {
+    static USER = 'user';
+    static MAP = 'user';
 }
 
 /**
