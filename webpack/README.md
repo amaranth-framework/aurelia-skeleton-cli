@@ -1,34 +1,38 @@
-# aurelia-skeleton-webpack
+# Amaranth Framework - Aurelia Skeleton ([webpack](https://webpack.github.io/))
+
+> Based on [Aurelia Skeleton Navigation for webpack](https://github.com/aurelia/skeleton-navigation/tree/master/skeleton-esnext-webpack)
 
 ## Getting started
 
 Before you start, make sure you have a recent version of [NodeJS](http://nodejs.org/) environment *>=6.0* with NPM 3 or Yarn.
 
+> Please make sure you have yarn installed as npm is still very slow (`npm i -g yarn`)
+
 From the project folder, execute the following commands:
 
 ```shell
-npm install # or: yarn install
+yarn install # or: npm install
 ```
 
 This will install all required dependencies, including a local version of Webpack that is going to
-build and bundle the app. There is no need to install Webpack globally. 
+build and bundle the app. There is no need to install Webpack globally.
 
 To run the app execute the following command:
 
 ```shell
-npm start # or: yarn start
+yarn start # or: npm start
 ```
 
 This command starts the webpack development server that serves the build bundles.
-You can now browse the skeleton app at http://localhost:8080 (or the next available port, notice the output of the command). Changes in the code
-will automatically build and reload the app.
+You can now browse the skeleton app at http://localhost:8080 (or the next available port, notice the output of the command).
+Changes in the code will automatically build and reload the app.
 
 ### Running with Hot Module Reload
 
 If you wish to try out the experimental Hot Module Reload, you may run your application with the following command:
 
 ```shell
-npm start -- webpack.server.hmr
+yarn start -- webpack.server.hmr
 ```
 
 ## Feature configuration
@@ -41,15 +45,15 @@ There, you may configure advanced loader features or add direct SASS or LESS loa
 To build an optimized, minified production bundle (output to /dist) execute:
 
 ```shell
-npm start -- build
+yarn start -- build
 ```
 
-To build 
+To build
 
 To test either the development or production build execute:
 
 ```shell
-npm start -- serve
+yarn start -- serve
 ```
 
 The production bundle includes all files that are required for deployment.
@@ -60,7 +64,8 @@ This skeleton provides three frameworks for running tests.
 
 You can choose one or two and remove the other, or even use all of them for different types of tests.
 
-By default, both Jest and Karma are configured to run the same tests with Jest's matchers (see Jest documentation for more information).
+By default, both Jest and Karma are configured to run the same tests with Jest's matchers (see Jest documentation for
+more information).
 
 If you wish to only run certain tests under one of the runners, wrap them in an `if`, like this:
 

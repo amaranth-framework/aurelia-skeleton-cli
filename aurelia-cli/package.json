@@ -2,7 +2,8 @@
   "name": "aurelia-skeleton",
   "description": "An Aurelia client application.",
   "scripts": {
-    "start": "au run --env dev --watch"
+    "start": "au run --env dev --watch",
+    "bundle": "au build --env prod"
   },
   "version": "0.1.0",
   "repository": {
