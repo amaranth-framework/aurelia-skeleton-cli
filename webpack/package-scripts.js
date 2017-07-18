@@ -9,10 +9,13 @@ module.exports = {
       jest: {
         default: series(
           rimraf('test/coverage-jest'),
-          crossEnv('BABEL_TARGET=node jest')
+        //   crossEnv('BABEL_TARGET=node jest')
+          crossEnv('jest')
         ),
-        accept: crossEnv('BABEL_TARGET=node jest -u'),
-        watch: crossEnv('BABEL_TARGET=node jest --watch'),
+        // accept: crossEnv('BABEL_TARGET=node jest -u'),
+        accept: crossEnv('jest -u'),
+        // watch: crossEnv('BABEL_TARGET=node jest --watch'),
+        watch: crossEnv('jest --watch'),
       },
       karma: {
         default: series(

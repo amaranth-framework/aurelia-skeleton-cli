@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const { AureliaPlugin } = require('aurelia-webpack-plugin');
+const { AureliaPlugin, ModuleDependenciesPlugin } = require('aurelia-webpack-plugin');
 const { optimize: { CommonsChunkPlugin }, ProvidePlugin } = require('webpack')
 
 // config helpers:
@@ -25,6 +25,15 @@ const cssRules = [
   }
 ]
 
+const lessRules = [
+	{ loader: 'css-loader' },
+  { loader: 'less-loader' },
+  {
+    loader: 'postcss-loader',
+    options: { plugins: () => [require('autoprefixer')({ browsers: ['last 2 versions'] })]}
+  }
+]
+
 module.exports = ({production, server, extractCss, coverage} = {}) => ({
   resolve: {
     extensions: ['.js'],
@@ -32,7 +41,7 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
   },
   devtool: production ? 'source-map' : 'cheap-module-eval-source-map',
   entry: {
-    app: ['aurelia-bootstrapper'],
+    app: ['babel-polyfill', 'aurelia-bootstrapper'],
     vendor: ['bluebird', 'jquery', 'bootstrap'],
   },
   output: {
@@ -66,6 +75,10 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
         // because Aurelia would try to require it again in runtime
         use: cssRules,
       },
+      {
+        test: /\.less/i,
+        use: lessRules,
+      },
       { test: /\.html$/i, loader: 'html-loader' },
       { test: /\.js$/i, loader: 'babel-loader', exclude: nodeModulesDir,
         options: coverage ? { sourceMap: 'inline', plugins: [ 'istanbul' ] } : {},
@@ -91,6 +104,9 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
       'jQuery': 'jquery',
       'window.jQuery': 'jquery',
     }),
+	new ModuleDependenciesPlugin({
+      'aurelia-testing': [ './compile-spy', './view-spy' ],
+    }),
     new HtmlWebpackPlugin({
       template: 'index.ejs',
       minify: production ? {
@@ -103,7 +119,10 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
       },
     }),
     new CopyWebpackPlugin([
-      { from: 'static/favicon.ico', to: 'favicon.ico' }
+      { from: 'favicon.ico', to: 'favicon.ico' },
+      { from: 'config', to: 'config' },
+      { from: 'images', to: 'images' },
+      { from: 'ws', to: 'ws' }
     ]),
     ...when(extractCss, new ExtractTextPlugin({
       filename: production ? '[contenthash].css' : '[id].css',

@@ -1,0 +1,60 @@
+@import "./variables.less";
+
+body {
+    display: flex;
+	font-family: 'Poppins', sans-serif;
+	font-size: 16px;
+}
+
+nav-left {
+    background: @color-dark;
+    flex: 1 1 15%;
+    height: 100vh;
+    max-width: 15%;
+    padding: 0 20px;
+    position: relative;
+    &::before {
+        background: url(/images/nav-left.jpg);
+        bottom: 0;
+        content: '';
+        filter: invert();
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        opacity: .1;
+    }
+    & > * {
+        position: relative;
+    }
+    a {
+        color: @color-bright;
+        &:hover {
+            color: @color-bright;
+            text-decoration: none;
+        }
+    }
+}
+
+nav-top {
+    .navbar {
+        &-default {
+            background-color: @color-semi-bright;
+            border: 0;
+            border-radius: 0;
+            a {
+                color: @color-dark !important;
+            }
+        }
+    }
+}
+
+main-app {
+	display: block;
+	padding: 20px;
+}
+
+content {
+    flex: 1 1 85%;
+    max-width: 85%;
+}

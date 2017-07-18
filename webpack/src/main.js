@@ -1,25 +1,48 @@
 // we want font-awesome to load as soon as possible to show the fa-spinner
-import '../static/styles.css';
+import {I18N} from 'aurelia-i18n';
+import {ValidationMessageProvider} from 'aurelia-validation';
+import Backend from 'i18next-xhr-backend';
+import environment from './environment';
+
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import 'babel-polyfill';
-import * as Bluebird from 'bluebird';
 
+import * as Bluebird from 'bluebird';
 // remove out if you don't want a Promise polyfill (remove also from webpack.config.js)
 Bluebird.config({ warnings: { wForgottenReturn: false } });
 
 export async function configure(aurelia) {
-  aurelia.use
-    .standardConfiguration()
-    .developmentLogging();
+	aurelia.use
+	.standardConfiguration();
+	//.feature(PLATFORM.moduleName('./resources'));
 
-  // Uncomment the line below to enable animation.
-  // aurelia.use.plugin(PLATFORM.moduleName('aurelia-animator-css'));
-  // if the css animator is enabled, add swap-order="after" to all router-view elements
+	if (environment.debug) {
+		aurelia.use.developmentLogging();
+	}
 
-  // Anyone wanting to use HTMLImports to load views, will need to install the following plugin.
-  // aurelia.use.plugin(PLATFORM.moduleName('aurelia-html-import-template-loader'));
+	if (environment.testing) {
+		aurelia.use.plugin(PLATFORM.moduleName('aurelia-testing'));
+	}
 
-  await aurelia.start();
-  await aurelia.setRoot(PLATFORM.moduleName('app'));
+	aurelia.use
+	// .globalResources(['vc/lower', 'vc/upper', 'vc/price'])
+	.plugin(PLATFORM.moduleName('aurelia-animator-css'))
+	.plugin(PLATFORM.moduleName('aurelia-configuration'))
+	.plugin(PLATFORM.moduleName('aurelia-validation'))
+	.plugin(PLATFORM.moduleName('aurelia-api'), config => {
+		config
+		.registerEndpoint('rest', '/ws/', {
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+		.setDefaultEndpoint('api');
+	})
+	.plugin(PLATFORM.moduleName('aurelia-i18n'), (instance) => {
+		// register backend plugin
+		instance.i18next.use(Backend);
+	});
+	await aurelia.start();
+	await aurelia.setRoot(PLATFORM.moduleName('app'));
 }

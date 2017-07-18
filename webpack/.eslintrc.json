@@ -1,0 +1,9 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "prefer-class-properties"
+  ],
+  "rules": {
+    "indent": [2, 4, {"SwitchCase": 1}]
+  }
+}

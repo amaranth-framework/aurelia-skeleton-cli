@@ -1,0 +1,29 @@
+.component.component--left-nav {
+    .nav .nav {
+        margin-left: 20px;
+    }
+}
+
+.component.component--left-toggle {
+    height: 64px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 32px;
+    // transition-delay: .2s;
+    .nav-toggle {
+        transform: translate(-100%, 0);
+        transition: .2s ease-in-out;
+        &::before {
+            padding-left: 20px;
+        }
+    }
+    &.toggle {
+        transform: translate(100%, -50%);
+        .nav-toggle {
+            transform: translate(-50%, 0);
+        }
+    }
+}
