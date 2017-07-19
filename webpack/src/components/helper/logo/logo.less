@@ -1,7 +1,16 @@
+@import '../../../variables.less';
+
 .logo {
-    padding: 15px 0;
-    &-title {
-        font-size: 30px;
-        text-align: center;
+	padding: @padding;
+	text-align: center;
+
+	&-title {
+		font-size: @font-giant;
+		color: inherit;
+
+		&:hover, &:focus, &:active {
+			color: inherit;
+			text-decoration: none;
+		}
     }
 }
