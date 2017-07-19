@@ -1,10 +1,9 @@
 // import { LogManager } from 'aurelia-framework';
 
-export ChunkMap = {
-	USER: 'user',
-	MAP: 'user'
-	// ..
-}
+export const ChunkMap = {
+    USER: 'user',
+    MAP: 'user'
+};
 
 /**
  * Extend the `target` object with all the objects behind him (in the list of params).
