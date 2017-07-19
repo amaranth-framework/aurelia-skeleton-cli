@@ -16,7 +16,9 @@ export class ComponentNav extends Component {
         services: {},              // possible services settings for component
 
         routes: [],
-        filter: {}
+        filter: {
+            nav: true
+        }
     }
     /**
      * @see ModelView::overrideSettingsKey
