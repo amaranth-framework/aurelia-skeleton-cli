@@ -1,3 +1,5 @@
+@import '../../../variables.less';
+
 .component {
 	&--top {
 		&-user {
@@ -20,10 +22,68 @@
 		            left: 0;
 				}
 			}
+
+			.dropdown-menu {
+				max-width: 320px;
+				overflow: hidden;
+				left: auto;
+				right: 0;
+			}
 		}
 
 		&-inbox {
 			float: right;
+
+			.dropdown-menu {
+				max-width: 320px;
+				overflow: hidden;
+				left: auto;
+				right: 0;
+				padding: 0;
+			}
+
+			.inbox {
+				&-item {
+					&__link {
+						padding: @padding;
+						display: flex;
+						flex-wrap: wrap;
+
+						&.more {
+							display: flex;
+							justify-content: center;
+							align-items: center;
+
+							i.fa {
+								margin: @margin;
+							}
+						}
+					}
+
+					.image {
+						margin-right: @margin;
+					}
+
+					.source {
+						font-weight: 700;
+					}
+
+					.info {
+						flex: 1;
+					}
+
+					.time {
+						float: right;
+						color: @color-neutral;
+					}
+
+					.message {
+						flex: 1 0 100%;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+				}
+			}
 		}
 	}
 }
