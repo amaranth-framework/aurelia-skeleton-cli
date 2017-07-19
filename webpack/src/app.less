@@ -32,10 +32,26 @@ nav-top {
         &-default {
             background-color: @color-semi-bright;
             border: 0;
-            border-radius: 0;
-            a {
-                color: @color-dark;
-            }
+			border-radius: 0;
+			.navbar-nav {
+				& > li {
+					a {
+						color: @color-semi-dark;
+					}
+					a:hover:after {
+						content: '';
+						position: absolute;
+						width: 100%;
+						bottom: 0;
+						left: 0;
+						border-bottom: 2px solid @color-semi-dark;
+					}
+					a:hover {
+						background-color: @color-neutral;
+						color: @color-semi-dark;
+					}
+				}
+			}
         }
     }
 }
