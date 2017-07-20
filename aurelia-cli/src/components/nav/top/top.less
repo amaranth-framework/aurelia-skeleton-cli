@@ -1,22 +1,89 @@
-.component.component--top-user {
-    float: right;
-    .user-link {
-        position: relative;
-        > a {
-            padding-left: 50px;
-        }
-        img {
-            position: absolute;
-            transform: translateY(-50%);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin: 10px;
-            left: 0;
-        }
-    }
-}
+@import '../../../variables.less';
 
-.component.component--top-inbox {
-    float: right;
+.component {
+	&--top {
+		&-user {
+			float: right;
+
+			.user-link {
+				position: relative;
+
+				& > a {
+					padding-left: 50px;
+				}
+
+				img {
+					position: absolute;
+		            transform: translateY(-50%);
+		            width: 30px;
+		            height: 30px;
+		            border-radius: 50%;
+		            margin: 10px;
+		            left: 0;
+				}
+			}
+
+			.dropdown-menu {
+				max-width: 320px;
+				overflow: hidden;
+				left: auto;
+				right: 0;
+			}
+		}
+
+		&-inbox {
+			float: right;
+
+			.dropdown-menu {
+				max-width: 320px;
+				overflow: hidden;
+				left: auto;
+				right: 0;
+				padding: 0;
+			}
+
+			.inbox {
+				&-item {
+					&__link {
+						padding: @padding;
+						display: flex;
+						flex-wrap: wrap;
+
+						&.more {
+							display: flex;
+							justify-content: center;
+							align-items: center;
+
+							i.fa {
+								margin: @margin;
+							}
+						}
+					}
+
+					.image {
+						margin-right: @margin;
+					}
+
+					.source {
+						font-weight: 700;
+					}
+
+					.info {
+						flex: 1;
+					}
+
+					.time {
+						float: right;
+						color: @color-neutral;
+					}
+
+					.message {
+						flex: 1 0 100%;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+				}
+			}
+		}
+	}
 }

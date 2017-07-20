@@ -21,5 +21,5 @@ export class ComponentHelperPageTitle extends Component {
     /**
      * @see ModelView::overrideSettingsKey
      */
-    overrideSettingsKey = 'components.nav';
+    overrideSettingsKey = 'components.helper-page-title';
 }

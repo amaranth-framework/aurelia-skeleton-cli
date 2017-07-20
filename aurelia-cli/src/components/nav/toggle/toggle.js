@@ -20,4 +20,8 @@ export class ComponentNavToggle extends Component {
      * @see ModelView::overrideSettingsKey
      */
     overrideSettingsKey = 'components.nav-toggle';
+    /**
+     *
+     */
+    togglerRetract(){}
 }

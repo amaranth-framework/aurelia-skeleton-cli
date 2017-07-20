@@ -1,30 +1,27 @@
+@import '../../../variables.less';
 
-.component.component--left-nav {
-    .nav .nav {
-        margin-left: 20px;
-    }
-}
+.component {
+	&--left {
+		&-nav {
 
-.component.component--left-toggle {
-    height: 64px;
-    overflow: hidden;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translate(0, -50%);
-    width: 32px;
-    // transition-delay: .2s;
-    .nav-toggle {
-        transform: translate(-100%, 0);
-        transition: .2s ease-in-out;
-        &::before {
-            padding-left: 20px;
-        }
-    }
-    &.toggle {
-        transform: translate(100%, -50%);
-        .nav-toggle {
-            transform: translate(-50%, 0);
-        }
-    }
+		}
+
+		&-toggle {
+			overflow: hidden;
+			position: absolute;
+			right: 0;
+			height: @left-nav-toggle;
+			top: 50%;
+			transform: translate(100%, -50%);
+			background-color: inherit;
+			width: 0;
+			text-align: center;
+			border-radius: 0 @left-nav-toggle @left-nav-toggle 0;
+			transition: width .2s ease-in-out;
+
+			&.toggle {
+				width: @left-nav-toggle/2;
+			}
+		}
+	}
 }
