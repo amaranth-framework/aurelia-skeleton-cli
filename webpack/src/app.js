@@ -1,38 +1,24 @@
-import { inject, LogManager } from 'aurelia-framework';
-import { AureliaConfiguration } from 'aurelia-configuration';
-import { I18N } from 'aurelia-i18n';
-import { Config as API } from 'aurelia-api';
-import { EventAggregator } from 'aurelia-event-aggregator';
+import { inject } from 'aurelia-framework';
 
+// Uncomment import to use authorization step
+import { AuthorizeStep as AuthorizeStep } from 'features/authorize-step/authorize-step';
+import { Base } from 'features/base';
 
 /**
  * Application
  */
-@inject(API, AureliaConfiguration, EventAggregator, I18N)
-export class App {
+// Uncomment @inject() to use authorization step
+@inject(AuthorizeStep)
+export class App extends Base {
+    // Uncomment constructor to use authorization step
     /**
      * Constructor
-     * @param {Config} api aurelia-api plugin
-     * @param {AureliaConfiguration} config aurelia-configuration plugin
-     * @param {EventAggregator} events Aurelia EventAggregator module
-     * @param {I18N} i18n aurelia-i18n plugin
+     * @see Base::constructor() for the rest of the arguments
+     * @param {AuthorizeStep}        authStep Authorization step
      */
-    constructor(api, config, i18n, events) {
-        this.config = config;
-        this.i18n = i18n;
-        /**
-         * @type {???}
-         */
-        this.rest = api.getEndpoint('rest');
-        /**
-         * @type {???}
-         */
-        this.configApi = api.getEndpoint('config');
-        this.events = events;
-        /**
-        * @type {Logger}
-        */
-        this.logger = LogManager.getLogger('app.js');
+    constructor(authStep, ...args) {
+        super(...args);
+        this.authStep = authStep;
     }
     /**
      * Configure Application router
@@ -41,11 +27,15 @@ export class App {
      * @param  {AppRouter}            router
      */
     configureRouter(config, router) {
-        config.title = 'Planteaza pentru Romania';
+        config.title = 'Amaranth Framework';
         if (window.location.hostname !== 'localhost' && window.location.port !== 9000) {
             config.options.pushState = true;
         }
+        // uncomment this if you're using authroization
+        config.addAuthorizeStep(this.authStep);
+        // map unknown routes to a certain template
         config.mapUnknownRoutes(PLATFORM.moduleName('templates/status/404'));
+        // map routes
         this.mapRoutes(config);
         // comment the line above and uncomment the one below, to load your router config from a REST service
         // this.mapRoutesFromREST(config);
@@ -72,7 +62,7 @@ export class App {
             {
                 route: 'forms',
                 name: 'forms',
-                moduleId: PLATFORM.moduleName('templates/home/home'),
+                moduleId: PLATFORM.moduleName('templates/forms/forms'),
                 nav: true,
                 title: 'Forms',
                 group: 'left-forms'//,
@@ -85,6 +75,19 @@ export class App {
                 nav: true,
                 title: 'Tables',
                 group: 'left-forms'
+            },
+            {
+                route: 'login',
+                name: 'login',
+                moduleId: PLATFORM.moduleName('templates/login/login'),
+                title: 'Login',
+                settings: { auth: false }
+            },
+            {
+                route: '404',
+                name: '404',
+                moduleId: PLATFORM.moduleName('templates/status/404'),
+                title: 'Page does not exist.'
             }
         ]);
     }

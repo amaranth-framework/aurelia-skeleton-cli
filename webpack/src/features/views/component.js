@@ -5,7 +5,7 @@ import { View } from 'features/views/view';
  */
 export class Component extends View {
     /**
-     * @see ModelView:defaultSettings
+     * @see View:defaultSettings
      * In Template and Component class, this variable is named different because ECMAScript does not suppoer
      * super.property. This artifice needs to be made in order to quit duplicating settings content all over
      * the extending classes.

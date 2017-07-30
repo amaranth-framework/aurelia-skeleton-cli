@@ -17,7 +17,7 @@ nav-left {
 		& > li {
 			& > a {
 				color: @color-bright;
-				
+
 				&:hover, &:focus {
 					background: @color-primary-light;
 					color: @color-bright;
@@ -64,4 +64,18 @@ main-app {
 content {
     flex: 1 1 85%;
     max-width: 85%;
+}
+
+
+.from-group {
+    &--inline {
+        & .checkbox, & .radio {
+            padding: 0 10px;
+            display: inline-block;
+
+            &:frist-child {
+                padding-left: 0;
+            }
+        }
+    }
 }

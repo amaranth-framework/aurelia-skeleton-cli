@@ -1,5 +1,8 @@
 import {Component} from 'features/views/component';
 
+/**
+ * 
+ */
 export class ComponentHelperPageTitle extends Component {
 	/**
      * @see ModelView:defaultSettings

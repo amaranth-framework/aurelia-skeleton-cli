@@ -1,6 +1,6 @@
-import {Template} from 'features/views/template';
+import { Template } from 'features/views/template';
 
-export class TemplateTables extends Template {
+export class TemplateForms extends Template {
     /**
      * @see View:defaultSettings
      * @type {Object}
@@ -18,12 +18,12 @@ export class TemplateTables extends Template {
 
         pageTitle: {
             content: {
-                title: 'Tables'
+                title: 'Forms'
             }
         }
     }
     /**
      * @see ModelView::overrideSettingsKey
      */
-    overrideSettingsKey = 'templates.tables';
+    overrideSettingsKey = 'templates.forms';
 }

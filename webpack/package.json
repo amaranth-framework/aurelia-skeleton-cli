@@ -115,6 +115,7 @@
     "webpack-dev-server": "2.5.1"
   },
   "dependencies": {
+    "apollo-client": "1.9.0-0",
     "aurelia-animator-css": "^1.0.2",
     "aurelia-bootstrapper": "2.1.1",
     "aurelia-configuration": "^1.0.17",
@@ -139,6 +140,7 @@
     "isomorphic-fetch": "2.2.1",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
+    "subscriptions-transport-ws": "0.8.1",
     "text": "github:requirejs/text#latest",
     "uuid-js": "^0.7.5"
   }

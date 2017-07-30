@@ -1,6 +1,6 @@
 import {Component} from 'features/views/component';
 
-// import _ from 'lodash';
+import _ from 'lodash';
 
 import { extend } from 'features/utils';
 

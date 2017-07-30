@@ -1,4 +1,3 @@
-// we want font-awesome to load as soon as possible to show the fa-spinner
 import {I18N} from 'aurelia-i18n';
 import {ValidationMessageProvider} from 'aurelia-validation';
 import Backend from 'i18next-xhr-backend';

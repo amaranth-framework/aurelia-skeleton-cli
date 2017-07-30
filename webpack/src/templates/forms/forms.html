@@ -1,0 +1,464 @@
+<template>
+    <div class="container-fluid">
+        <div class="row">
+            <compose containerless view-model="components/helper/page-title/page-title" model.bind="{ settings: settings.pageTitle }" ></compose>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Basic Forms</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputText1">Simple Text Value</label>
+                        <input type="text" class="form-control" id="exampleInputText1" placeholder="Text Value">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="email@foo.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputText2">Simple Text Input with Helper Text</label>
+                        <input type="text" class="form-control" id="exampleInputText2" placeholder="Text Value">
+                        <p class="help-block">Example block-level help text here.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleTextarea1">Textarea</label>
+                        <textarea class="form-control" id="exampleTextarea1" placeholder="Textarea"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleSelect1">Select</label>
+                        <select class="form-control" id="exampleSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">File input</label>
+                        <input type="file" id="exampleInputFile">
+                        <p class="help-block">Example block-level help text here.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleCheckbox">Checkbox Options</label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="">
+                                Option one is this and that&mdash;be sure to include why it's great
+                            </label>
+                        </div>
+                        <div class="checkbox disabled">
+                            <label>
+                                <input type="checkbox" value="" disabled>
+                                Option two is disabled
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleCheckbox">Radio Options</label>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                Option one is this and that&mdash;be sure to include why it's great
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                Option two can be something else and selecting it will deselect option one
+                            </label>
+                        </div>
+                        <div class="radio disabled">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                                Option three is disabled
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group from-group--inline">
+                        <label for="exampleCheckbox">Checkbox Options Inline</label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="">
+                                Option one
+                            </label>
+                        </div>
+                        <div class="checkbox disabled">
+                            <label>
+                                <input type="checkbox" value="" disabled>
+                                Option two
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group from-group--inline">
+                        <label for="exampleCheckbox">Radio Options Inline</label>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                Option one
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                Option two
+                            </label>
+                        </div>
+                        <div class="radio disabled">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                                Option three
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-default">Reset</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h3>Basic Horizontal Forms</h3>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="exampleInputText1" class="col-md-3">Simple Text Value</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="exampleInputText1" placeholder="Text Value">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="col-md-3">Email</label>
+                        <div class="col-md-9">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="email@foo.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1" class="col-md-3">Password</label>
+                        <div class="col-md-9">
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputText2" class="col-md-3">Simple Text Input with Helper Text</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="exampleInputText2" placeholder="Text Value">
+                            <p class="help-block">Example block-level help text here.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleTextarea1" class="col-md-3">Textarea</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" id="exampleTextarea1" placeholder="Textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleSelect1" class="col-md-3">Select</label>
+                        <div class="col-md-9">
+                            <select class="form-control" id="exampleSelect1">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile" class="col-md-3">File input</label>
+                        <div class="col-md-9">
+                            <input type="file" id="exampleInputFile">
+                            <p class="help-block">Example block-level help text here.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3">Checkbox Options</label>
+                        <div class="col-md-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="">
+                                    Option one is this and that&mdash;be sure to include why it's great
+                                </label>
+                            </div>
+                            <div class="checkbox disabled">
+                                <label>
+                                    <input type="checkbox" value="" disabled>
+                                    Option two is disabled
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3">Radio Options</label>
+                        <div class="col-md-9">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                    Option one is this and that&mdash;be sure to include why it's great
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                    Option two can be something else and selecting it will deselect option one
+                                </label>
+                            </div>
+                            <div class="radio disabled">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                                    Option three is disabled
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group from-group--inline">
+                        <label class="col-md-3">Checkbox Options Inline</label>
+                        <div class="col-md-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="">
+                                    Option 1
+                                </label>
+                            </div>
+                            <div class="checkbox disabled">
+                                <label>
+                                    <input type="checkbox" value="" disabled>
+                                    Option 2
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group from-group--inline">
+                        <label class="col-md-3">Radio Options Inline</label>
+                        <div class="col-md-9">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                    Option 1
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                    Option 2
+                                </label>
+                            </div>
+                            <div class="radio disabled">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                                    Option 3
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-default">Reset</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <h3>Grid Sample</h3>
+            <form class="row">
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control form-control-line" value="col-md-6">
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="email" id="example-email2" name="example-email" class="form-control" placeholder="col-md-6">
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control form-control-line" value="col-md-4">
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="email" id="example-email2" name="example-email" class="form-control" placeholder="col-md-4">
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" value="col-md-4">
+                </div>
+                <div class="form-group col-md-3">
+                    <input type="text" class="form-control" placeholder="col-md-3">
+                </div>
+                <div class="form-group col-md-3">
+                    <select class="form-control">
+                        <option>col-md-3</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                        <div class="form-control" data-trigger="fileinput">
+                            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                            <span class="fileinput-filename"></span>
+                        </div>
+                        <span class="input-group-addon btn btn-default btn-file">
+                            <span class="fileinput-new">Select file</span>
+                            <span class="fileinput-exists">Change</span>
+                            <input type="file" name="...">
+                        </span>
+                        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <input type="text" placeholder="col-md-3" class="form-control form-control-line">
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Text area</label>
+                    <textarea class="form-control" rows="5"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <h3>Horizontal Forms</h3>
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputText1">Simple Text Value</label>
+                    <input type="text" class="form-control" id="exampleInputText1" placeholder="Text Value">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="email@foo.com">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputText2">Simple Text Input with Helper Text</label>
+                    <input type="text" class="form-control" id="exampleInputText2" placeholder="Text Value">
+                    <p class="help-block">Example block-level help text here.</p>
+                </div>
+                <div class="form-group">
+                    <label for="exampleTextarea1">Textarea</label>
+                    <textarea class="form-control" id="exampleTextarea1" placeholder="Textarea"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleSelect1">Select</label>
+                    <select class="form-control" id="exampleSelect1">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">File input</label>
+                    <input type="file" id="exampleInputFile">
+                    <p class="help-block">Example block-level help text here.</p>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="">
+                        Option one is this and that&mdash;be sure to include why it's great
+                    </label>
+                </div>
+                <div class="checkbox disabled">
+                    <label>
+                        <input type="checkbox" value="" disabled>
+                        Option two is disabled
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                        Option one is this and that&mdash;be sure to include why it's great
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                        Option two can be something else and selecting it will deselect option one
+                    </label>
+                </div>
+                <div class="radio disabled">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                        Option three is disabled
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-default">Reset</button>
+            </form>
+        </div>
+        <div class="row">
+            <h3>Basic Forms</h3>
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputText1">Simple Text Value</label>
+                    <input type="text" class="form-control" id="exampleInputText1" placeholder="Text Value">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="email@foo.com">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputText2">Simple Text Input with Helper Text</label>
+                    <input type="text" class="form-control" id="exampleInputText2" placeholder="Text Value">
+                    <p class="help-block">Example block-level help text here.</p>
+                </div>
+                <div class="form-group">
+                    <label for="exampleTextarea1">Textarea</label>
+                    <textarea class="form-control" id="exampleTextarea1" placeholder="Textarea"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleSelect1">Select</label>
+                    <select class="form-control" id="exampleSelect1">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">File input</label>
+                    <input type="file" id="exampleInputFile">
+                    <p class="help-block">Example block-level help text here.</p>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="">
+                        Option one is this and that&mdash;be sure to include why it's great
+                    </label>
+                </div>
+                <div class="checkbox disabled">
+                    <label>
+                        <input type="checkbox" value="" disabled>
+                        Option two is disabled
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                        Option one is this and that&mdash;be sure to include why it's great
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                        Option two can be something else and selecting it will deselect option one
+                    </label>
+                </div>
+                <div class="radio disabled">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                        Option three is disabled
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-default">Reset</button>
+            </form>
+        </div>
+    </div>
+</template>

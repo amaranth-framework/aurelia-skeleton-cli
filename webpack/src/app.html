@@ -3,14 +3,14 @@
     <require from="./app.less"></require>
 
     <!-- left navigation -->
-    <nav-left>
+    <nav-left if.bind="authStep.isLoggedIn">
         <compose containerless view-model="components/nav/left/left"></compose>
     </nav-left>
     <!-- /left navigation -->
     <!--  application content -->
     <content>
         <!-- top navigation -->
-        <nav-top>
+        <nav-top if.bind="authStep.isLoggedIn">
             <compose containerless view-model="components/nav/top/top"></compose>
         </nav-top>
         <!-- /top navigation -->

@@ -1,10 +1,5 @@
 // import { LogManager } from 'aurelia-framework';
 
-export const ChunkMap = {
-    USER: 'user',
-    MAP: 'user'
-};
-
 /**
  * Extend the `target` object with all the objects behind him (in the list of params).
  * As a note, this will not 'extend' arrays. If you need that, please use $.extend from jQuery.
@@ -33,6 +28,10 @@ export function extend(deep, target, ...args) {
     return target;
 }
 
+/**********************************************************************************************
+ * Class Name
+ **********************************************************************************************/
+
 /**
  * Obtain the name of a class
  * @param  {Object} obj           Object to obtain the class name
@@ -59,4 +58,153 @@ export function parentClassName(obj) {
         throw new Error('Could not determine parent class name for ' + className(obj) + '. Does it extend any class?');
     }
     return className(parentClass, true);
+}
+
+/**********************************************************************************************
+ * Cookie
+ **********************************************************************************************/
+
+/**
+ * @param {String} name
+ * @return {any}
+ */
+export function getCookie(name) {
+    let s = document.cookie;
+    let i;
+
+    if (s) {
+        for (i = 0, s = s.split('; '); i < s.length; i++) {
+            s[i] = s[i].split('=', 2);
+            if (unescape(s[i][0]) === name) {
+                return unescape(s[i][1]);
+            }
+        }
+    }
+
+    return null;
+}
+
+/**
+ * @param {String} name
+ * @param {any} value
+ * @param {String} p
+ * @return {Boolean}
+ */
+export function setCookie(name, value, p) {
+    let s;
+    let k;
+
+    s = escape(name) + '=' + escape(value);
+
+    if (p) {
+        for (k in p) {
+            if (k === 'expires') {
+                p[k] = isNaN(p[k]) ? p[k] : relativeDate(p[k]);
+            }
+
+            if (p[k]) {
+                s += '; ' + (k !== 'secure' ? k + '=' + p[k] : k);
+            }
+        }
+    }
+
+    document.cookie = s;
+
+    return getCookie(name) === value;
+}
+
+/**
+ * Return relative date based on current time
+ *
+ * @param {Number} t Number of milliseconds to offset by
+ * @returns
+ */
+function relativeDate(t) {
+    const now = new Date();
+    return new Date(now.getTime() + t);
+}
+
+/**
+ * Remove cookie
+ *
+ * @export
+ * @param {String} name Name of the cookie to remove
+ * @returns A setCookie call
+ */
+export function removeCookie(name) {
+    return !setCookie(name, '', { expires: -1 });
+}
+
+/**********************************************************************************************
+ * Waiting for Stuff
+ **********************************************************************************************/
+
+/**
+ * Wait for elements to be ready in DOM
+ *
+ * @export
+ * @param {String} selector
+ * @param {number} [count=1]
+ * @param {number} [wait=5]
+ * @returns Promise
+ */
+export function waitForElements(selector, count = 1, wait = 5) {
+    return new Promise((resolve, reject) => {
+        let time = 0;
+        wait *= 1000;
+
+        const waitInterval = setInterval(() => {
+            if (time >= wait) {
+                clearInterval(waitInterval);
+                reject(new Error(`Wait has timed out for ${selector} :: ${count}`));
+            }
+
+            let selected = $(selector);
+            if (selected.length === count) {
+                clearInterval(waitInterval);
+                resolve(selected);
+            }
+
+            time += 100;
+        }, 100);
+    }).catch(e => { _logger.warn(e); });
+}
+
+/**
+ *
+ * @param {any} val
+ * @returns {Boolean}
+ */
+function testUndefined(val) {
+    return val !== undefined;
+}
+
+/**
+ * Wait for elements to be ready in DOM
+ *
+ * @export
+ * @param {String} selector
+ * @param {number} [count=1]
+ * @param {number} [wait=5]
+ * @returns Promise
+ */
+export function waitForVariable(variable, tester = testUndefined, wait = 5, descriptor = 'variable') {
+    return new Promise((resolve, reject) => {
+        let time = 0;
+        wait *= 1000;
+
+        const waitInterval = setInterval(() => {
+            if (time >= wait) {
+                clearInterval(waitInterval);
+                reject(new Error(`Wait has timed out for ${descriptor} :: ${tester}`));
+            }
+
+            if (tester(variable)) {
+                clearInterval(waitInterval);
+                resolve(variable);
+            }
+
+            time += 100;
+        }, 100);
+    }).catch(e => { _logger.warn(e); });
 }

@@ -1,54 +1,17 @@
-import { AureliaConfiguration } from 'aurelia-configuration';
-import { Config as API } from 'aurelia-api';
-import { EventAggregator } from 'aurelia-event-aggregator';
-import { inject, LogManager } from 'aurelia-framework';
-import { I18N } from 'aurelia-i18n';
-import { Router } from 'aurelia-router';
+import { inject } from 'aurelia-framework';
 
-import UUID from 'uuid-js';
-
-import { extend, className, parentClassName } from 'features/utils';
+import { Base } from 'features/base';
+import { extend } from 'features/utils';
 
 /**
  * Abstract Class for all Model Views (Components) used within the project
  *
  * @link https://www.danyow.net/inversion-of-control-with-aurelia-part-1/
  */
-@inject(API, AureliaConfiguration, EventAggregator, I18N, Router)
-export class View {
+export class View extends Base {
     /*************************************************************************************
      * Inherited
      *************************************************************************************/
-    /**
-     * Creates an instance of AbstractView.
-     * @param {Config} api aurelia-api module
-     * @param {AureliaConfiguration} config aurelia-configuraton module
-     * @param {EventAggregator} events Aurelia EventsAggregator module
-     * @param {I18N} i18n aurelia-i18n module
-     * @param {Router} router Aurelia Router module
-     */
-    constructor(api, config, events, i18n, router) {
-        /**
-         * @type {???}
-         */
-        this.rest = api.getEndpoint('rest');
-        /**
-         * @type {???}
-         */
-        this.configApi = api.getEndpoint('config');
-        if (i18n) { this.i18n = i18n; }
-        this.config = config;
-        this.events = events;
-        this.router = router;
-        /**
-         * @type {String}
-         */
-        this.__uuid = UUID.create(4);
-        /**
-         * @type {Logger}
-         */
-        this.logger = LogManager.getLogger(`${parentClassName(this)}/${className(this)}`);
-    }
     /**
      * Implement this hook if you want to perform custom logic just before your view-model is displayed. You can
      * optionally return a promise to tell the router to wait to bind and attach the view until after you finish your
@@ -136,8 +99,8 @@ export class View {
      * @method unbind
      */
     /*************************************************************************************
-     * Amaranth
-     *************************************************************************************/
+    * Amaranth
+    *************************************************************************************/
     /**
      * Default View Settings. Can be null
      * @type {Object|null}
@@ -154,7 +117,10 @@ export class View {
      * Generaly this method may be async.
      * @method init
      */
-    init() { }
+    init() {
+        // this.rest = this.gql.getEndpoint(`http://ws-test.${window.location.hostname}:3030/`);
+        // this.rest = api.getEndpoint(`ws://${window.location.hostname}:8443/graphql`, {}, api.createSubscriptionClient());;
+    }
     /**
      * Merge settings
      * @method mergeSettings
@@ -174,9 +140,9 @@ export class View {
                 defaultSettings,                    // default settings provided by class definition
                 this.overrideSettings,              // global settings provided by config.json
                 this.settings,                      // settings obtained from application route
-                                                    // settings provided by config file mentioned in `_settingsPath`
+                // settings provided by config file mentioned in `_settingsPath`
                 (this.settings && this.settings._settingsPath) ?
-                    await this.configApi.get(`${this.settings._settingsPath}.json`) : {}
+                await this.configApi.get(`${this.settings._settingsPath}.json`) : {}
             );
             // this.logger.debug('ModelView::mergeSettings => settings:', this.settings);
         }
@@ -196,7 +162,7 @@ export class View {
      */
     get overrideSettings() {
         if (!this.overrideSettingsKey || this.overrideSettingsKey.length === 0) {
-            throw new Error(`Class '${className(this)}' has no 'overrideSettings' defined.`);
+            throw new Error(`Class '${className(this)}' has no 'overrideSettingsKey' defined.`);
         }
         if (!this._overrideSettings) {
             this._overrideSettings = this.config.get(this.overrideSettingsKey) || {};
