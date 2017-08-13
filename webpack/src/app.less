@@ -74,38 +74,134 @@ content {
         margin: 27px 0 0 0;
         padding-bottom: 7px;
         position: relative;
-    }
-    &-group &-control {
-        background-image: linear-gradient(@color-dark, @color-dark), linear-gradient(@color-neutral, @color-neutral);
-        background-size: 0 2px, 100% 1px;
-        background-repeat: no-repeat;
-        background-position: center bottom, center calc(100% - 1px);
-        background-color: transparent;
-        border: 0;
-        border-radius: 0;
-        box-shadow: none;
-        float: none;
-        font-weight: 400;
-        font-size: 14px;
-        height: 36px;
-        line-height: 1.5em;
-        margin-bottom: 7px;
-        padding: 7px 0;
-        transition: background 0s ease-out;
-    }
-}
-
-.from-group {
-    &--inline {
-        label {
-            display: block;
+        & input[type=radio], & input[type=checkbox] {
+            height: 0px;
+            margin: 0;
+            padding: 0;
+            width: 0px;
         }
         & .checkbox, & .radio {
-            padding: 0 10px;
-            display: inline-block;
+            & label {
+                display: block;
+                font-size: @font-small;
+                & span {
+                    border: 1px @color-semi-dark solid;
+                    border-radius: .1em;
+                    color: @color-bright;
+                    display: inline-block;
+                    font-family: FontAwesome;
+                    font-size: @font-checkbox-pins;
+                    height: @font-small;
+                    margin: 0 0 -.15em;
+                    position: relative;
+                    width: @font-small;
+                }
+                & input:checked {
+                    & + span {
+                        background: @color-semi-dark;
+                        &::before {
+                            content: "\f00c";
+                            display: block;
+                            height: @font-checkbox-pins;
+                            line-height: @font-checkbox-pins;
+                            position: absolute;
+                            width: @font-checkbox-pins;
+                        }
+                    }
+                }
+                & input:disabled {
+                    & + span {
+                        border-color: @color-neutral;
+                        &::before {
+                            color: @color-neutral;
+                            content: "\f00d";
+                            display: block;
+                            height: @font-checkbox-pins;
+                            line-height: @font-checkbox-pins;
+                            opacity: .2;
+                            position: absolute;
+                            text-align: center;
+                            width: @font-checkbox-pins;
+                        }
+                    }
+                }
+            }
+        }
+        & .radio {
+            & label {
+                & span {
+                    border-radius: 50%;
+                }
+                & input:checked {
+                    & + span {
+                        background: none;
+                        color: @color-semi-dark;
+                        &::before {
+                            content: "\f111";
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+        &--inline {
+            & .checkbox, & .radio {
+                & label {
+                    display: inline-block;
+                    & + label {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
 
-            &:frist-child {
-                padding-left: 0;
+    }
+    &--material {
+         & .form-control {
+            background-image: linear-gradient(@color-dark, @color-dark), linear-gradient(@color-neutral, @color-neutral);
+            background-size: 0 2px, 100% 1px;
+            background-repeat: no-repeat;
+            background-position: center bottom, center calc(100% - 1px);
+            background-color: transparent;
+            border: 0;
+            border-radius: 0;
+            box-sizing: border-box;
+            box-shadow: none;
+            float: none;
+            font-size: @font-small;
+            height: 36px;
+            line-height: 1.5em;
+            margin-bottom: @font-small / 2;
+            padding: @font-small / 2 0;
+            transition: background 0s ease-out;
+            textarea& {
+                resize: none;
+                min-height: 150px;
+            }
+        }
+        & .form-group {
+            input {
+                & + label {
+                    color: @color-neutral;
+                    font-size: @font-small;
+                    font-weight: 500;
+                    position: relative;
+                    top: -@font-small * 2;
+                }
+                &:focus + label {
+                    color: @color-dark;
+                    top: -(@font-small * 2 + 36px);
+                    font-weight: bold;
+                }
+            }
+            &.is-not-empty {
+                input {
+                    & + label {
+                        color: @color-dark;
+                        top: -(@font-small * 2 + 36px);
+                        font-weight: bold;
+                    }
+                }
             }
         }
     }

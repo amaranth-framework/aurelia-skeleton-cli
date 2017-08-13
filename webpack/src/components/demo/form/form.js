@@ -84,6 +84,7 @@ export class ComponentFormDemoSimple extends Component {
                 label: 'Checkboxes Inline',
                 type: 'checkboxes-inline',
                 realType: 'checkbox',
+                style: 'form-group--inline',
                 values: [
                     'First Selectable Item',
                     'Seccond Selectable Item',
@@ -96,6 +97,7 @@ export class ComponentFormDemoSimple extends Component {
                 label: 'Radio Buttons Inline',
                 type: 'radios-inline',
                 realType: 'radio',
+                style: 'form-group--inline',
                 values: [
                     'First Selectable Item',
                     'Seccond Selectable Item',
@@ -116,8 +118,12 @@ export class ComponentFormDemoSimple extends Component {
                 'label': 'Horizontal Form'
             },
             {
-                'style': 'form--no-labels',
-                'label': 'Form with no labels'
+                'style': 'form--material col-md-6 col-md-offset-3',
+                'label': 'Material Form'
+            },
+            {
+                'style': 'form--material form--material-no-labels col-md-6 col-md-offset-3',
+                'label': 'Material Form with no Labels'
             }
         ]
     };
@@ -125,4 +131,11 @@ export class ComponentFormDemoSimple extends Component {
      * @see View::overrideSettingsKey
      */
     overrideSettingsKey = 'components.form';
+    attached() {
+        // super(...args);
+        this.mode = {
+            'style': 'form--material col-md-6 col-md-offset-3',
+            'label': 'Material Form'
+        };
+    }
 }
