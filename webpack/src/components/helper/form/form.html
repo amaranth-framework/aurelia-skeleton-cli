@@ -1,17 +1,16 @@
 <template>
-    <select value.bind="mode">
-        <option repeat.for="item of settings.modes" model.bind="item">${item.label}</option>
-    </select>
-    <form class.bind="mode.style">
+    <form class.bind="style">
+        <!-- This is a Bootstrap 3 form, so we're using .form-group -->
         <div repeat.for="input of settings.inputs" class.bind="input.style" class="form-group">
-            <!-- Display label for nont .form--material -->
+            <!-- Standard Bootstrap form label. -->
             <label if.bind="mode.style.indexOf('form--material') < 0"
-                class.bind="(mode.style.indexOf('form-horizontal') > -1) ? 'col-md-3' : ''"
+                class.bind="(mode.style.indexOf('form-horizontal') > -1) ? settings.styles.labelAsCol : ''"
                 for="input-${$index}">${input.label}</label>
 
-            <div class.bind="(mode.style.indexOf('form-horizontal') > -1) ? 'col-md-9' : ''">
+            <div class.bind="(mode.style.indexOf('form-horizontal') > -1) ? settings.styles.inputAsCol : ''">
 
-                <input if.bind="['text', 'password', 'file'].includes(input.type)" value.bind="input.value"
+                <!-- Input / text, password, date, file -->
+                <input if.bind="isTextInput(input.type)" value.bind="input.value"
                     placeholder="${input.label}" class.bind="((mode.style.indexOf('form--material') > -1 && input.value) ? ' is-not-empty' : '')"
                     type="${input.type}" class="form-control" id="input-${$index}">
 

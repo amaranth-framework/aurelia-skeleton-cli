@@ -69,79 +69,58 @@ content {
  * Components : Forms
  **************************************************************************************************/
 
-.form {
-    &-group {
-        margin: 27px 0 0 0;
-        padding-bottom: 7px;
-        position: relative;
-        & input[type=radio], & input[type=checkbox] {
-            height: 0px;
-            margin: 0;
-            padding: 0;
-            width: 0px;
+form {
+    /**
+     * Standard Form
+     */
+    & .form-control, & label {
+        color: @color-dark;
+        font-size: @font-small;
+    }
+    & label {
+        order: 0;
+        padding: @font-small/2 0;
+    }
+    & .form-control {
+        background: @color-neutral;
+        border: 0;
+        border-radius: @font-small/4;
+        height: @font-small*3;
+        line-height: @font-small*3;
+    }
+    & textarea.form-control {
+        min-height: 150px;
+        resize: none;
+    }
+    & .checkbox, & .radio {
+        & label {
+            display: block;
         }
-        & .checkbox, & .radio {
+    }
+    & .help-block {
+        margin: 0;
+        padding: @font-small/2 0 0;
+        &.is-error {
+            color: @color-error;
+        }
+    }
+    & .form-group {
+        &.is-error {
             & label {
-                display: block;
-                font-size: @font-small;
-                & span {
-                    border: 1px @color-semi-dark solid;
-                    border-radius: .1em;
-                    color: @color-bright;
-                    display: inline-block;
-                    font-family: FontAwesome;
-                    font-size: @font-checkbox-pins;
-                    height: @font-small;
-                    margin: 0 0 -.15em;
-                    position: relative;
-                    width: @font-small;
-                }
-                & input:checked {
-                    & + span {
-                        background: @color-semi-dark;
-                        &::before {
-                            content: "\f00c";
-                            display: block;
-                            height: @font-checkbox-pins;
-                            line-height: @font-checkbox-pins;
-                            position: absolute;
-                            width: @font-checkbox-pins;
-                        }
-                    }
-                }
-                & input:disabled {
-                    & + span {
-                        border-color: @color-neutral;
-                        &::before {
-                            color: @color-neutral;
-                            content: "\f00d";
-                            display: block;
-                            height: @font-checkbox-pins;
-                            line-height: @font-checkbox-pins;
-                            opacity: .2;
-                            position: absolute;
-                            text-align: center;
-                            width: @font-checkbox-pins;
-                        }
-                    }
-                }
+                color: @color-error;
+            }
+            & .form-control {
+                background: lighten(@color-error, 60%);
+                color: @color-error;
             }
         }
-        & .radio {
+        &.is-valid {
             & label {
-                & span {
-                    border-radius: 50%;
-                }
-                & input:checked {
-                    & + span {
-                        background: none;
-                        color: @color-semi-dark;
-                        &::before {
-                            content: "\f111";
-                            text-align: center;
-                        }
-                    }
-                }
+                color: @color-valid;
+            }
+            & .form-control {
+                background: lighten(@color-valid, 40%);
+                color: @color-valid;
             }
         }
         &--inline {
@@ -149,15 +128,29 @@ content {
                 & label {
                     display: inline-block;
                     & + label {
-                        margin-left: 10px;
+                        margin-left: @font-small * 1.5;
                     }
                 }
             }
         }
-
     }
-    &--material {
-         & .form-control {
+    /**
+     * Form Horizontal
+     */
+    &.form-horizontal {
+        & .form-group {
+            & > label {
+                line-height: @font-small * 3;
+                margin: 0;
+                padding: 0 15px;
+            }
+        }
+    }
+    /**
+     * Material Form
+     */
+    &.form--material {
+        & .form-control, & .form-group.is-error .form-control, & .form-group.is-valid .form-control {
             background-image: linear-gradient(@color-dark, @color-dark), linear-gradient(@color-neutral, @color-neutral);
             background-size: 0 2px, 100% 1px;
             background-repeat: no-repeat;
@@ -168,39 +161,54 @@ content {
             box-sizing: border-box;
             box-shadow: none;
             float: none;
-            font-size: @font-small;
-            height: 36px;
-            line-height: 1.5em;
             margin-bottom: @font-small / 2;
+            order: 1;
             padding: @font-small / 2 0;
             transition: background 0s ease-out;
-            textarea& {
-                resize: none;
-                min-height: 150px;
+            &::placeholder {
+                color: transparent;
+            }
+            & + label {
+                color: lighten(@color-dark, 20%);
+                font-weight: 500;
+                order: 0;
+                position: relative;
+                top: @font-small * 3;
+            }
+            &:focus + label, &.is-not-empty + label {
+                color: @color-dark;
+                top: 0;
+                font-weight: bold;
             }
         }
-        & .form-group {
-            input {
-                & + label {
-                    color: @color-neutral;
-                    font-size: @font-small;
-                    font-weight: 500;
-                    position: relative;
-                    top: -@font-small * 2;
-                }
-                &:focus + label {
-                    color: @color-dark;
-                    top: -(@font-small * 2 + 36px);
-                    font-weight: bold;
-                }
+        select.form-control + label {
+            color: @color-dark;
+            top: 0;
+            font-weight: bold;
+        }
+        & .checkbox, & .radio {
+            order: 1;
+            & + label {
+                order: 0;
             }
-            &.is-not-empty {
-                input {
-                    & + label {
-                        color: @color-dark;
-                        top: -(@font-small * 2 + 36px);
-                        font-weight: bold;
-                    }
+        }
+        & .form-group, & .form-group > div {
+            display: flex;
+            flex-direction: column;
+        }
+        & .help-block {
+            order: 10;
+        }
+        /**
+         * Material Form with no Labels
+         */
+        &-no-labels {
+            & .form-control, & .form-group.is-error .form-control, & .form-group.is-valid .form-control {
+                &::placeholder {
+                    color: @color-neutral;
+                }
+                & + label {
+                    display: none;
                 }
             }
         }

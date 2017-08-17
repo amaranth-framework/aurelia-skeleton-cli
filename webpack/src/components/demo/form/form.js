@@ -1,5 +1,9 @@
 import {Component} from 'features/views/component';
 
+/**
+ * https://www.npmjs.com/package/kindergarten
+ */
+
 export class ComponentFormDemoSimple extends Component {
     /**
     * @see View:defaultSettings
@@ -20,17 +24,14 @@ export class ComponentFormDemoSimple extends Component {
                 type: 'text',
             },
             {
-                label: 'With Floating Label',
-                type: 'text',
-                style: 'floating-label'
-            },
-            {
                 label: 'Validated Field',
+                value: 'Valid Value',
                 type: 'text',
                 style: 'is-valid'
             },
             {
                 label: 'Error Input',
+                value: 'Invalid Value',
                 type: 'text',
                 style: 'is-error'
             },
@@ -132,10 +133,9 @@ export class ComponentFormDemoSimple extends Component {
      */
     overrideSettingsKey = 'components.form';
     attached() {
-        // super(...args);
         this.mode = {
-            'style': 'form--material col-md-6 col-md-offset-3',
-            'label': 'Material Form'
+            'style': 'form--material form--material-no-labels col-md-6 col-md-offset-3',
+            'label': 'Material Form with no Labels'
         };
     }
 }
