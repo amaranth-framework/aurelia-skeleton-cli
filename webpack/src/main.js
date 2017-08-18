@@ -29,13 +29,20 @@ export async function configure(aurelia) {
     .plugin(PLATFORM.moduleName('aurelia-configuration'))
     .plugin(PLATFORM.moduleName('aurelia-validation'))
     .plugin(PLATFORM.moduleName('aurelia-api'), config => {
+        /**
+         * @link https://aurelia-api.spoonx.org/configuration.html
+         */
         config
-        .registerEndpoint('rest', '/ws/', {
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json'
+        .registerEndpoint(
+            'rest',
+            'https://jsonplaceholder.typicode.com/',
+            {
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             }
-        })
+        )
         .setDefaultEndpoint('api');
     })
     .plugin(PLATFORM.moduleName('aurelia-i18n'), (instance) => {
