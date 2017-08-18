@@ -2,8 +2,8 @@ import {ComponentHelperTable} from 'components/helper/table/table';
 
 export class ComponentTableDemoSimple extends ComponentHelperTable {
     /**
-    * @see View:defaultSettings
-    */
+     * @see View:defaultSettings
+     */
     defaultSettings = {
         style: '',                 // component's style - list of classes add to the component to be able to format it.
         styles: {},                // set of classes that can be used throughout different sections of the component
@@ -16,12 +16,12 @@ export class ComponentTableDemoSimple extends ComponentHelperTable {
         services: {}               // possible services settings for component
     };
     /**
-    * @see View::overrideSettingsKey
-    */
+     * @see View::overrideSettingsKey
+     */
     overrideSettingsKey = 'components.table-demo-simple';
     /**
-    * @see View::init()
-    */
+     * @see View::init()
+     */
     async init() {
         super.init();
         this.logger.debug('View service: ', this.settings.service);
