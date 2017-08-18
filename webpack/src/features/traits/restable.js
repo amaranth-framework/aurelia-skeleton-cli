@@ -11,19 +11,23 @@ export class RESTable {
         this.__config = config;
     }
     /**
-     *
+     * Set the next enpoint to use.
      * @param  {String|Object} endpoint
      * @return {Promise}
      */
     async endpoint(endpoint = 'rest') {
         if (!this.__rest) {
             if (typeof endpoint === 'string') {
-                // https://aurelia-api.spoonx.org/usage.html
-                // @see Config
+                /**
+                 * @link https://aurelia-api.spoonx.org/usage.html
+                 * @see aurelia-api/Config::getEndpoint()
+                 */
                 this.__rest = this.__config.getEndpoint(endpoint);
             } else {
-                // https://aurelia-api.spoonx.org/usage.html
-                // @see Resolver
+                /**
+                 * @link https://aurelia-api.spoonx.org/usage.html
+                 * @see aurelia-api/Endpoint::of()
+                 */
                 this.__rest = endpoint;
             }
         }
@@ -72,7 +76,6 @@ export class RESTable {
     /**
      * @see aurelia-api/Rest::patch()
      * @link https://aurelia-api.spoonx.org/api_rest.html
-     *
      */
     async restPatch(...args) {
         let endpoint = await this.endpoint();
@@ -81,7 +84,6 @@ export class RESTable {
     /**
      * @see aurelia-api/Rest::patchOne()
      * @link https://aurelia-api.spoonx.org/api_rest.html
-     *
      */
     async restPatchOne(...args) {
         let endpoint = await this.endpoint();
@@ -90,7 +92,6 @@ export class RESTable {
     /**
      * @see aurelia-api/Rest::post()
      * @link https://aurelia-api.spoonx.org/api_rest.html
-     *
      */
     async restPost(...args) {
         let endpoint = await this.endpoint();
@@ -99,7 +100,6 @@ export class RESTable {
     /**
      * @see aurelia-api/Rest::update()
      * @link https://aurelia-api.spoonx.org/api_rest.html
-     *
      */
     async restUpdate(...args) {
         let endpoint = await this.endpoint();
@@ -108,7 +108,6 @@ export class RESTable {
     /**
      * @see aurelia-api/Rest::updateOne()
      * @link https://aurelia-api.spoonx.org/api_rest.html
-     *
      */
     async restUpdateOne(...args) {
         let endpoint = await this.endpoint();
