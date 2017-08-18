@@ -10,28 +10,24 @@
             <div class.bind="(mode.style.indexOf('form-horizontal') > -1) ? settings.styles.inputAsCol : ''">
 
                 <!-- Input / text, password, date, file -->
-                <input if.bind="isTextInput(input.type)" value.bind="input.value"
-                    placeholder="${input.label}" class.bind="((mode.style.indexOf('form--material') > -1 && input.value) ? ' is-not-empty' : '')"
-                    type="${input.type}" class="form-control" id="input-${$index}">
+                <input if.bind="isTextInput(input.type)" value.bind="input.value" placeholder="${input.label}"
+                    class.bind="materialFilledMarker(input)" type="${input.type}" id="input-${$index}" class="form-control">
 
-                <textarea if.bind="input.type === 'textarea'" id="input-${$index}" value.bind="input.value"
-                    placeholder="${input.label}"
-                    class.bind="((mode.style.indexOf('form--material') > -1 && input.value) ? ' is-not-empty' : '')"
-                    cols="30" rows="10"  class="form-control"></textarea>
+                <!-- Textarea -->
+                <textarea if.bind="isTextarea(input)" value.bind="input.value" placeholder="${input.label}"
+                    class.bind="materialFilledMarker(input)" id="input-${$index}" class="form-control"></textarea>
 
-                <select if.bind="input.type === 'select'" id="input-${$index}" value.bind="input.value"
-                        class="form-control">
-                    <option repeat.for="item of input.values"
-                        selected.bind="item.indexOf('Seccond') > -1"
-                        disabled.bind="item.indexOf('Disabled') > -1">${item}</option>
+                <!-- Select -->
+                <select if.bind="isSelect(input)" value.bind="input.value" id="input-${$index}" class="form-control">
+                    <option repeat.for="item of input.values" disabled.bind="item.disabled">${item}</option>
                 </select>
 
-                <div if.bind="['checkboxes', 'radios'].includes(input.type)" class="${input.realType}">
+                <div if.bind="isCheckables(input)" class="${input.realType}">
                     <label repeat.for="item of input.values" for="input-${input.type}-${$index}">
                         <input type="${input.realType}" id="input-${input.type}-${$index}"
                             name.bind="(input.type === 'radios') ? 'input-radios' : ''"
                             value.bind="item" checked.bind="input.value"
-                            disabled.bind="item.indexOf('Disabled') > -1">
+                            disabled.bind="item.disabled">
                         <span></span> ${item}
                     </label>
                 </div>

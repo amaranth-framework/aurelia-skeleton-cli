@@ -23,12 +23,52 @@ export class ComponentHelperForm extends Component {
      */
     overrideSettingsKey = 'components.helper-table';
     /**
+     * [isTextarea description]
+     * @param  {String}  type
+     * @return {Boolean}
+     */
+    isCheckable(input) {
+        return /checkbox|radio/.test(input.value)
+    }
+    /**
+     * [isTextarea description]
+     * @param  {String}  type
+     * @return {Boolean}
+     */
+    isCheckables(input) {
+        return /checkboxes|radios/.test(input.value)
+    }
+    /**
+     * [isTextarea description]
+     * @param  {String}  type
+     * @return {Boolean}
+     */
+    isSelect(input) {
+        return input.value === 'select';
+    }
+    /**
+     * [isTextarea description]
+     * @param  {String}  type
+     * @return {Boolean}
+     */
+    isTextarea(input) {
+        return input.value === 'textarea';
+    }
+    /**
      * [isTextInput description]
-     * @method isTextInput
      * @param  {String}  type
      * @return {Boolean}
      */
     isTextInput(type) {
         return /color|date(time-local)?|email|image|month|number|password|range|search|te(l|xt)|time|url|week/.test(type)
+    }
+    /**
+     * Calculate a marker for specifying the input is filled in, only for material style.
+     * @method materialFilledMarker
+     * @param  {Object} input
+     * @return {String}
+     */
+    materialFilledMarker(input) {
+        return ((this.style.indexOf('form--material') > -1 && input.value) ? 'is-not-empty' : '');
     }
 }
