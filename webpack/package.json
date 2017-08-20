@@ -141,6 +141,7 @@
     "isomorphic-fetch": "2.2.1",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
+    "messg": "^2.2.0",
     "subscriptions-transport-ws": "0.8.1",
     "text": "github:requirejs/text#latest",
     "uuid-js": "^0.7.5"

@@ -1,49 +1,41 @@
 <template>
-    <form class.bind="style">
+    <form class.bind="style" id.bind="settings.name" name.bind="settings.name">
         <!-- This is a Bootstrap 3 form, so we're using .form-group -->
-        <div repeat.for="input of settings.inputs" class.bind="input.style" class="form-group">
+        <div repeat.for="input of inputs" class.bind="input.style" class="form-group">
             <!-- Standard Bootstrap form label. -->
-            <label if.bind="mode.style.indexOf('form--material') < 0"
-                class.bind="(mode.style.indexOf('form-horizontal') > -1) ? settings.styles.labelAsCol : ''"
+            <label if.bind="!isMaterialForm()"
+                class.bind="isHorizontalForm() ? settings.styles.labelAsCol : ''"
                 for="input-${$index}">${input.label}</label>
 
-            <div class.bind="(mode.style.indexOf('form-horizontal') > -1) ? settings.styles.inputAsCol : ''">
+            <div class.bind="isHorizontalForm() ? settings.styles.inputAsCol : ''">
 
                 <!-- Input / text, password, date, file -->
-                <input if.bind="isTextInput(input.type)" value.bind="input.value" placeholder="${input.label}"
-                    class.bind="materialFilledMarker(input)" type="${input.type}" id="input-${$index}" class="form-control">
+                <input if.bind="isTextInput(input)" value.bind="input.value" placeholder="${input.label}"
+                    class.bind="materialFilledMarker(input)" type.bind="input.type" id="input-${$index}" class="form-control">
 
                 <!-- Textarea -->
                 <textarea if.bind="isTextarea(input)" value.bind="input.value" placeholder="${input.label}"
                     class.bind="materialFilledMarker(input)" id="input-${$index}" class="form-control"></textarea>
 
                 <!-- Select -->
-                <select if.bind="isSelect(input)" value.bind="input.value" id="input-${$index}" class="form-control">
-                    <option repeat.for="item of input.values" disabled.bind="item.disabled">${item}</option>
+                <select if.bind="isSelect(input)" value.bind="input.value"
+                        id="input-${$index}" class="form-control">
+                    <option disabled.bind="item.disabled" label.bind="item.label"
+                        model.bind="item" repeat.for="item of input.values">${item.label}</option>
                 </select>
 
-                <div if.bind="isCheckables(input)" class="${input.realType}">
+                <!--  Checkbox/Radio Lists -->
+                <div if.bind="isCheckable(input)" class="${input.type}">
                     <label repeat.for="item of input.values" for="input-${input.type}-${$index}">
-                        <input type="${input.realType}" id="input-${input.type}-${$index}"
-                            name.bind="(input.type === 'radios') ? 'input-radios' : ''"
-                            value.bind="item" checked.bind="input.value"
-                            disabled.bind="item.disabled">
-                        <span></span> ${item}
-                    </label>
-                </div>
-
-                <div if.bind="['checkboxes-inline', 'radios-inline'].includes(input.type)" class="${input.realType}">
-                    <label repeat.for="item of input.values" for="input-${input.type}-${$index}">
-                        <input type="${input.realType}" id="input-${input.type}-${$index}"
-                            name.bind="(input.type === 'radios-inline') ? 'input-radios' : ''"
-                            value.bind="item" checked.bind="input.value"
-                            disabled.bind="item.indexOf('Disabled') > -1">
-                        <span></span> ${item}
+                        <input checked.bind="input.value" disabled.bind="item.disabled"
+                            model.bind="item" name.bind="getInputName(input, $parent.$index)"
+                            type.bind="input.type" id="input-${input.type}-${$index}">
+                        <span></span> ${item.label}
                     </label>
                 </div>
 
                 <!-- Display label for .form--material -->
-                <label if.bind="mode.style.indexOf('form--material') > -1" for="input-${$index}">${input.label}</label>
+                <label if.bind="isMaterialForm()" for="input-${$index}">${input.label}</label>
 
                 <span if.bind="input.style === 'is-error'" class="help-block is-error" repeat.for="x of ['First', 'Second']">
                     ${x} message error.
@@ -53,7 +45,5 @@
                 </span>
             </div>
         </div>
-        <button type="submit" click.trigger="submitSimpleForm()" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-default">Reset</button>
     </form>
 </template>

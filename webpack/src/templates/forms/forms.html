@@ -1,18 +1,21 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <compose containerless view-model="components/helper/page-title/page-title" model.bind="{ settings: settings.pageTitle }" ></compose>
+            <compose containerless view-model="components/helper/page-title/page-title"
+                model.bind="{ settings: settings.pageTitle }" ></compose>
         </div>
     </div>
     <div class="container-fluid">
         <div class="row">
             <h3>Basic Forms</h3>
-            <compose containerless view-model="components/demo/form/form"
-                model.bind="{ settings: { style: tableStyle } }" ></compose>
+            <compose containerless view-model="components/helper/form/form"
+                model.bind="{ settings: settings.basic, inputs: inputs.basic }" ></compose>
+            <button click.trigger="events.publish('form:default:validated')" class="btn btn-primary" type="submit">Submit</button>
+            <button click.trigger="events.publish('form:default:reset')" class="btn btn-default" type="reset">Reset</button>
 		</div>
         <div class="row">
             <h3>Grid Sample</h3>
-            <form class="row">
+            <!-- <form class="row">
                 <div class="form-group col-md-6">
                     <input type="text" class="form-control form-control-line" value="col-md-6">
                 </div>
@@ -61,155 +64,7 @@
                     <label>Text area</label>
                     <textarea class="form-control" rows="5"></textarea>
                 </div>
-            </form>
-        </div>
-        <div class="row">
-            <h3>Horizontal Forms</h3>
-            <form>
-                <div class="form-group">
-                    <label for="exampleInputText1">Simple Text Value</label>
-                    <input type="text" class="form-control" id="exampleInputText1" placeholder="Text Value">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="email@foo.com">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputText2">Simple Text Input with Helper Text</label>
-                    <input type="text" class="form-control" id="exampleInputText2" placeholder="Text Value">
-                    <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="form-group">
-                    <label for="exampleTextarea1">Textarea</label>
-                    <textarea class="form-control" id="exampleTextarea1" placeholder="Textarea"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="exampleSelect1">Select</label>
-                    <select class="form-control" id="exampleSelect1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <input type="file" id="exampleInputFile">
-                    <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Option one is this and that&mdash;be sure to include why it's great
-                    </label>
-                </div>
-                <div class="checkbox disabled">
-                    <label>
-                        <input type="checkbox" value="" disabled>
-                        Option two is disabled
-                    </label>
-                </div>
-
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                        Option one is this and that&mdash;be sure to include why it's great
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                        Option two can be something else and selecting it will deselect option one
-                    </label>
-                </div>
-                <div class="radio disabled">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
-                        Option three is disabled
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-default">Reset</button>
-            </form>
-        </div>
-        <div class="row">
-            <h3>Basic Forms</h3>
-            <form>
-                <div class="form-group">
-                    <label for="exampleInputText1">Simple Text Value</label>
-                    <input type="text" class="form-control" id="exampleInputText1" placeholder="Text Value">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="email@foo.com">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputText2">Simple Text Input with Helper Text</label>
-                    <input type="text" class="form-control" id="exampleInputText2" placeholder="Text Value">
-                    <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="form-group">
-                    <label for="exampleTextarea1">Textarea</label>
-                    <textarea class="form-control" id="exampleTextarea1" placeholder="Textarea"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="exampleSelect1">Select</label>
-                    <select class="form-control" id="exampleSelect1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <input type="file" id="exampleInputFile">
-                    <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Option one is this and that&mdash;be sure to include why it's great
-                    </label>
-                </div>
-                <div class="checkbox disabled">
-                    <label>
-                        <input type="checkbox" value="" disabled>
-                        Option two is disabled
-                    </label>
-                </div>
-
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                        Option one is this and that&mdash;be sure to include why it's great
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                        Option two can be something else and selecting it will deselect option one
-                    </label>
-                </div>
-                <div class="radio disabled">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
-                        Option three is disabled
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-default">Reset</button>
-            </form>
+            </form> -->
         </div>
     </div>
 </template>

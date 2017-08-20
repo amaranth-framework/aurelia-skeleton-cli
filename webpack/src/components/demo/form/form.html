@@ -2,10 +2,10 @@
     <select value.bind="mode">
         <option repeat.for="item of settings.modes" model.bind="item">${item.label}</option>
     </select>
-    <form class.bind="mode.style">
-        <div repeat.for="input of settings.inputs" class.bind="input.style" class="form-group">
+    <!-- <form class.bind="mode.style">
+        <div repeat.for="input of settings.inputs" class.bind="input.style" class="form-group"> -->
             <!-- Display label for nont .form--material -->
-            <label if.bind="mode.style.indexOf('form--material') < 0"
+            <!-- <label if.bind="mode.style.indexOf('form--material') < 0"
                 class.bind="(mode.style.indexOf('form-horizontal') > -1) ? 'col-md-3' : ''"
                 for="input-${$index}">${input.label}</label>
 
@@ -45,10 +45,10 @@
                             disabled.bind="item.indexOf('Disabled') > -1">
                         <span></span> ${item}
                     </label>
-                </div>
+                </div> -->
 
                 <!-- Display label for .form--material -->
-                <label if.bind="mode.style.indexOf('form--material') > -1" for="input-${$index}">${input.label}</label>
+                <!-- <label if.bind="mode.style.indexOf('form--material') > -1" for="input-${$index}">${input.label}</label>
 
                 <span if.bind="input.style === 'is-error'" class="help-block is-error" repeat.for="x of ['First', 'Second']">
                     ${x} message error.
@@ -60,5 +60,5 @@
         </div>
         <button type="submit" click.trigger="submitSimpleForm()" class="btn btn-primary">Submit</button>
         <button type="reset" class="btn btn-default">Reset</button>
-    </form>
+    </form> -->
 </template>
