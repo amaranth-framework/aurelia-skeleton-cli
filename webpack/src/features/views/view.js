@@ -92,8 +92,10 @@ export class View extends Base {
      */
     /**
      * Invoked when the view that contains the extension is detached from the DOM.
-     * @method detached
      */
+    detached() {
+        this.eventdDispose();
+    }
     /**
      * Invoked when the databinding engine unbinds the view.
      * @method unbind

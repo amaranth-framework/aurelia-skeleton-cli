@@ -7,8 +7,9 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { Router } from 'aurelia-router';
 
 import UUID from 'uuid-js';
-import { excludes, traits } from 'traits-decorator'
+import { excludes, traits } from 'traits-decorator';
 
+import {Eventable} from 'features/traits/eventable';
 import {Loggable} from 'features/traits/loggable';
 import {RESTable} from 'features/traits/restable';
 import { waitForVariable, extend, className, parentClassName } from 'features/utils';
@@ -16,7 +17,7 @@ import { waitForVariable, extend, className, parentClassName } from 'features/ut
 /**
  * Aurelia class base for almost each functionality we may build.
  */
-@traits(Loggable::excludes('toString'),RESTable)
+@traits(Eventable,Loggable::excludes('toString'),RESTable)
 @inject(API, AureliaConfiguration, EventAggregator, I18N, Router)
 export class Base {
     /**
