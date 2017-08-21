@@ -94,7 +94,7 @@ export class ComponentHelperForm extends Component {
      */
     init() {
         super.init();
-        this.eventsAdd(`form:${this.settings.name}:validate`, this.validate());
+        this.subscribeEvent(`form:${this.settings.name}:validate`, this.validate());
         this.events.publish(`form:${this.settings.name}:init`, this);
     }
     /**
@@ -104,6 +104,14 @@ export class ComponentHelperForm extends Component {
      */
     isCheckable(input) {
         return /checkbox|radio/.test(input.type)
+    }
+    /**
+     * [isComponent description]
+     * @param {Object}  input
+     * @return {Boolean}
+     */
+    isComponent(input) {
+        return input.type === 'component';
     }
     /**
      * Determine whether the form has 'form-horizontal' style or not.

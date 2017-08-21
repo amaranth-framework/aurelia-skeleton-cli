@@ -26,12 +26,17 @@
 
                 <!--  Checkbox/Radio Lists -->
                 <div if.bind="isCheckable(input)" class="${input.type}">
-                    <label repeat.for="item of input.values" for="input-${input.type}-${$index}">
+                    <label repeat.for="item of input.values" for="input-${input.type}-${$parent.$index}-${$index}">
                         <input checked.bind="input.value" disabled.bind="item.disabled"
                             model.bind="item" name.bind="getInputName(input, $parent.$index)"
-                            type.bind="input.type" id="input-${input.type}-${$index}">
+                            type.bind="input.type" id="input-${input.type}-${$parent.$index}-${$index}">
                         <span></span> ${item.label}
                     </label>
+                </div>
+
+                <!-- Component -->
+                <div if.bind="isComponent(input)" class="${input.type}">
+
                 </div>
 
                 <!-- Display label for .form--material -->

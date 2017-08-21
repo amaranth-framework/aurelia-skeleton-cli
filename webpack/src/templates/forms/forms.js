@@ -133,7 +133,7 @@ export class TemplateForms extends Template {
             }
         });
 
-        this.eventsAdd('form:default:init', (form) => {
+        this.subscribeEvent('form:default:init', (form) => {
             console.log(form, form.data);
             ValidationRules
                 .ensure('text').displayName('Text Input')
@@ -144,11 +144,11 @@ export class TemplateForms extends Template {
                 .on(form.data);
         });
 
-        this.eventsAdd('form:default:validated', (data) => {
+        this.subscribeEvent('form:default:validated', (data) => {
             messg.success('Form validated succesfully.');
         });
 
-        this.eventsAdd('form:default:invalid', (data) => {
+        this.subscribeEvent('form:default:invalid', (data) => {
             messg.success('Form invalid.');
         });
     }
