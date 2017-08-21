@@ -40,33 +40,29 @@ export class ComponentHelperForm extends Component {
      */
     constructor(validationController, ...args) {
         super(...args);
-        /**
-         * @type ValidationController
-         */
-        this.vc = validationController;
-        this.vc.validateTrigger = validateTrigger.blur;
+
+        this.validationController = validationController;
+        this.validationController.validateTrigger = validateTrigger.change;
+
+        this.data = {};
     }
     /**
      * @see View::attached()
      */
     attached() {
+        this.validationController.validate();
         this.events.publish(`form:${this.settings.name}:attached`, this);
-    }
-    /**
-     * Getter: Obtain form data object.
-     * @method data
-     * @return {Object}
-     */
-    get data() {
-        let chunks = this.inputs.map((input) => {
-            let chunk = {};
-            if (input.name) {
-                chunk[input.name] = input.value || null;
-            }
-            return chunk;
-        });
-        chunks.unshift({});
-        return extend.apply(null, chunks);
+
+        // ValidationRules
+        //     .ensure('firstName').displayName('firstName')
+        //     .required()
+        //     .ensure('text').displayName('Text Input')
+        //     .required()
+        //     .ensure('email').displayName('Email Input')
+        //     .email().withMessage(`\${$displayName} must be an email.`)
+        //     .required()
+        //     // .on(form);
+        //     .on(this.data);
     }
     /**
      * @see View::detached()
@@ -74,6 +70,30 @@ export class ComponentHelperForm extends Component {
     detached() {
         super.detached();
         this.events.publish(`form:${this.settings.name}:detached`, this);
+    }
+    /**
+     * Obtain
+     * @param  {[type]}       input [description]
+     * @return {[type]}             [description]
+     */
+    getBindingName(input, index = 0) {
+        return input.name || this.getInputName(input, index);
+    }
+    /**
+     * Obtain name for errors variable, for a certain input
+     * @param  {Object} input
+     * @return {String}
+     */
+    getBindingErrorsName(input, index = 0) {
+        return this.getBindingName(input, index) + 'Errors';
+    }
+    /**
+     * Obtain a generig id for a certain input.
+     * @param  {Number}   index
+     * @return {String}
+     */
+    getInputId(index = 0) {
+        return `input-${index}-${this.__uuid.toString()}`
     }
     /**
      * Define the name for a certain input.
@@ -94,8 +114,15 @@ export class ComponentHelperForm extends Component {
      */
     init() {
         super.init();
-        this.subscribeEvent(`form:${this.settings.name}:validate`, this.validate());
+        this.subscribeEvent(`form:${this.settings.name}:validate`, () => this.validate());
         this.events.publish(`form:${this.settings.name}:init`, this);
+    }
+    /**
+     * Getter: Calculate style for input div wrapper.
+     * @return {String}
+     */
+    get inputStyle() {
+        return this.isHorizontalForm() ? this.settings.styles.inputAsCol : '';
     }
     /**
      * [isTextarea description]
@@ -155,6 +182,13 @@ export class ComponentHelperForm extends Component {
             || /^(color|date(time-local)?|email|image|month|number|password|range|search|te(l|xt)|time|url|week)$/.test(input.type);
     }
     /**
+     * Getter: Calculate style for label.
+     * @return {[type]}
+     */
+    get labelStyle() {
+        return this.isHorizontalForm() ? this.settings.styles.labelAsCol : ''
+    }
+    /**
      * Calculate a marker for specifying the input is filled in, only for material style.
      * @method materialFilledMarker
      * @param  {Object}  input
@@ -167,11 +201,34 @@ export class ComponentHelperForm extends Component {
      * Validate method.
      */
     async validate() {
-        const RESULT = await this.vc.validate();
+        const RESULT = await this.validationController  .validate();
+        console.log('validating', RESULT, this.data);
         if (RESULT.valid) {
             this.events.publish(`form:${this.settings.name}:validated`, this.data);
             return;
         }
-        this.events.pubslih(`form:${this.settings.name}:invalid`);
+        this.events.publish(`form:${this.settings.name}:invalid`);
+    }
+    /**
+     *
+     */
+    validationStyle(input, index) { //, errors, value) {
+        // have errors
+        let errors = this[this.getBindingErrorsName(input, index)] && this[this.getBindingErrorsName(input, index)].length;
+        // errors = errors && errors.length;
+        // have value and value has length
+        let value = this.data[this.getBindingName(input, index)] && this.data[this.getBindingName(input, index)].length;
+        // value = value && value.length;
+        // validation class name
+        let validationClass = '';
+        // if filled in and no errors
+        if (value && !errors) {
+            validationClass = 'is-valid';
+        }
+        // if errors
+        if (errors) {
+            validationClass = 'is-error';
+        }
+        return `${input.style || ''} ${validationClass}`;
     }
 }

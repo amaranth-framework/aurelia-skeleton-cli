@@ -1,4 +1,4 @@
-import { ValidationRules } from 'aurelia-validation';
+import {validateTrigger, ValidationController, ValidationRules} from 'aurelia-validation';
 
 import messg from 'messg';
 import 'messg/index.css';
@@ -119,6 +119,31 @@ export class TemplateForms extends Template {
             },
         ]
     };
+    constructor(...args) {
+        super(...args);
+
+        this.subscribeEvent('form:default:init', (form) => {
+            
+            form.data = {
+                text: 'Valid Content',
+                email: 'Invalid Content'
+            };
+
+            ValidationRules
+                .ensure('text').displayName('Text Input')
+                .required()
+                .ensure('email').displayName('Email Input')
+                .email().withMessage(`\${$displayName} must be an email.`)
+                .required()
+                .on(form.data);
+
+            form.validationController.validate();
+        });
+
+        this.subscribeEvent('form:default:validated', (data) => messg.success('Form validated succesfully.'));
+
+        this.subscribeEvent('form:default:invalid', () => messg.warning('Form invalid.'));
+    }
     /**
      * @see View::init()
      */
@@ -131,25 +156,6 @@ export class TemplateForms extends Template {
                     input.value = [input.value];
                 }
             }
-        });
-
-        this.subscribeEvent('form:default:init', (form) => {
-            console.log(form, form.data);
-            ValidationRules
-                .ensure('text').displayName('Text Input')
-                    .required()
-                .ensure('email').displayName('Email Input')
-                    .email().withMessage(`\${$displayName} must be an email.`)
-                    .required()
-                .on(form.data);
-        });
-
-        this.subscribeEvent('form:default:validated', (data) => {
-            messg.success('Form validated succesfully.');
-        });
-
-        this.subscribeEvent('form:default:invalid', (data) => {
-            messg.success('Form invalid.');
         });
     }
     // /**

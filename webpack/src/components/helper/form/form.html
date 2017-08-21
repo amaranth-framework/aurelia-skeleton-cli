@@ -1,38 +1,52 @@
 <template>
-    <form class.bind="style" id.bind="settings.name" name.bind="settings.name">
-        <!-- This is a Bootstrap 3 form, so we're using .form-group -->
-        <div repeat.for="input of inputs" class.bind="input.style" class="form-group">
-            <!-- Standard Bootstrap form label. -->
-            <label if.bind="!isMaterialForm()"
-                class.bind="isHorizontalForm() ? settings.styles.labelAsCol : ''"
-                for="input-${$index}">${input.label}</label>
+    <require from="./form.less"></require>
 
-            <div class.bind="isHorizontalForm() ? settings.styles.inputAsCol : ''">
+    <form class.bind="style" id.bind="settings.name" name.bind="settings.name">
+
+        <!-- <div class="form-group checkout__input checkout__input--first-name" validation-errors.bind="firstNameErrors" css.bind="cssStyle('firstName')">
+            <label t="[html]${settings.form.labels.firstName}" for="firstName">First Name<abbr class="text-danger" title="Mandatory field">*</abbr></label>
+            <div class="input-wrap">
+                <input type="text" class="form-control" value.bind="data.firstName & validate" id="firstName" name="firstName" tabindex.bind="settings.form.index.firstName">
+            </div>
+            <span class="help-block" repeat.for="errorInfo of firstNameErrors">
+                ${errorInfo.error.message}
+            </span>
+        </div> -->
+
+        <!-- This is a Bootstrap 3 form, so we're using .form-group -->
+        <div class.bind="validationStyle(input, $index, $parent[getBindingErrorsName(input, $index)], data[getBindingName(input, $index)])" repeat.for="input of inputs"
+                validation-errors.bind="$parent[getBindingErrorsName(input, $index)]" class="form-group">
+
+            <!-- Standard Bootstrap form label. -->
+            <label class.bind="labelStyle" for.bind="getInputId($index)" if.bind="!isMaterialForm()">${input.label}</label>
+
+            <div class.bind="inputStyle">
 
                 <!-- Input / text, password, date, file -->
-                <input if.bind="isTextInput(input)" value.bind="input.value" placeholder="${input.label}"
-                    class.bind="materialFilledMarker(input)" type.bind="input.type" id="input-${$index}" class="form-control">
+                <input class.bind="materialFilledMarker(input)" id.bind="getInputId($index)" if.bind="isTextInput(input)"
+                     placeholder="${input.placeholder || input.label}" type.bind="input.type"
+                     value.bind="data[getBindingName(input, $index)] & validate" class="form-control">
 
                 <!-- Textarea -->
-                <textarea if.bind="isTextarea(input)" value.bind="input.value" placeholder="${input.label}"
-                    class.bind="materialFilledMarker(input)" id="input-${$index}" class="form-control"></textarea>
+                <!-- <textarea if.bind="isTextarea(input)" value.bind="data[getBindingName(input, $index)]" placeholder="${input.label}"
+                    class.bind="materialFilledMarker(input)" id="getInputId($index)" class="form-control"></textarea> -->
 
                 <!-- Select -->
-                <select if.bind="isSelect(input)" value.bind="input.value"
-                        id="input-${$index}" class="form-control">
+                <!-- <select if.bind="isSelect(input)" value.bind="data[getBindingName(input, $index)]"
+                        id="getInputId($index)" class="form-control">
                     <option disabled.bind="item.disabled" label.bind="item.label"
                         model.bind="item" repeat.for="item of input.values">${item.label}</option>
-                </select>
+                </select> -->
 
                 <!--  Checkbox/Radio Lists -->
-                <div if.bind="isCheckable(input)" class="${input.type}">
+                <!-- <div if.bind="isCheckable(input)" class="${input.type}">
                     <label repeat.for="item of input.values" for="input-${input.type}-${$parent.$index}-${$index}">
-                        <input checked.bind="input.value" disabled.bind="item.disabled"
+                        <input checked.bind="data[input.name || getInputName(input, $parent.$index)]" disabled.bind="item.disabled"
                             model.bind="item" name.bind="getInputName(input, $parent.$index)"
                             type.bind="input.type" id="input-${input.type}-${$parent.$index}-${$index}">
                         <span></span> ${item.label}
                     </label>
-                </div>
+                </div> -->
 
                 <!-- Component -->
                 <div if.bind="isComponent(input)" class="${input.type}">
@@ -40,13 +54,13 @@
                 </div>
 
                 <!-- Display label for .form--material -->
-                <label if.bind="isMaterialForm()" for="input-${$index}">${input.label}</label>
+                <label for.bind="getInputId($index)" if.bind="isMaterialForm()">${input.label}</label>
 
-                <span if.bind="input.style === 'is-error'" class="help-block is-error" repeat.for="x of ['First', 'Second']">
-                    ${x} message error.
-                </span>
                 <span if.bind="input.helpblock" class="help-block">
                     ${input.helpblock}
+                </span>
+                <span repeat.for="x of $parent[getBindingErrorsName(input, $index)]" class="help-block is-error">
+                    ${x.error.message}
                 </span>
             </div>
         </div>
