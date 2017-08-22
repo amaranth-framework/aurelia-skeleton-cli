@@ -213,11 +213,19 @@ export class ComponentHelperForm extends Component {
      *
      */
     validationStyle(input, index) { //, errors, value) {
+        let bindingName = this.getBindingName(input, index);
+        let bindingErrorsName = this.getBindingErrorsName(input, index);
+        // test whether there are rules to validate the field
+        let ruleFilter = (item) => item.property && item.property.name === bindingName;
+        let setFilter = (set) => set.filter(ruleFilter).length;
+        if (!this.data.__rules__ || !this.data.__rules__.filter(setFilter).length) {
+            return input.style || '';
+        }
         // have errors
-        let errors = this[this.getBindingErrorsName(input, index)] && this[this.getBindingErrorsName(input, index)].length;
+        let errors = this[bindingErrorsName] && this[bindingErrorsName].length;
         // errors = errors && errors.length;
         // have value and value has length
-        let value = this.data[this.getBindingName(input, index)] && this.data[this.getBindingName(input, index)].length;
+        let value = this.data[bindingName] && this.data[bindingName].length;
         // value = value && value.length;
         // validation class name
         let validationClass = '';

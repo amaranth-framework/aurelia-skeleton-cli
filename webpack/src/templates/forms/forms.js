@@ -78,6 +78,7 @@ export class TemplateForms extends Template {
             {
                 label: 'Checkboxes',
                 type: 'checkbox',
+                name: 'check1',
                 values: [
                     { label: 'First Selectable Item', value: 5 },
                     { label: 'Second Selectable Item', value: 6 },
@@ -88,6 +89,7 @@ export class TemplateForms extends Template {
             {
                 label: 'Radio Buttons',
                 type: 'radio',
+                name: 'check2',
                 values: [
                     { label: 'First Selectable Item', value: 9 },
                     { label: 'Second Selectable Item', value: 10 },
@@ -99,6 +101,7 @@ export class TemplateForms extends Template {
                 label: 'Checkboxes Inline',
                 type: 'checkbox',
                 style: 'form-group--inline',
+                name: 'check3',
                 values: [
                     { label: 'First Selectable Item', value: 13 },
                     { label: 'Second Selectable Item', value: 14 },
@@ -110,6 +113,7 @@ export class TemplateForms extends Template {
                 label: 'Radio Buttons Inline',
                 type: 'radio',
                 style: 'form-group--inline',
+                name: 'check4',
                 values: [
                     { label: 'First Selectable Item', value: 17 },
                     { label: 'Second Selectable Item', value: 18 },
@@ -123,12 +127,22 @@ export class TemplateForms extends Template {
         super(...args);
 
         this.subscribeEvent('form:default:init', (form) => {
-            
+            // setting default values for validated fields
             form.data = {
                 text: 'Valid Content',
                 email: 'Invalid Content'
             };
 
+            // just setting default vaules for checkable inputs
+            this.inputs.basic.forEach((input) => {
+                if (/checkbox|radio|select/.test(input.type)) {
+                    form.data[form.getBindingName(input)] = input.values[1];
+                    if (input.type === 'checkbox') {
+                        form.data[form.getBindingName(input)] = [form.data[form.getBindingName(input)]];
+                    }
+                }
+            });
+            // validation rules
             ValidationRules
                 .ensure('text').displayName('Text Input')
                 .required()
@@ -136,37 +150,10 @@ export class TemplateForms extends Template {
                 .email().withMessage(`\${$displayName} must be an email.`)
                 .required()
                 .on(form.data);
-
-            form.validationController.validate();
         });
 
         this.subscribeEvent('form:default:validated', (data) => messg.success('Form validated succesfully.'));
 
         this.subscribeEvent('form:default:invalid', () => messg.warning('Form invalid.'));
     }
-    /**
-     * @see View::init()
-     */
-    init() {
-        super.init();
-        this.inputs.basic.forEach((input) => {
-            if (/checkbox|radio|select/.test(input.type)) {
-                input.value = input.values[1];
-                if (input.type === 'checkbox') {
-                    input.value = [input.value];
-                }
-            }
-        });
-    }
-    // /**
-    //  *
-    //  */
-    // async submitSimpleForm() {
-    //     let result = await this.vc.validate();
-    //     if (result.valid) {
-    //         alert('Form is valid!');
-    //     } else {
-    //         this.logger.warn('Not validating!', this.vc.errors);
-    //     }
-    // }
 }
