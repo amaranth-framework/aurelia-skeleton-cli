@@ -3,7 +3,8 @@ import {validateTrigger, ValidationController, ValidationRules} from 'aurelia-va
 import messg from 'messg';
 import 'messg/index.css';
 
-import { Template } from 'features/views/template';
+import {Template} from 'features/views/template';
+import {extend} from 'features/utils';
 
 export class TemplateForms extends Template {
     /**
@@ -25,6 +26,10 @@ export class TemplateForms extends Template {
             content: {
                 title: 'Forms'
             }
+        },
+
+        basic: {  // settings for basic form
+            style: 'form-horizontal col-md-8 col-md-offset-2'
         }
     }
     /**
@@ -32,10 +37,10 @@ export class TemplateForms extends Template {
      */
     overrideSettingsKey = 'templates.forms';
     /**
-     * Used for input samples.
-     * @type Number
+     * Used for form style.
+     * @type String
      */
-    index = 1;
+    formStyle = 'col-md-8 col-md-offset-2';
     /**
      * Form settings.
      * @type {Object}
@@ -123,6 +128,31 @@ export class TemplateForms extends Template {
             },
         ]
     };
+    /**
+     * Form classes.
+     * @type {Array}
+     */
+    modes = [
+        {
+            'style': 'col-md-8 col-md-offset-2',
+            'label': 'Standard Form'
+        },
+        {
+            'style': 'form-horizontal col-md-8 col-md-offset-2',
+            'label': 'Horizontal Form'
+        },
+        {
+            'style': 'form--material col-md-8 col-md-offset-2',
+            'label': 'Material Form'
+        },
+        {
+            'style': 'form--material form--material-no-labels col-md-8 col-md-offset-2',
+            'label': 'Material Form with no Labels'
+        }
+    ];
+    /**
+     * @see View::constructor()
+     */
     constructor(...args) {
         super(...args);
 

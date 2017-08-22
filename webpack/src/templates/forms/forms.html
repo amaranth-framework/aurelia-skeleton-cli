@@ -7,11 +7,28 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <h3>Basic Forms</h3>
+            <form class="form-horizontal col-md-12">
+                <h3>Basic Forms</h3>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="form-style-basic" class="col-sm-2 control-label">Form Style</label>
+                        <div class="col-sm-10">
+                            <select value.bind="formStyle" class="form-control" id="form-style-basic">
+                               <option repeat.for="item of modes" value.bind="item.style">${item.label}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-md-6"></div> -->
+            </form>
+        </div>
+        <div class="row">
             <compose containerless view-model="components/helper/form/form"
-                model.bind="{ settings: settings.basic, inputs: inputs.basic }" ></compose>
-            <button click.trigger="events.publish('form:default:validate')" class="btn btn-primary" type="submit">Submit</button>
-            <button click.trigger="events.publish('form:default:reset')" class="btn btn-default" type="reset">Reset</button>
+                model.bind="{ settings: { style: formStyle }, inputs: inputs.basic }" ></compose>
+            <div class.bind="formStyle">
+                <button click.trigger="events.publish('form:default:validate')" class="btn btn-primary" type="submit">Submit</button>
+                <button click.trigger="events.publish('form:default:reset')" class="btn btn-default" type="reset">Reset</button>
+            </div>
 		</div>
         <div class="row">
             <h3>Grid Sample</h3>

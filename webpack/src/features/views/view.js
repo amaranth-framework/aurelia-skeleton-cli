@@ -143,8 +143,7 @@ export class View extends Base {
                 this.overrideSettings,              // global settings provided by config.json
                 this.settings,                      // settings obtained from application route
                 // settings provided by config file mentioned in `_settingsPath`
-                (this.settings && this.settings._settingsPath) ?
-                await this.configApi.get(`${this.settings._settingsPath}.json`) : {}
+                (this.settings && this.settings._settingsPath) ? await this.configApi.get(`${this.settings._settingsPath}.json`) : {}
             );
             // this.logger.debug('ModelView::mergeSettings => settings:', this.settings);
         }
