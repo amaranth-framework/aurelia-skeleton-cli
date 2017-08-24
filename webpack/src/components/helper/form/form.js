@@ -65,27 +65,52 @@ export class ComponentHelperForm extends Component {
         //     .on(this.data);
     }
     /**
-     * @see View::detached()
+     * Obtain name for errors variable, for a certain input
+     * @param  {Object} input
+     * @return {String}
      */
-    detached() {
-        super.detached();
-        this.events.publish(`form:${this.settings.name}:detached`, this);
+    bindingErrorsName(input, index = 0) {
+        return this.bindingName(input, index) + 'Errors';
+    }
+    /**
+     * Calculate a marker for specifying the input is filled in, only for material style.
+     * @method materialFilledMarker
+     * @param  {Object}  input
+     * @return {String}
+     */
+    bindingFilledMarker(input, index = 0) {
+        // get input binding name
+        const bindingName = this.bindingName(input, index);
+        // obtain a getter name for our property
+        const bingingNameIsFilled = bindingName + 'IsFilled';
+        // find out if it already has descriptors
+        const propertyDescriptor = Object.getOwnPropertyDescriptor(this, bingingNameIsFilled);
+        // if so... leave it alone
+        if (propertyDescriptor && propertyDescriptor.get) {
+            return bingingNameIsFilled;
+        }
+        // create the descriptor for the getter
+        Object.defineProperty(this, bingingNameIsFilled, {
+            get: function() {
+                return (this.data[bindingName] && (new String(this.data[bindingName])).length) ? 'is-not-empty' : '';
+            }
+        });
+        return bingingNameIsFilled;
     }
     /**
      * Obtain
      * @param  {[type]}       input [description]
      * @return {[type]}             [description]
      */
-    getBindingName(input, index = 0) {
+    bindingName(input, index = 0) {
         return input.name || this.getInputName(input, index);
     }
     /**
-     * Obtain name for errors variable, for a certain input
-     * @param  {Object} input
-     * @return {String}
+     * @see View::detached()
      */
-    getBindingErrorsName(input, index = 0) {
-        return this.getBindingName(input, index) + 'Errors';
+    detached() {
+        super.detached();
+        this.events.publish(`form:${this.settings.name}:detached`, this);
     }
     /**
      * Obtain a generig id for a certain input.
@@ -189,15 +214,6 @@ export class ComponentHelperForm extends Component {
         return this.isHorizontalForm() ? this.settings.styles.labelAsCol : ''
     }
     /**
-     * Calculate a marker for specifying the input is filled in, only for material style.
-     * @method materialFilledMarker
-     * @param  {Object}  input
-     * @return {String}
-     */
-    materialFilledMarker(input) {
-        return (this.isMaterialForm() && input.value) ? 'is-not-empty' : '';
-    }
-    /**
      * Validate method.
      */
     async validate() {
@@ -213,8 +229,8 @@ export class ComponentHelperForm extends Component {
      *
      */
     validationStyle(input, index) { //, errors, value) {
-        let bindingName = this.getBindingName(input, index);
-        let bindingErrorsName = this.getBindingErrorsName(input, index);
+        let bindingName = this.bindingName(input, index);
+        let bindingErrorsName = this.bindingErrorsName(input, index);
         // test whether there are rules to validate the field
         let ruleFilter = (item) => item.property && item.property.name === bindingName;
         let setFilter = (set) => set.filter(ruleFilter).length;

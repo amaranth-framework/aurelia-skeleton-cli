@@ -40,7 +40,8 @@ export class TemplateForms extends Template {
      * Used for form style.
      * @type String
      */
-    formStyle = 'col-md-8 col-md-offset-2';
+    // formStyle = 'col-md-8 col-md-offset-2';
+    formStyle = 'form--material col-md-8 col-md-offset-2';
     /**
      * Form settings.
      * @type {Object}
@@ -166,9 +167,9 @@ export class TemplateForms extends Template {
             // just setting default vaules for checkable inputs
             this.inputs.basic.forEach((input) => {
                 if (/checkbox|radio|select/.test(input.type)) {
-                    form.data[form.getBindingName(input)] = input.values[1];
+                    form.data[form.bindingName(input)] = input.values[1];
                     if (input.type === 'checkbox') {
-                        form.data[form.getBindingName(input)] = [form.data[form.getBindingName(input)]];
+                        form.data[form.bindingName(input)] = [form.data[form.bindingName(input)]];
                     }
                 }
             });
