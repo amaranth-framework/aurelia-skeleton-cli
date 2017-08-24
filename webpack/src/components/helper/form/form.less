@@ -81,7 +81,9 @@ form {
      * Material Form
      */
     &.form--material {
-        & .form-control, & .form-group.is-error .form-control, & .form-group.is-valid .form-control {
+        & .form-control,
+        & .form-group.is-error .form-control,
+        & .form-group.is-valid .form-control {
             background-image: linear-gradient(@color-dark, @color-dark), linear-gradient(@color-neutral, @color-neutral);
             background-size: 0 2px, 100% 1px;
             background-repeat: no-repeat;
@@ -106,10 +108,25 @@ form {
                 position: relative;
                 top: @font-small * 3;
             }
-            &:focus + label, &.is-not-empty + label {
+            &:focus + label,
+            &.is-not-empty + label {
                 color: @color-dark;
                 top: 0;
                 font-weight: bold;
+            }
+        }
+        & .form-group.is-valid .form-control {
+            & + label,
+            &:focus + label,
+            &.is-not-empty + label {
+                color: @color-valid;
+            }
+        }
+        & .form-group.is-error .form-control {
+            & + label,
+            &:focus + label,
+            &.is-not-empty + label {
+                color: @color-error;
             }
         }
         select.form-control + label {
