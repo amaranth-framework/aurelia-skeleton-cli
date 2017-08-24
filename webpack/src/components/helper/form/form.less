@@ -25,6 +25,60 @@ form {
     }
     & .checkbox, & .radio {
         & label {
+            position: relative;
+            padding-right: @font-small * 2;
+        }
+        & input[type=checkbox],
+        & input[type=radio] {
+            visibility: hidden;
+            position: absolute;
+            & + span {
+                border: 1px solid @color-neutral;
+                border-radius: @font-small/4;
+                display: block;
+                height: @font-small;
+                left: 0;
+                position: absolute;
+                width: @font-small;
+                top: @font-small/4*3;
+            }
+            &:checked + span {
+                background-color: @color-dark;
+                border-color: @color-dark;
+                &::after {
+                    border: 3px solid @color-primary-light;
+                    border-left: 0;
+                    border-top: 0;
+                    content: " ";
+                    font-size: @font-small/4*3;
+                    height: @font-small;
+                    left: @font-small/4 + @font-small/8;
+                    position: absolute;
+                    top: -@font-small/4 - @font-small/8;
+                    transform: rotate(45deg);
+                    width: @font-small/2;
+                }
+            }
+        }
+        & input[type=radio] {
+            & + span {
+                border-radius: @font-small/2;
+            }
+            &:checked + span {
+                background-color: transparent;
+                &::after {
+                    background-color: @color-dark;
+                    border: 0;
+                    border-radius: 50%;
+                    height: @font-small/4*3;
+                    left: @font-small/16;
+                    top: @font-small/16;
+                    transform: rotate(0deg);
+                    width: @font-small/4*3;
+                }
+            }
+        }
+        & label {
             display: block;
         }
     }
