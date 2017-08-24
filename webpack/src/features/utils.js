@@ -1,4 +1,16 @@
-// import { LogManager } from 'aurelia-framework';
+import { LogManager } from 'aurelia-framework';
+
+const _logger = LogManager.getLogger('features/utils');
+
+export const SessionConfig = {
+    type: 'local',
+    key: '77021510ffced374d4e6707ddd57dfa3ebc6f04e'
+}
+
+export const EventsList = {
+    AUTH_USER_REQUESTED: 'auth:user:requested',
+    AUTH_USER_OFFERED: 'auth:user:offered',
+}
 
 /**
  * Extend the `target` object with all the objects behind him (in the list of params).
@@ -133,6 +145,21 @@ function relativeDate(t) {
  */
 export function removeCookie(name) {
     return !setCookie(name, '', { expires: -1 });
+}
+
+/**********************************************************************************************
+ * Decorators
+ **********************************************************************************************/
+/**
+ * Mark method/variable as deprectated within the condole.
+ * @method deprecate
+ * @param  {[type]}  target     [description]
+ * @param  {[type]}  key        [description]
+ * @param  {[type]}  descriptor [description]
+ * @return {[type]}             [description]
+ */
+export function deprecate(target, key, descriptor) {
+    _logger.warn(`Usage of ${className(target)}.${key} is deprecated. Please see documentation.`);
 }
 
 /**********************************************************************************************

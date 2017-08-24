@@ -1,6 +1,17 @@
-import { Model } from 'features/views/model';
+import { Model, properties } from 'features/views/model';
 
 export class User extends Model {
+    @properties([
+        '_id',
+        'email',
+        'name',
+        {name:'password',query:false},
+        {name:'type',default:'employee',type:'enum'},
+        'username',
+        {name:'venue',query:'name, _id'},
+        {name:'expire',default:''},
+        'updatedAt'
+    ])
     /**
      * @see ModelView:defaultSettings
      */
@@ -11,7 +22,9 @@ export class User extends Model {
         content: {},               // translation keys for different text/html components in the template
 
         service: {},               // possible service settings for component
-        services: {}              // possible services settings for component
+        services: {                // possible services settings for component
+            list: 'users'
+        }
     }
     /**
      * @see ModelView::overrideSettingsKey

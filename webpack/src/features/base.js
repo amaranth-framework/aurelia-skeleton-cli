@@ -29,7 +29,7 @@ export class Base {
      * @param {Router}               router Aurelia Router module
      */
     constructor(api, config, events, i18n, router) {
-        this.configure(api);
+        // this.configure(api);
         this.config = config;
         this.events = events;
         this.i18n = i18n;

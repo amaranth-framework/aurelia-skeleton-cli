@@ -34,7 +34,7 @@ export class App extends Base {
         // uncomment this if you're using authroization
         config.addAuthorizeStep(this.authStep);
         // map unknown routes to a certain template
-        config.mapUnknownRoutes(PLATFORM.moduleName('templates/status/404'));
+        config.mapUnknownRoutes(PLATFORM.moduleName('templates/statuses/404'));
         // map routes
         this.mapRoutes(config);
         // comment the line above and uncomment the one below, to load your router config from a REST service
@@ -60,10 +60,34 @@ export class App extends Base {
                 group: 'left-general'
             },
             {
+                route: 'users',
+                name: 'users',
+                moduleId: PLATFORM.moduleName('templates/users/users'),
+                nav: true,
+                title: 'Users',
+                group: 'left-forms'
+            },
+            {
+                route: '404',
+                name: '404',
+                moduleId: PLATFORM.moduleName('templates/statuses/404'),
+                title: 'Page does not exist.'
+            },
+            // Keep this only if you need inspiration
+            {
+                route: 'ui-elements',
+                name: 'ui-elements',
+                moduleId: PLATFORM.moduleName('templates/ui-elements/general'),
+                nav: true,
+                title: 'UI Elements',
+                group: 'left-forms',
+                routes: [ 'forms' , 'tables' ]
+            },
+            {
                 route: 'forms',
                 name: 'forms',
-                moduleId: PLATFORM.moduleName('templates/forms/forms'),
-                nav: true,
+                moduleId: PLATFORM.moduleName('templates/ui-elements/forms'),
+                nav: false,
                 title: 'Forms',
                 group: 'left-forms'//,
                 // routes: [ 'test1-child' ]
@@ -71,8 +95,8 @@ export class App extends Base {
             {
                 route: 'tables',
                 name: 'tables',
-                moduleId: PLATFORM.moduleName('templates/tables/tables'),
-                nav: true,
+                moduleId: PLATFORM.moduleName('templates/ui-elements/tables'),
+                nav: false,
                 title: 'Tables',
                 group: 'left-forms'
             },
@@ -82,12 +106,6 @@ export class App extends Base {
                 moduleId: PLATFORM.moduleName('templates/login/login'),
                 title: 'Login',
                 settings: { auth: false }
-            },
-            {
-                route: '404',
-                name: '404',
-                moduleId: PLATFORM.moduleName('templates/status/404'),
-                title: 'Page does not exist.'
             }
         ]);
     }

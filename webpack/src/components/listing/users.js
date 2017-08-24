@@ -19,7 +19,7 @@ export class ComponentTableDemoSimple extends ComponentHelperTable {
     /**
      * @see View::overrideSettingsKey
      */
-    overrideSettingsKey = 'components.table-demo-simple';
+    overrideSettingsKey = 'components.listing-users';
     /**
      * @see View::init()
      */
@@ -27,7 +27,7 @@ export class ComponentTableDemoSimple extends ComponentHelperTable {
         super.init();
         this.logger.debug('View service: ', this.settings.service);
         this.setTableLoading();
-        this.getEndpoint().find('users')
+        User.list()
             .then((result) => {
                 this.thead = ['#', 'Name', 'Email', 'Address', 'Company', 'Phone'];
                 this.tbody = result.map(_ => [

@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 
 import { Base } from 'features/base';
-import { extend } from 'features/utils';
+import { className, extend } from 'features/utils';
 
 /**
  * Abstract Class for all Model Views (Components) used within the project
