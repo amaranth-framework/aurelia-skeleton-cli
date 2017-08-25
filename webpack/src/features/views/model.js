@@ -143,21 +143,33 @@ export class Model extends Component {
     detached() {
         $('.modal-backdrop').fadeOut('fast');
     }
+    /**
+     * @singleton
+     * @type {[type]}
+     */
     static get instance() {
         if (!this.__instance__) {
             this.__instance__ = Container.instance.get(this);
         }
         return this.__instance__;
     }
-    static get newInstance() {
-        return new this();
-    }
     /**
      * @method load()
      * @param {Number} id?
      * @returns {Object}
      */
-    async load(id = null) {}
+    async load(id = null) {
+        this._id = this._id || id;
+
+        const model = this.instance;
+        if (model.canActivate && !model.canActivate()) {
+            throw Error(`'${className(model)}' could not pass by 'canActivate()' method.`);
+        }
+        model.activate();
+
+        const result = await model.getEndpoint(model.settings.endpoint || 'rest').findOne(model.settings.services.list, id);
+        this.setData(data);
+    }
     /**
      * List the entire set of entities from the table.
      * @param  {Array|String|null} properties
@@ -171,6 +183,17 @@ export class Model extends Component {
         }
         model.activate();
         return model.getEndpoint(model.settings.endpoint || 'rest').find(model.settings.services.list);
+    }
+    /**
+     * Set data to the model, from an external source.
+     * @param  {Object} data
+     */
+    setData(data) {
+        this._properties.forEach((key) => {
+            if (data[key] !== undefined) {
+                this[key] = data[key];
+            }
+        });
     }
     /**
      *
@@ -198,13 +221,13 @@ export class Model extends Component {
     }
 }
 
-export class ModelFactory {
-    static getModel(name) {
-        const getClass = new Function(`
-            if (typeof ${name} !== 'function') throw Error('Could not find \'${name}\' class. You need to import it separtely.');
-            return ${name};
-        `);
-        const entity = getClass();
-        return new entity();
-    }
-}
+// export class ModelFactory {
+//     static getModel(name) {
+//         const getClass = new Function(`
+//             if (typeof ${name} !== 'function') throw Error('Could not find \'${name}\' class. You need to import it separtely.');
+//             return ${name};
+//         `);
+//         const entity = getClass();
+//         return new entity();
+//     }
+// }
