@@ -1,9 +1,10 @@
-node_modules
-.idea
 .DS_STORE
-npm-debug.log*
-yarn-error.log
+.chrome
+.idea
 dist
+docs
+node_modules
+npm-debug.log*
 test/*coverage
 test/coverage*
-.chrome
+yarn-error.log

@@ -28,7 +28,10 @@ export class ComponentNavLeft extends ComponentHelperContent {
             {
                 type: 'left-profile',
                 module: PLATFORM.moduleName('models/user/user'),
-                view: PLATFORM.moduleName('models/user/left-profile.html')
+                view: PLATFORM.moduleName('models/user/left-profile.html'),
+                settings: {
+                    fromSession: true
+                }
             },
             {
                 type: 'left-nav',

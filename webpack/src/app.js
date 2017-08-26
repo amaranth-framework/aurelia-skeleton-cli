@@ -1,16 +1,14 @@
 import { inject } from 'aurelia-framework';
 
-// Uncomment import to use authorization step
-import { AuthorizeStep as AuthorizeStep } from 'features/authorize-step/authorize-step';
+import { AuthorizeStepJWT as AuthorizeStep } from 'features/authorize-step/authorize-step';
 import { Base } from 'features/base';
+import { EventsList, SessionConfig } from 'features/utils';
 
 /**
  * Application
  */
-// Uncomment @inject() to use authorization step
 @inject(AuthorizeStep)
 export class App extends Base {
-    // Uncomment constructor to use authorization step
     /**
      * Constructor
      * @see Base::constructor() for the rest of the arguments
@@ -19,6 +17,8 @@ export class App extends Base {
     constructor(authStep, ...args) {
         super(...args);
         this.authStep = authStep;
+        this.authStep.sessionConfig = SessionConfig;
+        this.config.set('auth-step', this.authStep);
     }
     /**
      * Configure Application router
@@ -42,6 +42,12 @@ export class App extends Base {
         this.router = router;
     }
     /**
+     * @see Base::init()
+     */
+    async activate() {
+        this.events.publish('authorize-step::user-required');
+    }
+    /**
      * Map routes from within the application class
      * @param  {RouterConfiguration}  config
      */
@@ -57,7 +63,10 @@ export class App extends Base {
                 moduleId: PLATFORM.moduleName('templates/home/home'),
                 nav: true,
                 title: 'Dashboard',
-                group: 'left-general'
+                group: 'left-general',
+                settings: {
+                    auth: true
+                }
             },
             {
                 route: 'users',
@@ -66,6 +75,14 @@ export class App extends Base {
                 nav: true,
                 title: 'Users',
                 group: 'left-forms'
+            },
+            {
+                route: 'users/:action?/:id?',
+                href: '/users/add',
+                name: 'users-edit',
+                moduleId: PLATFORM.moduleName('templates/users/users'),
+                nav: false,
+                title: 'Personnel - Edit'
             },
             {
                 route: '404',

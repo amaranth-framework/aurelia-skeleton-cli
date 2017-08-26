@@ -154,21 +154,15 @@ export class Model extends Component {
         return this.__instance__;
     }
     /**
-     * @method load()
+     * Load data for a certain model, by model's id.
      * @param {Number} id?
      * @returns {Object}
      */
     async load(id = null) {
-        this._id = this._id || id;
+        this.id = this.id || id;
 
-        const model = this.instance;
-        if (model.canActivate && !model.canActivate()) {
-            throw Error(`'${className(model)}' could not pass by 'canActivate()' method.`);
-        }
-        model.activate();
-
-        const result = await model.getEndpoint(model.settings.endpoint || 'rest').findOne(model.settings.services.list, id);
-        this.setData(data);
+        const result = await this.getEndpoint(this.settings.endpoint || 'rest').findOne(this.settings.services.load, id);
+        this.setData(result);
     }
     /**
      * List the entire set of entities from the table.
@@ -197,8 +191,8 @@ export class Model extends Component {
     }
     /**
      *
-     * @param  {[type]}             proto [description]
-     * @param  {[type]}             args  [description]
+     * @param  {[type]} proto
+     * @param  {[type]} args
      */
     @deprecate
     setModelPropertyList(proto, ...args) {
@@ -208,6 +202,14 @@ export class Model extends Component {
      * @returns {Boolean}
      */
     async save() {
+
+    }
+    /**
+     * Convert model to list of inputs for form component.
+     * @method toFormConfig
+     * @return {Object}
+     */
+    toInputs() {
 
     }
     /**

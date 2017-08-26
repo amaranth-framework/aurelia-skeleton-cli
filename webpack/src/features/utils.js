@@ -4,7 +4,7 @@ const _logger = LogManager.getLogger('features/utils');
 
 export const SessionConfig = {
     type: 'local',
-    key: '77021510ffced374d4e6707ddd57dfa3ebc6f04e'
+    key: 'secret'
 }
 
 export const EventsList = {

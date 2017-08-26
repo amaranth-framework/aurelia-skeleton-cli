@@ -2,7 +2,6 @@
 import { inject } from 'aurelia-framework';
 import { AureliaConfiguration } from 'aurelia-configuration';
 import { I18N } from 'aurelia-i18n';
-import { Config as API } from 'aurelia-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { Router } from 'aurelia-router';
 
@@ -18,7 +17,7 @@ import { waitForVariable, extend, className, parentClassName } from 'features/ut
  * Aurelia class base for almost each functionality we may build.
  */
 @traits(Eventable,Loggable::excludes('toString'),RESTable)
-@inject(API, AureliaConfiguration, EventAggregator, I18N, Router)
+@inject(AureliaConfiguration, EventAggregator, I18N, Router)
 export class Base {
     /**
      * Constructor
@@ -28,7 +27,7 @@ export class Base {
      * @param {I18N}                 i18n   aurelia-i18n plugin
      * @param {Router}               router Aurelia Router module
      */
-    constructor(api, config, events, i18n, router) {
+    constructor(config, events, i18n, router) {
         // this.configure(api);
         this.config = config;
         this.events = events;

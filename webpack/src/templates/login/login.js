@@ -41,7 +41,7 @@ export class TemplateLogin extends Template {
         super(...args);
         this.authStep = authStep;
 
-        this.user = 'foo@foo.com';
+        this.user = 'Sincere@april.biz';
         this.pass = 'foopass';
     }
 }
