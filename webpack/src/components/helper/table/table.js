@@ -1,7 +1,11 @@
-import {Component} from 'features/views/component';
-
 import Chance from 'chance';
 
+import { Component } from 'features/views/component';
+import { extend } from 'features/utils';
+
+/**
+ *
+ */
 export class ComponentHelperTable extends Component {
     /**
      * @see View::overrideSettingsKey
@@ -30,6 +34,26 @@ export class ComponentHelperTable extends Component {
     activate(...args) {
         super.activate(...args);
         console.log(this.settings);
+    }
+    /**
+     * @see View::defaultSettings()
+     * @return {Object}
+     */
+    get defaultSettings() {
+        return extend(true, super.defaultSettings, {
+            content: {     // translation keys for different text/html components in the template
+                columns: { // columns to be added to the table
+                    // '#': '#'
+                    // '#': {}
+                }
+            },
+            rows: { // row options
+                selectable: true, // whether to add select checkboxes in stead of row ids
+                editable: true,   // whether to show te edit button on each row
+                removable: true   // whether to show the remov button on each row
+            },
+
+        })
     }
     /**
      * Mark table in loading state.
