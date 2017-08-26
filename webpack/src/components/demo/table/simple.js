@@ -1,25 +1,23 @@
 import { ComponentHelperTable } from 'components/helper/table/table';
+import { extend } from 'features/utils';
 import { User } from 'models/user/user';
 
 export class ComponentTableDemoSimple extends ComponentHelperTable {
     /**
-     * @see View:defaultSettings
-     */
-    defaultSettings = {
-        style: '',                 // component's style - list of classes add to the component to be able to format it.
-        styles: {},                // set of classes that can be used throughout different sections of the component
-
-        content: {                 // translation keys for different text/html components in the template
-            caption: false
-        },
-
-        service: 'general.json',   // possible service settings for component
-        services: {}               // possible services settings for component
-    };
-    /**
      * @see View::overrideSettingsKey
      */
     overrideSettingsKey = 'components.table-demo-simple';
+    /**
+     * @see View::defaultSettings()
+     * @return {Object}
+     */
+    get defaultSettings() {
+        return extend(true, super.defaultSettings, {
+            content: {
+                caption: false
+            }
+        })
+    }
     /**
      * @see View::init()
      */

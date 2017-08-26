@@ -24,11 +24,12 @@ export class TemplateUsers extends Template {
         },
 
         users: {
-            
+
         }
     }
     /**
      * @see ModelView::overrideSettingsKey
      */
     overrideSettingsKey = 'templates.users';
+
 }

@@ -1,64 +1,59 @@
-import { ComponentHelperContent } from 'components/helper/content/content';
-
 import 'jquery';
+
+import { ComponentHelperContent } from 'components/helper/content/content';
+import { extend } from 'features/utils';
 
 /**
  *
  */
 export class ComponentNavLeft extends ComponentHelperContent {
     /**
-     * @see ModelView:defaultSettings
-     */
-    defaultSettings = {
-        style: '',                 // component's style - list of classes add to the component to be able to format it.
-        styles: {},                // set of classes that can be used throughout different sections of the component
-
-        content: {},               // translation keys for different text/html components in the template
-
-        service: {},               // possible service settings for component
-        services: {},              // possible services settings for component
-
-        toggle: true,
-
-        components: [
-            {
-                type: 'left-logo',
-                module: PLATFORM.moduleName('components/helper/logo/logo')
-            },
-            {
-                type: 'left-profile',
-                module: PLATFORM.moduleName('models/user/user'),
-                view: PLATFORM.moduleName('models/user/left-profile.html'),
-                settings: {
-                    fromSession: true
-                }
-            },
-            {
-                type: 'left-nav',
-                module: PLATFORM.moduleName('components/nav/nav'),
-                settings: {
-                    content: {
-                        title: 'General'
-                    },
-                    filter: { group: 'left-general', nav: true }
-                }
-            },
-            {
-                type: 'left-nav',
-                module: PLATFORM.moduleName('components/nav/nav'),
-                settings: {
-                    content: {
-                        title: 'Forms, Tables & Widgets'
-                    },
-                    filter: { group: 'left-forms', nav: true }
-                }
-            }
-        ]
-    }
-    /**
      * @see ModelView::overrideSettingsKey
      */
     overrideSettingsKey = 'components.nav-left';
+    /**
+     * @see View::defaultSettings()
+     * @return {Object}
+     */
+    get defaultSettings() {
+        return extend(true, super.defaultSettings, {
+            toggle: true,  // ?
+            components: [  // list of components to render
+                {
+                    type: 'left-logo',
+                    module: PLATFORM.moduleName('components/helper/logo/logo')
+                },
+                {
+                    type: 'left-profile',
+                    module: PLATFORM.moduleName('models/user/user'),
+                    view: PLATFORM.moduleName('models/user/left-profile.html'),
+                    settings: {
+                        fromSession: true
+                    }
+                },
+                {
+                    type: 'left-nav',
+                    module: PLATFORM.moduleName('components/nav/nav'),
+                    settings: {
+                        content: {
+                            title: 'General'
+                        },
+                        filter: { group: 'left-general', nav: true }
+                    }
+                },
+                {
+                    type: 'left-nav',
+                    module: PLATFORM.moduleName('components/nav/nav'),
+                    settings: {
+                        content: {
+                            title: 'Forms, Tables & Widgets'
+                        },
+                        filter: { group: 'left-forms', nav: true }
+                    }
+                }
+            ]
+        })
+    }
     /**
      * @see View::init()
      */

@@ -91,6 +91,24 @@ export class View extends Base {
      * @param {View} view
      */
     /**
+     * Default view settings, as follows
+     * - style: '',    => css classes for page (each class will be added to body element having page- prefix)
+     * - styles: {},   => set of css classes that can be used throughout different sections of the template
+     * - content: {},  => translation keys for different text/html components in the template
+     * - service: {},  => possible service settings for templates
+     * - services: {}  => possible services settings for templates
+     * @return {Object}
+     */
+    get defaultSettings() {
+        return {
+            style: '',
+            styles: {},
+            content: {},
+            service: {},
+            services: {}
+        }
+    }
+    /**
      * Invoked when the view that contains the extension is detached from the DOM.
      */
     detached() {
@@ -133,7 +151,7 @@ export class View extends Base {
         if (this.defaultSettings) {
             // this.logger.debug('ModelView::mergeSettings => overrideSettingsKey: ', this.overrideSettingsKey);
             // this.logger.debug('ModelView::mergeSettings => defaultSettings: ', extend({}, this.modelDefaultSettings || {}), this.defaultSettings);
-            let defaultSettings = extend(true, this.modelDefaultSettings || {}, this.defaultSettings || {});
+            let defaultSettings = extend(true, {}, this.defaultSettings || {});
             delete this.modelDefaultSettings;
             // this.logger.debug('ModelView::mergeSettings => settings split:', defaultSettings, this.overrideSettings, extend({}, this.settings || {}));
             this.settings = extend(

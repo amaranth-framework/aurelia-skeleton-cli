@@ -1,6 +1,7 @@
 import { Model, properties } from 'features/views/model';
 
 import { AuthorizeStepJWT as AuthorizeStep } from 'features/authorize-step/authorize-step';
+import { waitForVariable } from 'features/utils';
 
 export class User extends Model {
     @properties([
@@ -45,6 +46,7 @@ export class User extends Model {
         super.init();
         // Load user from session.
         if (this.settings.fromSession) {
+            console.log();
             const id = this.config.get('auth-step').sessionDecoded.id;
             this.logger.debug(`Loading user with id: '${id}' from session.`);
             this.load(id);

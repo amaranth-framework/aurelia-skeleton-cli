@@ -13,23 +13,6 @@ import {extend} from 'features/utils';
 @inject(NewInstance.of(ValidationController))
 export class ComponentHelperForm extends Component {
     /**
-     * @see View:defaultSettings
-     */
-    defaultSettings = {
-        style: '',    // component's style - list of classes add to the component to be able to format it.
-        styles: {     // set of classes that can be used throughout different sections of the component
-            labelAsCol: 'col-md-3',
-            inputAsCol: 'col-md-9'
-        },
-
-        content: {},  // translation keys for different text/html components in the template
-
-        service: {},  // possible service settings for component
-        services: {}, // possible services settings for component
-
-        name: 'default'
-    };
-    /**
      * @see View::overrideSettingsKey
      */
     overrideSettingsKey = 'components.helper-table';
@@ -104,6 +87,19 @@ export class ComponentHelperForm extends Component {
      */
     bindingName(input, index = 0) {
         return input.name || this.getInputName(input, index);
+    }
+    /**
+     * @see View::defaultSettings()
+     * @return {Object}
+     */
+    get defaultSettings() {
+        return extend(true, super.defaultSettings, {
+            styles: {
+                labelAsCol: 'col-md-3', // for form-horizontal, size of label
+                inputAsCol: 'col-md-9'  // for form-horizontal, size of element container
+            },
+            name: 'default'
+        })
     }
     /**
      * @see View::detached()

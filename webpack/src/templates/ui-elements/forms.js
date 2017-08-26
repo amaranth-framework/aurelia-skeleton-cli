@@ -8,31 +8,6 @@ import {extend} from 'features/utils';
 
 export class TemplateForms extends Template {
     /**
-     * @see View:defaultSettings
-     * @type {Object}
-     */
-    modelDefaultSettings = {
-        template: '',       // path to a different template for the View
-
-        style: '',          // classes for page (each class will be added to body element having page- prefix)
-        styles: {},         // set of classes that can be used throughout different sections of the template
-
-        content: {},        // translation keys for different text/html components in the template
-
-        service: {},        // possible service settings for templates
-        services: {},       // possible services settings for templates
-
-        pageTitle: {
-            content: {
-                title: 'Forms'
-            }
-        },
-
-        basic: {  // settings for basic form
-            style: 'form-horizontal col-md-8 col-md-offset-2'
-        }
-    }
-    /**
      * @see ModelView::overrideSettingsKey
      */
     overrideSettingsKey = 'templates.forms';
@@ -186,5 +161,22 @@ export class TemplateForms extends Template {
         this.subscribeEvent('form:default:validated', (data) => messg.success('Form validated succesfully.'));
 
         this.subscribeEvent('form:default:invalid', () => messg.warning('Form invalid.'));
+    }
+    /**
+     * @see View::defaultSettings()
+     * @return {Object}
+     */
+    get defaultSettings() {
+        return extend(true, super.defaultSettings, {
+            pageTitle: {
+                content: {
+                    title: 'Forms'
+                }
+            },
+
+            basic: {  // settings for basic form
+                style: 'form-horizontal col-md-8 col-md-offset-2'
+            }
+        })
     }
 }

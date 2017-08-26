@@ -5,27 +5,23 @@ import _ from 'lodash';
 import { extend } from 'features/utils';
 
 export class ComponentNavBreadcrumb extends Component {
-	/**
-     * @see ModelView:defaultSettings
-     */
-    defaultSettings = {
-        style: '',                 // component's style - list of classes add to the component to be able to format it.
-        styles: {},                // set of classes that can be used throughout different sections of the component
-
-        content: {                 // translation keys for different text/html components in the template
-			title: 'Page Title'
-		},
-
-        service: {},               // possible service settings for component
-        services: {},              // possible services settings for component
-
-        routes: [{route:''}],
-        filter: {}
-    }
     /**
      * @see ModelView::overrideSettingsKey
      */
     overrideSettingsKey = 'components.nav-breadcrumb';
+    /**
+     * @see View::defaultSettings()
+     * @return {Object}
+     */
+    get defaultSettings() {
+        return extend(true, super.defaultSettings, {
+            content: {
+                title: 'Page Title'
+            },
+            routes: [{route:''}],
+            filter: {}
+        })
+    }
 	/**
      * @see ModelView::init()
      */
@@ -65,13 +61,13 @@ export class ComponentNavBreadcrumb extends Component {
 	 * @param  {String} route  The name of the route you're searching for.
 	 * @return {Object|null}
 	 */
-	discoverRouteByName(route) {
-		let r = _.find(this.router.routes, (o) => o.route == route || o.route.includes(route));
-		if (r.redirect) {
-			r = _.find(this.router.routes, { route: r.redirect });
-		}
-		return r;
-	}
+    discoverRouteByName(route) {
+        let r = _.find(this.router.routes, (o) => o.route == route || o.route.includes(route));
+        if (r.redirect) {
+            r = _.find(this.router.routes, { route: r.redirect });
+        }
+        return r;
+    }
 	/**
 	 * [filterParams description]
 	 * @method filterParams

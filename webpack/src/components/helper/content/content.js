@@ -1,5 +1,7 @@
-import { Component } from 'features/views/component';
 import { Loader, inject } from 'aurelia-framework';
+
+import { Component } from 'features/views/component';
+import { extend } from 'features/utils';
 
 /**
  * Content Page template
@@ -7,19 +9,20 @@ import { Loader, inject } from 'aurelia-framework';
 @inject(Loader)
 export class ComponentHelperContent extends Component {
     /**
-     * @see ModelView::defaultSettings
-     */
-    defaultSettings = {
-        layout: '',
-        styles: {
-            inner: ''
-        }
-    };
-    /**
      * @see ModelView::overrideSettingsKey
      */
     overrideSettingsKey = 'components.helper-content';
-
+    /**
+     * @see View::defaultSettings()
+     * @return {Object}
+     */
+    get defaultSettings() {
+        return extend(true, super.defaultSettings, {
+            styles: {
+                inner: ''
+            }
+        })
+    }
     /**
      * @see Template::constructor()
      */

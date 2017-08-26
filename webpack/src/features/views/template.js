@@ -2,24 +2,6 @@ import {View} from 'features/views/view';
 
 export class Template extends View {
     /**
-     * @see View:defaultSettings
-     * In Template and Component class, this variable is named different because ECMAScript does not suppoer
-     * super.property. This artifice needs to be made in order to quit duplicating settings content all over
-     * the extending classes.
-     * @type {Object}
-     */
-    defaultSettings = {
-        template: '',       // path to a different template for the View
-
-        style: '',          // classes for page (each class will be added to body element having page- prefix)
-        styles: {},         // set of classes that can be used throughout different sections of the template
-
-        content: {},        // translation keys for different text/html components in the template
-
-        service: {},        // possible service settings for templates
-        services: {}        // possible services settings for templates
-    }
-    /**
      * Runs at module activation
      *
      * @param {Object} params Route params for module

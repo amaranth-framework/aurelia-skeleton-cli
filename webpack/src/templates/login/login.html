@@ -13,6 +13,6 @@
                 <input type="checkbox"> Keep me logged in.
             </label>
         </div>
-        <button type="submit" class="btn btn-default" click.trigger="authStep.login(user, pass)">Login</button>
+        <button type="submit" class="btn btn-default" click.trigger="config.get('auth-step').login(user, pass)">Login</button>
     </form>
 </template>
