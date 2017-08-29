@@ -7,6 +7,20 @@ export class ComponentTableDemoSimple extends ComponentHelperTable {
      */
     overrideSettingsKey = 'components.listing-users';
     /**
+     * [constructor description]
+     * @method constructor
+     * @param  {[type]}    args [description]
+     * @return {[type]}         [description]
+     */
+    constructor(...args) {
+        super(...args);
+
+        this.subscribeEvent('table:edit', (model) => {})
+        this.subscribeEvent('table:remove', (model) => {
+
+        })
+    }
+    /**
      * @see View::init()
      */
     async init() {

@@ -58,19 +58,19 @@
                         <input type="checkbox" click.trigger="selectAll()">
                     </th>
                     <th repeat.for="label of thead.slice(1)">${label}</th>
-                    <th if.bind="settings.rows"><i class="fa fa-cogs"></i></th>
+                    <th if.bind="settings.actions && settings.actions.length"><i class="fa fa-cogs"></i></th>
                 </tr>
             </thead>
             <tbody>
-                <tr repeat.for="row of tbody" id="${row.model._id}">
+                <tr repeat.for="row of tbody" id="${row.model.id}">
                     <th if.bind="!settings.rows.selectable" scope="row">${row[0]}</th>
                     <th if.bind="settings.rows.selectable" scope="row">
                         <input type="checkbox" value="${row[0]}">
                     </th>
                     <td repeat.for="item of row.slice(1)" innerhtml.bind='item'></td>
-                    <td>
-                        <a if.bind="settings.rows.editable" click.trigger="modelEdit(row)" href="#" title="Edit"><i class="fa fa-pencil"></i></a>
-                        <a if.bind="settings.rows.removable" click.trigger="modelRemove(row)" href="#" title="Remove"><i class="fa fa-trash"></i></a>
+                    <td if.bind="settings.actions && settings.actions.length">
+                        <a repeat.for="action of settings.actions" click.trigger="events.publish(action.event, row.model)"
+                            href="#" title="${action.title}"><i class="${action.icon}"></i></a>
                     </td>
                 </tr>
             </tbody>
