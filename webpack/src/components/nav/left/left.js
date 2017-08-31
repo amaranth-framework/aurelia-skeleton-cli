@@ -36,9 +36,19 @@ export class ComponentNavLeft extends ComponentHelperContent {
                     module: PLATFORM.moduleName('components/nav/nav'),
                     settings: {
                         content: {
-                            title: 'General'
+                            title: 'Demo Elements'
                         },
-                        filter: { group: 'left-general', nav: true }
+                        filter: { group: 'left-demo', nav: true }
+                    }
+                },
+                {
+                    type: 'left-nav',
+                    module: PLATFORM.moduleName('components/nav/nav'),
+                    settings: {
+                        content: {
+                            title: 'UI/UX Experience'
+                        },
+                        filter: { group: 'left-ui', nav: true }
                     }
                 },
                 {

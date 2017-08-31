@@ -5,7 +5,7 @@ import { extend, waitForVariable } from 'features/utils';
 
 export class User extends Model {
     @properties([
-        'id',
+        {name: 'id', formConfig: { type: 'hidden' }},
         'email',
         'name',
         'username'
@@ -46,6 +46,9 @@ export class User extends Model {
                 list: 'users',
                 load: 'users',
                 remove: 'users'
+            },
+            form: {
+                name: 'user-edit'
             }
         }, super.defaultSettings);
     }

@@ -15,7 +15,7 @@ export class ComponentHelperForm extends Component {
     /**
      * @see View::overrideSettingsKey
      */
-    overrideSettingsKey = 'components.helper-table';
+    overrideSettingsKey = 'components.helper-form';
     /**
      * @see Base::constructor()
      * @see View::constructor()
@@ -35,17 +35,6 @@ export class ComponentHelperForm extends Component {
     attached() {
         this.validationController.validate();
         this.events.publish(`form:${this.settings.name}:attached`, this);
-
-        // ValidationRules
-        //     .ensure('firstName').displayName('firstName')
-        //     .required()
-        //     .ensure('text').displayName('Text Input')
-        //     .required()
-        //     .ensure('email').displayName('Email Input')
-        //     .email().withMessage(`\${$displayName} must be an email.`)
-        //     .required()
-        //     // .on(form);
-        //     .on(this.data);
     }
     /**
      * Obtain name for errors variable, for a certain input
@@ -82,8 +71,8 @@ export class ComponentHelperForm extends Component {
     }
     /**
      * Obtain
-     * @param  {[type]}       input [description]
-     * @return {[type]}             [description]
+     * @param  {Object} input
+     * @return {Number}
      */
     bindingName(input, index = 0) {
         return input.name || this.getInputName(input, index);

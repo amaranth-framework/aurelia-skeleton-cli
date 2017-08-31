@@ -115,12 +115,6 @@ export function property(...args) {
  */
 export class Model extends Component {
     /**
-     * List of model's property keys.
-     * @private
-     * @type {Array}
-     */
-    _properties = [];
-    /**
      * @see View::detached()
      */
     detached() {
@@ -136,7 +130,12 @@ export class Model extends Component {
         }
         return this.__instance__;
     }
+    /**
+     * Return new empty instance of the model
+     * @return {Model}
+     */
     static newInstance() {
+        // return new this();
         return Container.instance.get(this);
     }
     /**
@@ -165,13 +164,14 @@ export class Model extends Component {
         return model.getEndpoint(model.settings.endpoint || 'rest').find(model.settings.services.list);
     }
     /**
-     * @return {[type]} [description]
+     * Remove existing model
+     * @return {Object}
      */
     async remove() {
         return await this.getEndpoint(this.settings.endpoint || 'rest').destroyOne(this.settings.services.remove, this.id);
     }
     /**
-     *
+     * Remove the model with id ...
      * @param  {Number} id
      * @return {Promise}
      */
@@ -192,19 +192,14 @@ export class Model extends Component {
         });
     }
     /**
-     *
-     * @param  {[type]} proto
-     * @param  {[type]} args
-     */
-    @deprecate
-    setModelPropertyList(proto, ...args) {
-        args.forEach((key) => modelProperty(this, key, {}))
-    }
-    /**
+     * Save model.
      * @returns {Boolean}
      */
     async save() {
-
+        if (this.id) {
+            return await this.getEndpoint(this.settings.endpoint || 'rest').updateOne(this.settings.services.update, this.id, this.toObject());
+        }
+        return await this.getEndpoint(this.settings.endpoint || 'rest').create(this.settings.services.save, this.toObject());
     }
     /**
      * Convert model to list of inputs for form component.
@@ -213,11 +208,10 @@ export class Model extends Component {
      */
     toFormConfig() {
         return this._properties.map((key) => {
-            console.log(key);
             const input = {
                 type: 'text',
-                label: key || key.name,
-                name:  key || key.name
+                label: this._propertySettings[key].name || key,
+                name:  this._propertySettings[key].name || key
             };
             return key.formConfig ? extend(true, input, key.formConfig) : input;
         });
@@ -232,14 +226,3 @@ export class Model extends Component {
         return obj;
     }
 }
-
-// export class ModelFactory {
-//     static getModel(name) {
-//         const getClass = new Function(`
-//             if (typeof ${name} !== 'function') throw Error('Could not find \'${name}\' class. You need to import it separtely.');
-//             return ${name};
-//         `);
-//         const entity = getClass();
-//         return new entity();
-//     }
-// }

@@ -4,32 +4,21 @@
 			<compose containerless view-model="components/helper/page-title/page-title" model.bind="{ settings: settings.pageTitle }" ></compose>
 		</div>
 	</div>
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
-			<h3>Basic Table</h3>
-			<div class="col-md-12">
-				<form class="form-horizontal">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="table-style-basic" class="col-sm-2 control-label">Table Style</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="table-style-basic" value.bind="tableStyle">
-									<option value="">none</option>
-									<option value="table-hover">.table-hover</option>
-									<option value="table-bordered">.table-bordered</option>
-									<option value="table-striped">.table-striped</option>
-									<option value="table-responsive">.table-responsive</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<!-- <div class="col-md-6"></div> -->
-				</form>
-			</div>
-			<div class="col-md-12">
-				<compose containerless view="components/helper/table/table.html" view-model="components/demo/table/simple"
-					model.bind="{ settings: { style: tableStyle } }" ></compose>
-			</div>
+            <div class="col-md-12">
+                <h3>Basic Table</h3>
+                <p>For basic styling—light padding and only horizontal dividers—add the base class <code>.table</code>
+                    to any <code>&lt;table&gt;</code>. It may seem super redundant, but given the widespread use of
+                    tables for other plugins like calendars and date pickers, we've opted to isolate our custom table
+                    styles.</p>
+                <p>For multiple table styles and functionalities, please visit Bootstrap
+                    <a href="https://getbootstrap.com/docs/3.3/css/#tables">Table Section</a>.</p>
+                <div class="col-md-12">
+                    <compose containerless view="components/helper/table/table.html" view-model="components/demo/table/simple"
+                    model.bind="{ settings: { style: tableStyle } }" ></compose>
+                </div>
+            </div>
 		</div>
 	</div>
 </template>

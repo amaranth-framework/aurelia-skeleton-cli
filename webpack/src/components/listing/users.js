@@ -1,6 +1,8 @@
 import { ComponentHelperTable } from 'components/helper/table/table';
 import { User } from 'models/user/user';
 
+import 'bootstrap';
+
 export class ComponentTableDemoSimple extends ComponentHelperTable {
     /**
      * @see View::overrideSettingsKey
@@ -15,11 +17,8 @@ export class ComponentTableDemoSimple extends ComponentHelperTable {
     constructor(...args) {
         super(...args);
 
-        this.formConfig = User.newInstance().toFormConfig();
-        console.log(this.formConfig);
-
         this.subscribeEvent('table:edit', (model) => {
-
+            this.router.navigateToRoute('users-edit', { action: 'edit', id: model.id });
         });
         this.subscribeEvent('table:remove', async (model) => {
             let result = await User.remove(model.id);
@@ -52,4 +51,5 @@ export class ComponentTableDemoSimple extends ComponentHelperTable {
             })
             .catch((error) => this.logger.warn('service failed', error));
     }
+
 }

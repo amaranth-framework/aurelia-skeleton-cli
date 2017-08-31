@@ -19,6 +19,12 @@ export class App extends Base {
         this.authStep = authStep;
         this.authStep.sessionConfig = SessionConfig;
         this.config.set('auth-step', this.authStep);
+
+        this.config.set('application.layout', '');
+        // Uncomment for material style
+        // this.config.set('application.layout', 'material');
+        // Uncomment for ux
+        // this.config.set('application.layout', 'ux');
     }
     /**
      * Configure Application router
@@ -60,10 +66,10 @@ export class App extends Base {
             {
                 route: 'dashboard',
                 name: 'dashboard',
-                moduleId: PLATFORM.moduleName('templates/home/home'),
+                moduleId: PLATFORM.moduleName('templates/demo/home/home'),
                 nav: true,
                 title: 'Dashboard',
-                group: 'left-general',
+                group: 'left-demo',
                 settings: {
                     auth: true
                 }
@@ -71,24 +77,18 @@ export class App extends Base {
             {
                 route: 'users',
                 name: 'users',
-                moduleId: PLATFORM.moduleName('templates/users/users'),
+                moduleId: PLATFORM.moduleName('templates/demo/users/users'),
                 nav: true,
                 title: 'Users',
-                group: 'left-forms'
+                group: 'left-demo'
             },
             {
                 route: 'users/:action?/:id?',
                 href: '/users/add',
                 name: 'users-edit',
-                moduleId: PLATFORM.moduleName('templates/users/users'),
+                moduleId: PLATFORM.moduleName('templates/demo/users/users'),
                 nav: false,
-                title: 'Personnel - Edit'
-            },
-            {
-                route: '404',
-                name: '404',
-                moduleId: PLATFORM.moduleName('templates/statuses/404'),
-                title: 'Page does not exist.'
+                title: 'Users - Edit'
             },
             // Keep this only if you need inspiration
             {
@@ -97,32 +97,53 @@ export class App extends Base {
                 moduleId: PLATFORM.moduleName('templates/ui-elements/general'),
                 nav: true,
                 title: 'UI Elements',
-                group: 'left-forms',
-                routes: [ 'forms' , 'tables' ]
+                group: 'left-ui'
             },
             {
                 route: 'forms',
                 name: 'forms',
                 moduleId: PLATFORM.moduleName('templates/ui-elements/forms'),
-                nav: false,
+                nav: true,
                 title: 'Forms',
-                group: 'left-forms'//,
-                // routes: [ 'test1-child' ]
+                group: 'left-ui',
+                routes: ['forms-horizontal', 'forms-grid']
+            },
+            {
+                route: 'forms-horizontal',
+                name: 'forms-horizontal',
+                moduleId: PLATFORM.moduleName('templates/ui-elements/forms-horizontal'),
+                nav: false,
+                title: 'Forms Horizontal',
+                group: 'left-ui'
+            },
+            {
+                route: 'forms-grid',
+                name: 'forms-grid',
+                moduleId: PLATFORM.moduleName('templates/ui-elements/forms-grid'),
+                nav: false,
+                title: 'Grid View',
+                group: 'left-ui'
             },
             {
                 route: 'tables',
                 name: 'tables',
                 moduleId: PLATFORM.moduleName('templates/ui-elements/tables'),
-                nav: false,
+                nav: true,
                 title: 'Tables',
-                group: 'left-forms'
+                group: 'left-ui'
             },
             {
                 route: 'login',
                 name: 'login',
-                moduleId: PLATFORM.moduleName('templates/login/login'),
+                moduleId: PLATFORM.moduleName('templates/demo/login/login'),
                 title: 'Login',
                 settings: { auth: false }
+            },
+            {
+                route: '404',
+                name: '404',
+                moduleId: PLATFORM.moduleName('templates/statuses/404'),
+                title: 'Page does not exist.'
             }
         ]);
     }

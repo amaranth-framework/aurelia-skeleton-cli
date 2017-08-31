@@ -6,11 +6,11 @@ import 'messg/index.css';
 import {Template} from 'features/views/template';
 import {extend} from 'features/utils';
 
-export class TemplateForms extends Template {
+export class TemplateFormsHorizontal extends Template {
     /**
      * @see ModelView::overrideSettingsKey
      */
-    overrideSettingsKey = 'templates.forms';
+    overrideSettingsKey = 'templates.forms-horizontal';
     /**
      * Form settings.
      * @type {Object}
@@ -150,7 +150,8 @@ export class TemplateForms extends Template {
                 }
             },
             form: {
-                name: 'basic-form'
+                name: 'basic-form',
+                style: 'form-horizontal'
             }
         })
     }

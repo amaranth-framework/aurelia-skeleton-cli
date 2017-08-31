@@ -4,15 +4,16 @@
 			<compose containerless view-model="components/helper/page-title/page-title" model.bind="{ settings: settings.pageTitle }" ></compose>
 		</div>
 	</div>
-	<div class="container-fluid">
+    <!-- Table Component -->
+	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
+                <h3>Users</h3>
 				<compose containerless view="components/helper/table/table.html" view-model="components/listing/users"
                     model.bind="{ settings: settings.users }" ></compose>
 			</div>
-            <div class="col-md-6">
-				<compose containerless view-model="components/helper/form/form" model.bind="{ settings: settings.form, inputs: formConfig }"></compose>
-            </div>
 		</div>
 	</div>
+    <!-- Form Component -->
+    <compose containerless view-model="models/user/user" model.bind="{  }"></compose>
 </template>
