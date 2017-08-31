@@ -74,7 +74,6 @@ export function property(...args) {
         let definition = Object.getOwnPropertyDescriptor(target, key);
         // if it has a descriptor definition already, work around the getter and setter that were already defined
         if (definition) {
-            console.log('def', key, definition, definition.get, definition.set);
             Object.defineProperty(target, key, {
                 get: definition.get,
                 set: (newValue) => definition.set.call(target, newValue),
@@ -133,9 +132,12 @@ export class Model extends Component {
      */
     static get instance() {
         if (!this.__instance__) {
-            this.__instance__ = Container.instance.get(this);
+            this.__instance__ = this.newInstance();
         }
         return this.__instance__;
+    }
+    static newInstance() {
+        return Container.instance.get(this);
     }
     /**
      * Load data for a certain model, by model's id.
@@ -161,6 +163,22 @@ export class Model extends Component {
         }
         model.activate();
         return model.getEndpoint(model.settings.endpoint || 'rest').find(model.settings.services.list);
+    }
+    /**
+     * @return {[type]} [description]
+     */
+    async remove() {
+        return await this.getEndpoint(this.settings.endpoint || 'rest').destroyOne(this.settings.services.remove, this.id);
+    }
+    /**
+     *
+     * @param  {Number} id
+     * @return {Promise}
+     */
+    static async remove(id) {
+        let model = this.newInstance();
+        model.id = id;
+        return model.remove();
     }
     /**
      * Set data to the model, from an external source.
@@ -193,8 +211,16 @@ export class Model extends Component {
      * @method toFormConfig
      * @return {Object}
      */
-    toInputs() {
-
+    toFormConfig() {
+        return this._properties.map((key) => {
+            console.log(key);
+            const input = {
+                type: 'text',
+                label: key || key.name,
+                name:  key || key.name
+            };
+            return key.formConfig ? extend(true, input, key.formConfig) : input;
+        });
     }
     /**
      * Take the entire Model class and obtain only the saveable/workable object data.

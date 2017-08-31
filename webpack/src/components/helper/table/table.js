@@ -28,13 +28,6 @@ export class ComponentHelperTable extends Component {
             })
         }
     }
-	/**
-	 * @see View::activate()
-	 */
-    activate(...args) {
-        super.activate(...args);
-        console.log(this.settings);
-    }
     /**
      * @see View::defaultSettings()
      * @return {Object}

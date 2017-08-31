@@ -1,7 +1,7 @@
 import { Model, properties } from 'features/views/model';
 
 import { AuthorizeStepJWT as AuthorizeStep } from 'features/authorize-step/authorize-step';
-import { waitForVariable } from 'features/utils';
+import { extend, waitForVariable } from 'features/utils';
 
 export class User extends Model {
     @properties([
@@ -10,21 +10,6 @@ export class User extends Model {
         'name',
         'username'
     ])
-    /**
-     * @see ModelView:defaultSettings
-     */
-    defaultSettings = {
-        style: '',                 // component's style - list of classes add to the component to be able to format it.
-        styles: {},                // set of classes that can be used throughout different sections of the component
-
-        content: {},               // translation keys for different text/html components in the template
-
-        service: {},               // possible service settings for component
-        services: {                // possible services settings for component
-            list: 'users',
-            load: 'users'
-        }
-    }
     /**
      * @see ModelView::overrideSettingsKey
      */
@@ -46,10 +31,22 @@ export class User extends Model {
         super.init();
         // Load user from session.
         if (this.settings.fromSession) {
-            console.log();
             const id = this.config.get('auth-step').sessionDecoded.id;
             this.logger.debug(`Loading user with id: '${id}' from session.`);
             this.load(id);
         }
+    }
+    /**
+     * @see ModelView:defaultSettings
+     */
+    get defaultSettings() {
+        return extend(true, {
+            service: 'users',          // possible service settings for component
+            services: {                // possible services settings for component
+                list: 'users',
+                load: 'users',
+                remove: 'users'
+            }
+        }, super.defaultSettings);
     }
 }

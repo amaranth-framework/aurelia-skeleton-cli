@@ -10,9 +10,9 @@
 				<compose containerless view="components/helper/table/table.html" view-model="components/listing/users"
                     model.bind="{ settings: settings.users }" ></compose>
 			</div>
-            <!-- <div class="col-md-6">
-				<compose containerless view-model="components/helper/form/form" model.bind="{ settings: settings.form, inputs: [] }"></compose>
-            </div> -->
+            <div class="col-md-6">
+				<compose containerless view-model="components/helper/form/form" model.bind="{ settings: settings.form, inputs: formConfig }"></compose>
+            </div>
 		</div>
 	</div>
 </template>

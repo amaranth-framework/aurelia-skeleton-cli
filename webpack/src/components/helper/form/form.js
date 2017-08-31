@@ -213,8 +213,7 @@ export class ComponentHelperForm extends Component {
      * Validate method.
      */
     async validate() {
-        const RESULT = await this.validationController  .validate();
-        console.log('validating', RESULT, this.data);
+        const RESULT = await this.validationController.validate();
         if (RESULT.valid) {
             this.events.publish(`form:${this.settings.name}:validated`, this.data);
             return;

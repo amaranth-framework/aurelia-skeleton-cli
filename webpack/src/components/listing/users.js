@@ -15,10 +15,16 @@ export class ComponentTableDemoSimple extends ComponentHelperTable {
     constructor(...args) {
         super(...args);
 
-        this.subscribeEvent('table:edit', (model) => {})
-        this.subscribeEvent('table:remove', (model) => {
+        this.formConfig = User.newInstance().toFormConfig();
+        console.log(this.formConfig);
 
-        })
+        this.subscribeEvent('table:edit', (model) => {
+
+        });
+        this.subscribeEvent('table:remove', async (model) => {
+            let result = await User.remove(model.id);
+            $(`.table tr[id=${model.id}]`).animate({ opacity: 0 }, function() { $(this).remove(); });
+        });
     }
     /**
      * @see View::init()
@@ -30,14 +36,18 @@ export class ComponentTableDemoSimple extends ComponentHelperTable {
         User.list()
             .then((result) => {
                 this.thead = ['#', 'Name', 'Email', 'Address', 'Company', 'Phone'];
-                this.tbody = result.map(_ => [
-                    '#',
-                    _.name,
-                    _.email,
-                    _.address.street,
-                    _.company.name,
-                    _.phone,
-                ]);
+                this.tbody = result.map(_ => {
+                    let row = [
+                        '#',
+                        _.name,
+                        _.email,
+                        _.address.street,
+                        _.company.name,
+                        _.phone,
+                    ];
+                    row.model = _;
+                    return row;
+                });
                 this.setTableLoaded();
             })
             .catch((error) => this.logger.warn('service failed', error));
