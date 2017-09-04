@@ -148,6 +148,8 @@ export class Model extends Component {
 
         const result = await this.getEndpoint(this.settings.endpoint || 'rest').findOne(this.settings.services.load, id);
         this.setData(result);
+
+        return this.toObject();
     }
     /**
      * List the entire set of entities from the table.
@@ -213,7 +215,8 @@ export class Model extends Component {
                 label: this._propertySettings[key].name || key,
                 name:  this._propertySettings[key].name || key
             };
-            return key.formConfig ? extend(true, input, key.formConfig) : input;
+            return (this._propertySettings[key] && this._propertySettings[key].formConfig) ?
+                extend(true, input, this._propertySettings[key].formConfig) : input;
         });
     }
     /**

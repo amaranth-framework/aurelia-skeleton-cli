@@ -199,6 +199,14 @@ export class ComponentHelperForm extends Component {
         return this.isHorizontalForm() ? this.settings.styles.labelAsCol : ''
     }
     /**
+     * [setData description]
+     * @method setData
+     * @param  {Object} object [description]
+     */
+    setData(object) {
+        Object.keys(this.data).forEach(key => this.data[key] = object[key]);
+    }
+    /**
      * Validate method.
      */
     async validate() {

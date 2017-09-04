@@ -45,7 +45,9 @@ export class User extends Model {
             services: {                // possible services settings for component
                 list: 'users',
                 load: 'users',
-                remove: 'users'
+                remove: 'users',
+                save: 'users',
+                update: 'users'
             },
             form: {
                 name: 'user-edit'

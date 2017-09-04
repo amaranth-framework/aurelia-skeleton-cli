@@ -8,7 +8,7 @@
                 validation-errors.bind="$parent[bindingErrorsName(input, $index)]" class="form-group">
 
             <!-- Standard Bootstrap form label. -->
-            <label class.bind="labelStyle" for.bind="getInputId($index)" if.bind="!isMaterialForm() && input.label">${input.label}</label>
+            <label class.bind="labelStyle" for.bind="getInputId($index)" if.bind="!isMaterialForm() && input.label && input.type !== 'hidden'">${input.label}</label>
 
             <div class.bind="inputStyle">
 
@@ -45,7 +45,7 @@
                 </div>
 
                 <!-- Display label for .form--material -->
-                <label for.bind="getInputId($index)" if.bind="isMaterialForm() && input.label">${input.label}</label>
+                <label for.bind="getInputId($index)" if.bind="isMaterialForm() && input.label && input.type !== 'hidden'">${input.label}</label>
 
                 <span if.bind="input.helpblock" class="help-block">
                     ${input.helpblock}

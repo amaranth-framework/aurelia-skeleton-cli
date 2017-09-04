@@ -19,14 +19,27 @@ export class TemplateUsers extends Template {
         // obtain the form config from the user model
         this.formConfig = User.newInstance().toFormConfig();
 
-        this.subscribeEvent('form:user-edit:attached', (formView) => {
+        this.subscribeEvent('form:user-edit:attached', async (formView) => {
+            this.formView = formView;
+            if (this.params.action && this.params.action === 'edit') {
+                this.formView.setData(await User.newInstance().load(this.params.id));
+            }
             // validation rules
             ValidationRules
                 .ensure('email').displayName('Email Input')
                 .email().withMessage(`\${$displayName} must be an email.`)
                 .required()
-                .on(formView.data);
-        })
+                .on(this.formView.data);
+        });
+        this.subscribeEvent('form:user-edit:validated', async (formView) => {
+            let user = User.newInstance();
+            if (this.params.action && this.params.action === 'edit') {
+                await user.load(this.params.id);
+            }
+            user.setData(this.formView.data);
+            await user.save();
+            this.router.navigateToRoute('users');
+        });
     }
     /**
      * @see View::attached()
