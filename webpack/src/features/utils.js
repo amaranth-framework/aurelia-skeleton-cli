@@ -2,11 +2,6 @@ import { LogManager } from 'aurelia-framework';
 
 const _logger = LogManager.getLogger('features/utils');
 
-export const SessionConfig = {
-    type: 'local',
-    key: 'secret'
-}
-
 export const EventsList = {
     AUTH_USER_REQUESTED: 'auth:user:requested',
     AUTH_USER_OFFERED: 'auth:user:offered',

@@ -40,6 +40,7 @@ export class Storage {
      */
     constructor(type = StorageOptions.type) {
         this.type = type;
+        this.logger = this.getLogger();
     }
     /**
      * Obtain vaue for a certain key.
@@ -49,8 +50,7 @@ export class Storage {
     get(key) {
         if (this.type !== Storage.TYPE_COOKIE) {
             try {
-                let storage = window[`${this.type}Storage`];
-                return JSON.decode(storage.getItem(this.key));
+                return JSON.parse(window[`${this.type}Storage`].getItem(key));
             } catch(e) {
                 this.logger.warn(
                     'session()',
@@ -60,38 +60,46 @@ export class Storage {
                 throw e;
             }
         }
-        return JSON.decode(getCookie(this.key));
+        return JSON.parse(getCookie(key));
     }
+    /**
+     * Remove a key from storage
+     * @param  {String} key
+     */
     remove(key) {
-        if (this.sessionConfig.type !== 'cookie') {
+        if (this.type !== Storage.TYPE_COOKIE) {
             try {
-                let storage = window[`${this.sessionConfig.type}Storage`];
-                storage.removeItem(this.sessionConfig.key);
+                window[`${this.type}Storage`].removeItem(key);
                 return true;
             } catch(e) {
                 this.logger.warn(
                     'sessionRemove()',
-                    `Could not implement session:${this.sessionConfig.type}. Fallback to cookie.`,
+                    `Could not implement session:${this.type}. Fallback to cookie.`,
                     e
                 );
             }
         }
-        return removeCookie(this.sessionConfig.key);
+        return removeCookie(key);
     }
+    /**
+     * Add a key to storage.
+     * @param  {String} key
+     * @param  {any}    value
+     */
     set(key, value)  {
-        if (this.sessionConfig.type !== 'cookie') {
+        if (this.type !== Storage.TYPE_COOKIE) {
             try {
-                let storage = window[`${this.sessionConfig.type}Storage`];
-                storage.setItem(this.sessionConfig.key, session);
+                let storage = window[`${this.type}Storage`];
+                storage.setItem(key, JSON.stringify(value));
                 return true;
             } catch(e) {
                 this.logger.warn(
                     'sessionStore()',
-                    `Could not implement session:${this.sessionConfig.type}. Fallback to cookie.`,
+                    `Could not implement session:${this.type}. Fallback to cookie.`,
                     e
                 );
             }
         }
-        return setCookie(this.sessionConfig.key, session);
+        return setCookie(key, JSON.stringify(value));
     }
 }

@@ -1,25 +1,36 @@
+import { inject, NewInstance } from 'aurelia-framework';
 import { Redirect } from 'aurelia-router';
 
 import decode from 'jwt-decode';
 
 import { Base } from 'features/base';
+import { Storage } from 'features/storage';
 import { User } from 'models/user/user';
 import { getCookie, setCookie, removeCookie } from 'features/utils';
+
+/**
+ * @type {Object}
+ */
+export const SessionConfig = {
+    type: 'local',
+    key: 'secret'
+}
 
 /**
  * Aurelia Pipeline, authorize step
  * @link http://foreverframe.net/exploring-aurelia-pipelines/
  * @link http://aurelia.io/hub.html#/doc/article/aurelia/router/latest/router-configuration/8
  */
+@inject(NewInstance.of(Storage, SessionConfig.type))
 export class AuthorizeStep extends Base {
     /**
-     * Defines session settings.
-     * @type {String}
+     * @see View::constructor()
+     * @param  {Storage} storage
      */
-    sessionConfig = {
-        type: 'local',    // Defines storage type to use. Can be 'local', 'storage' or 'cookie'.
-        key: 'secret' //
-    };
+    constructor(storage, ...args) {
+        super(...args);
+        this.storage = storage;
+    }
     /**
      * Return whether the logged in user is an administrator or not.
      * @return {Promise} [description]
@@ -82,58 +93,20 @@ export class AuthorizeStep extends Base {
      * @return {any}
      */
     get session() {
-        if (this.sessionConfig.type !== 'cookie') {
-            try {
-                let storage = window[`${this.sessionConfig.type}Storage`];
-                return storage.getItem(this.sessionConfig.key);
-            } catch(e) {
-                this.logger.warn(
-                    'session()',
-                    `Could not implement session:${this.sessionConfig.type}. Fallback to cookie.`,
-                    e
-                );
-            }
-        }
-        return getCookie(this.sessionConfig.key);
+        return this.storage.get(SessionConfig.key);
     }
     /**
      * Store the session value.
      * @param {any} session
      */
     sessionStore(session) {
-        if (this.sessionConfig.type !== 'cookie') {
-            try {
-                let storage = window[`${this.sessionConfig.type}Storage`];
-                storage.setItem(this.sessionConfig.key, session);
-                return true;
-            } catch(e) {
-                this.logger.warn(
-                    'sessionStore()',
-                    `Could not implement session:${this.sessionConfig.type}. Fallback to cookie.`,
-                    e
-                );
-            }
-        }
-        return setCookie(this.sessionConfig.key, session);
+        return this.storage.set(SessionConfig.key, session);
     }
     /**
      * Remove the session.
      */
     sessionRemove() {
-        if (this.sessionConfig.type !== 'cookie') {
-            try {
-                let storage = window[`${this.sessionConfig.type}Storage`];
-                storage.removeItem(this.sessionConfig.key);
-                return true;
-            } catch(e) {
-                this.logger.warn(
-                    'sessionRemove()',
-                    `Could not implement session:${this.sessionConfig.type}. Fallback to cookie.`,
-                    e
-                );
-            }
-        }
-        return removeCookie(this.sessionConfig.key);
+        return this.storage.remove(SessionConfig.key);
     }
 }
 
@@ -151,20 +124,10 @@ export class AuthorizeStepJWT extends AuthorizeStep {
         this.sessionStore(token);
         return this.router.navigateToRoute('dashboard');
     }
-
+    /**
+     * @return {Object}
+     */
     get sessionDecoded() {
-        if (this.sessionConfig.type !== 'cookie') {
-            try {
-                let storage = window[`${this.sessionConfig.type}Storage`];
-                return decode(storage.getItem(this.sessionConfig.key));
-            } catch(e) {
-                // this.logger.warn(`Could not implement session:${this.sessionConfig.type}. Fallback to cookie.`, e);
-            }
-        }
-        try {
-            return decode(getCookie(this.sessionConfig.key));
-        } catch (e) {
-            return null;
-        }
+        return decode(this.session);
     }
 }

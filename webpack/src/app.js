@@ -60,6 +60,13 @@ export class App extends Base {
      */
     async activate() {
         this.events.publish('authorize-step::user-required');
+
+        // Uncomment to enable service worker (application cache)
+        this.serviceWorker();
+        // Uncomment to enable service worker (rest cache)
+        // this.serviceWorkerREST();
+        // Uncomment to enable service worker (websocket cache)
+        // this.serviceWorkerSokets();
     }
     /**
      * Map routes from within the application class
@@ -148,6 +155,13 @@ export class App extends Base {
                 settings: { auth: false }
             },
             {
+                route: 'logout',
+                name: 'logout',
+                moduleId: PLATFORM.moduleName('templates/demo/logout/logout'),
+                title: 'Logout',
+                settings: { auth: false }
+            },
+            {
                 route: '404',
                 name: '404',
                 moduleId: PLATFORM.moduleName('templates/statuses/404'),
@@ -228,5 +242,35 @@ export class App extends Base {
         }
 
         return { route: matchedRoute, params: matchedParams };
+    }
+    /**
+     * @param  {String} sw
+     */
+    serviceWorker(sw = '/sw.js') {
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register(sw).then(function(registration) {
+                    // Registration was successful
+                    this.logger.debug(`ServiceWorker (${sw}) registration successful with scope: `, registration.scope);
+                }, (err) => {
+                    // registration failed :(
+                    this.logger.error(`ServiceWorker (${sw}) registration failed: `, err);
+                });
+            });
+        } else {
+            this.logger.warning(`ServiceWorker is not enabled. Please enable ServiceWorkers. See 'https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers'.`);
+        }
+    }
+    /**
+     *
+     */
+    serviceWorkerREST() {
+        this.serviceWorker('/ws-rest.js');
+    }
+    /**
+     *
+     */
+    serviceWorkerSokets() {
+        this.serviceWorker('/ws-sockets.js');
     }
 }
