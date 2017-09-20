@@ -62,7 +62,7 @@ export class App extends Base {
         this.events.publish('authorize-step::user-required');
 
         // Uncomment to enable service worker (application cache)
-        this.serviceWorker();
+        // this.serviceWorker();
         // Uncomment to enable service worker (rest cache)
         // this.serviceWorkerREST();
         // Uncomment to enable service worker (websocket cache)

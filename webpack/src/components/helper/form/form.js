@@ -218,7 +218,8 @@ export class ComponentHelperForm extends Component {
         this.events.publish(`form:${this.settings.name}:invalid`);
     }
     /**
-     *
+     * @param {String} input
+     * @param {Number} index
      */
     validationStyle(input, index) { //, errors, value) {
         let bindingName = this.bindingName(input, index);

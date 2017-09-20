@@ -50,17 +50,17 @@ export class Storage {
     get(key) {
         if (this.type !== Storage.TYPE_COOKIE) {
             try {
-                return JSON.parse(window[`${this.type}Storage`].getItem(key));
+                return JSON.parse(window[`${this.type}Storage`].getItem(key) || 'null');
             } catch(e) {
                 this.logger.warn(
                     'session()',
-                    `Could not implement session:${this.type}. Fallback to cookie.`,
+                    `Could not implement session (${this.type}). Fallback to cookie.`,
                     e
                 );
                 throw e;
             }
         }
-        return JSON.parse(getCookie(key));
+        return JSON.parse(getCookie(key) || 'null');
     }
     /**
      * Remove a key from storage
@@ -74,7 +74,7 @@ export class Storage {
             } catch(e) {
                 this.logger.warn(
                     'sessionRemove()',
-                    `Could not implement session:${this.type}. Fallback to cookie.`,
+                    `Could not implement session (${this.type}). Fallback to cookie.`,
                     e
                 );
             }

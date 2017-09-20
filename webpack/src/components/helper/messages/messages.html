@@ -1,0 +1,9 @@
+<template>
+    <require from="./messages.less"></require>
+    <div if.bind="messages.list.length" class="messages">
+        <ul class="messages__list">
+            <li repeat.for="item of messages.list" class="messages__list-item"
+                class.bind="'messages__list-item--' + item.type" innerhtml.bind='item.message'></li>
+        </ul>
+    </div>
+</template>

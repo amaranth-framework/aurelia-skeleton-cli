@@ -1,6 +1,7 @@
 import { inject } from 'aurelia-framework';
 
 import { Base } from 'features/base';
+import { Messages } from 'features/messages';
 import { className, extend } from 'features/utils';
 
 /**
@@ -8,10 +9,19 @@ import { className, extend } from 'features/utils';
  *
  * @link https://www.danyow.net/inversion-of-control-with-aurelia-part-1/
  */
+@inject(Messages)
 export class View extends Base {
     /*************************************************************************************
      * Inherited
      *************************************************************************************/
+    /**
+     * @see View::constructor()
+     * @param {Messages} messages
+     */
+    constructor(messages, ...args) {
+        super(...args);
+        this.messages = messages;
+    }
     /**
      * Implement this hook if you want to perform custom logic just before your view-model is displayed. You can
      * optionally return a promise to tell the router to wait to bind and attach the view until after you finish your

@@ -1,0 +1,47 @@
+
+@import '../../../variables.less';
+
+.messages {
+    padding-top: 20px;
+    &__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        &-item {
+            border-bottom: 1px solid @color-dark;
+            border-top: 1px solid @color-dark;
+            margin-bottom: 2px;
+            padding: 10px 48px;
+            position: relative;
+            &:before {
+                border-left: 1px solid @color-dark;
+                bottom: 0;
+                content: '\f129';
+                display: inline-block;
+                font-family: FontAwesome;
+                left: 0;
+                padding: 10px 0;
+                position: absolute;
+                text-align: center;
+                top: 0;
+                vertical-align: middle;
+                width: 48px;
+            }
+            &:after {
+                border-right: 1px solid @color-dark;
+                bottom: 0;
+                content: '\f00d';
+                cursor: pointer;
+                display: inline-block;
+                font-family: FontAwesome;
+                right: 0;
+                padding: 10px 0;
+                position: absolute;
+                text-align: center;
+                top: 0;
+                vertical-align: middle;
+                width: 48px;
+            }
+        }
+    }
+}

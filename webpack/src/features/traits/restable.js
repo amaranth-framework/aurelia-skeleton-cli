@@ -13,7 +13,3 @@ export class RESTable {
         return Container.instance.get(Config).getEndpoint(name);
     }
 }
-
-export class RESTableApollo extends RESTable {
-
-}
