@@ -115,6 +115,20 @@ export function property(...args) {
  */
 export class Model extends Component {
     /**
+     * Model Index Field Name
+     * @type {String}
+     */
+    static INDEX_NAME = 'id';
+    /**
+     * @see View::defaultSettings()
+     * @return {Object}
+     */
+    get defaultSettings() {
+        return extend(true, super.defaultSettings, {
+            endpoint: 'default'
+        });
+    }
+    /**
      * @see View::detached()
      */
     detached() {
@@ -141,21 +155,28 @@ export class Model extends Component {
     /**
      * Load data for a certain model, by model's id.
      * @param {Number} id?
-     * @returns {Object}
+     * @returns {Promise<Object>|Promise<Error>}
      */
     async load(id = null) {
-        this.id = this.id || id;
+        this[this.__proto__.INDEX_NAME] = this[this.__proto__.INDEX_NAME] || id;
 
-        const result = await this.getEndpoint(this.settings.endpoint || 'rest').findOne(this.settings.services.load, id);
-        this.setData(result);
+        if (!this[this.__proto__.INDEX_NAME]) {
+            throw Error(`Model has no '${this.__proto__.INDEX_NAME}' value. Cannot load an empty model.`);
+        }
 
-        return this.toObject();
+        return await this.getEndpoint(this.settings.endpoint || 'default')
+            .findOne(this.settings.services.load, this[this.__proto__.INDEX_NAME])
+            .then(result => {
+                console.log('result', result);
+                this.setData(result);
+                return this.toObject();
+            });
     }
     /**
      * List the entire set of entities from the table.
      * @param  {Array|String|null} properties
      * @param  {Array|String|null} filter
-     * @return {Promise}
+     * @return {Promise<Array>|Promise<Error>}
      */
     static async list(properties = null, filter = null) {
         const model = this.instance;
@@ -163,23 +184,24 @@ export class Model extends Component {
             throw Error(`'${className(model)}' could not pass by 'canActivate()' method.`);
         }
         model.activate();
-        return model.getEndpoint(model.settings.endpoint || 'rest').find(model.settings.services.list);
+        return model.getEndpoint(model.settings.endpoint || 'default').find(model.settings.services.list);
     }
     /**
      * Remove existing model
-     * @return {Object}
+     * @return {Promise<*>|Promise<Error>}
      */
     async remove() {
-        return await this.getEndpoint(this.settings.endpoint || 'rest').destroyOne(this.settings.services.remove, this.id);
+        return await this.getEndpoint(this.settings.endpoint || 'default')
+            .destroyOne(this.settings.services.remove, this[this.__proto__.INDEX_NAME]);
     }
     /**
      * Remove the model with id ...
      * @param  {Number} id
-     * @return {Promise}
+     * @return {Promise<*>|Promise<Error>}
      */
     static async remove(id) {
         let model = this.newInstance();
-        model.id = id;
+        model[model.__proto__.INDEX_NAME] = id;
         return model.remove();
     }
     /**
@@ -195,13 +217,15 @@ export class Model extends Component {
     }
     /**
      * Save model.
-     * @returns {Boolean}
+     * @returns {Promise<*>|Promise<Error>}
      */
     async save() {
-        if (this.id) {
-            return await this.getEndpoint(this.settings.endpoint || 'rest').updateOne(this.settings.services.update, this.id, this.toObject());
+        if (this[this.__proto__.INDEX_NAME]) {
+            return await this.getEndpoint(this.settings.endpoint || 'default')
+                .updateOne(this.settings.services.update, this[this.__proto__.INDEX_NAME], this.toObject());
         }
-        return await this.getEndpoint(this.settings.endpoint || 'rest').create(this.settings.services.save, this.toObject());
+        return await this.getEndpoint(this.settings.endpoint || 'default')
+            .create(this.settings.services.save, this.toObject());
     }
     /**
      * Convert model to list of inputs for form component.

@@ -34,7 +34,7 @@ export async function configure(aurelia) {
              */
             config
             .registerEndpoint(
-                'rest',
+                'default',
                 'https://jsonplaceholder.typicode.com/',
                 {
                     credentials: 'same-origin',
