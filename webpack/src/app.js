@@ -78,10 +78,11 @@ export class App extends Base {
                 route: ['', 'home'],
                 redirect: 'dashboard'
             },
+            // demo app pages, comment and modify
             {
                 route: 'dashboard',
                 name: 'dashboard',
-                moduleId: PLATFORM.moduleName('templates/demo/home/home'),
+                moduleId: PLATFORM.moduleName('templates/demo/home/home-demo'),
                 nav: true,
                 title: 'Dashboard',
                 group: 'left-demo',
@@ -92,7 +93,7 @@ export class App extends Base {
             {
                 route: 'users',
                 name: 'users',
-                moduleId: PLATFORM.moduleName('templates/demo/users/users'),
+                moduleId: PLATFORM.moduleName('templates/demo/users/users-demo'),
                 nav: true,
                 title: 'Users',
                 group: 'left-demo'
@@ -101,9 +102,23 @@ export class App extends Base {
                 route: 'users/:action?/:id?',
                 href: '/users/add',
                 name: 'users-edit',
-                moduleId: PLATFORM.moduleName('templates/demo/users/users'),
+                moduleId: PLATFORM.moduleName('templates/demo/users/users-demo'),
                 nav: false,
                 title: 'Users - Edit'
+            },
+            {
+                route: 'login',
+                name: 'login',
+                moduleId: PLATFORM.moduleName('templates/demo/login/login-demo'),
+                title: 'Login',
+                settings: { auth: false }
+            },
+            {
+                route: 'logout',
+                name: 'logout',
+                moduleId: PLATFORM.moduleName('templates/demo/logout/logout-demo'),
+                title: 'Logout',
+                settings: { auth: false }
             },
             // Keep this only if you need inspiration
             {
@@ -146,20 +161,6 @@ export class App extends Base {
                 nav: true,
                 title: 'Tables',
                 group: 'left-ui'
-            },
-            {
-                route: 'login',
-                name: 'login',
-                moduleId: PLATFORM.moduleName('templates/demo/login/login'),
-                title: 'Login',
-                settings: { auth: false }
-            },
-            {
-                route: 'logout',
-                name: 'logout',
-                moduleId: PLATFORM.moduleName('templates/demo/logout/logout'),
-                title: 'Logout',
-                settings: { auth: false }
             },
             {
                 route: '404',
