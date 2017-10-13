@@ -6,10 +6,10 @@ import { Config } from 'aurelia-api';
  * @abstract
  */
 export class RESTable {
-    settleEndpoint(name = 'rest') {
+    settleEndpoint(name = 'default') {
         this.endpoint = this.getEndpoint(name);
     }
-    getEndpoint(name = 'rest') {
+    getEndpoint(name = 'default') {
         return Container.instance.get(Config).getEndpoint(name);
     }
 }
