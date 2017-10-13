@@ -8,6 +8,8 @@
 
 import { inject } from 'aurelia-framework';
 
+import _ from 'lodash';
+
 import { AuthorizeStepJWT as AuthorizeStep } from 'features/authorize-step/authorize-step';
 import { Base } from 'features/base';
 import { EventsList, SessionConfig } from 'features/utils';
@@ -33,6 +35,10 @@ export class App extends Base {
         // this.config.set('application.layout', 'material');
         // Uncomment for ux
         // this.config.set('application.layout', 'ux');
+
+        this.subscribeEvent('router:navigation:complete', (result) => {
+            this.routerMarkActiveRoute(result.instruction.router, result.instruction.config.name);
+        });
     }
     /**
      * Configure Application router
@@ -243,6 +249,46 @@ export class App extends Base {
         }
 
         return { route: matchedRoute, params: matchedParams };
+    }
+    /**
+     * Search and mark active route when navigation completed.
+     * @param  {{}}      result
+     * @param  {String}  eventName
+     */
+    routerMarkActiveRoute(router, name, wipe = true) {
+        if (wipe) {
+            router.routes.forEach(route => route.active = false);
+        }
+        let routes = _.filter(router.routes, route =>
+            route.active === false &&
+            (route.name === name || (Array.isArray(route.routes) && route.routes.includes(name))));
+        routes.forEach((route) => {
+            route.active = true;
+            this.routerMarkActiveRoute(router, route.name, false);
+        })
+        // console.log('nav done', result);
+        // // determine router
+        // let router = result.instruction.router;
+        // // mark all routes as non active
+        // router.routes.forEach((route) => route.active = false);
+        // // mark current route as active
+        // let route = _.find(router.routes, { name: result.instruction.config.name });
+        // if (route) {
+        //     // mark route as active, if found
+        //     route.active = true;
+        //     // determine 1st level of parent routes
+        //     let parentRoute = _.find(router.routes, (route) => route.routes.includes(route.name));
+        //     if (parentRoute) {
+        //         // and mark as active if found
+        //         parentRoute.active = true;
+        //         // determine 2nd level of parent routes
+        //         let superparents = router.routes.find((route) => route.routes.includes(parent.name));
+        //         if (superparents.length) {
+        //             superparents.pop().active = true;
+        //         }
+        //     }
+        // }
+        // console.log('nav done', router);
     }
     /**
      * @param  {String} sw

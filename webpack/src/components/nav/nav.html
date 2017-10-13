@@ -1,6 +1,6 @@
 <template>
     <ul if.bind="filteredRoutes.length" class="nav" class.bind="style">
-        <li repeat.for="route of filteredRoutes">
+        <li repeat.for="route of filteredRoutes" class.bind="route.active ? 'active': ''">
             <a if.bind="!isNavbarNav" click.trigger="router.navigateToRoute(route.name, route.params || {})"
                 href="#">${route.title}</a>
             <a if.bind="isNavbarNav" click.trigger="router.navigateToRoute(route.name, route.params || {})"
@@ -10,12 +10,9 @@
                 <span if.bind="route.routes && route.routes.length" class="caret"></span>
             </a>
             <ul if.bind="route.routes && route.routes.length" class.bind="isNavbarNav ? 'dropdown-menu' : 'nav'">
-                <li repeat.for="subroute of findRoutes(route.routes || [])">
-                    <a if.bind="!isNavbarNav" click.trigger="router.navigateToRoute(subroute.name, subroute.params || {})"
-                        href="#">${subroute.title}</a>
-                    <a if.bind="isNavbarNav" click.trigger="router.navigateToRoute(subroute.name, subroute.params || {})"
-                            href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                            aria-expanded="false">
+                <li repeat.for="subroute of findRoutes(route.routes || [])" class.bind="subroute.active ? 'active': ''">
+                    <a if.bind="!isNavbarNav" click.trigger="router.navigateToRoute(subroute.name, subroute.params || {})" href="#">${subroute.title}</a>
+                    <a if.bind="isNavbarNav" click.trigger="router.navigateToRoute(subroute.name, subroute.params || {})" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         ${subroute.title}
                         <span if.bind="subroute.routes && subroute.routes.length" class="caret"></span>
                     </a>
