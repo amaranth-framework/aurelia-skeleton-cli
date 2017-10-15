@@ -1,7 +1,7 @@
 import {inject, NewInstance} from 'aurelia-framework';
 import {validateTrigger, ValidationController, ValidationRules} from 'aurelia-validation';
 
-import {Component} from 'features/views/component';
+import {Component} from 'features/views/model';
 import {extend} from 'features/utils';
 
 /**
@@ -11,24 +11,11 @@ import {extend} from 'features/utils';
  * http://aurelia.io/hub.html#/doc/article/aurelia/validation/latest/validation-basics/2
  */
 @inject(NewInstance.of(ValidationController))
-export class ComponentHelperForm extends Component {
+export class ComponentHelperForm extends Model {
     /**
      * @see View::overrideSettingsKey
      */
     overrideSettingsKey = 'components.helper-form';
-    /**
-     * @see Base::constructor()
-     * @see View::constructor()
-     * @param {any} validationController
-     */
-    constructor(validationController, ...args) {
-        super(...args);
-
-        this.validationController = validationController;
-        this.validationController.validateTrigger = validateTrigger.change;
-
-        this.data = {};
-    }
     /**
      * @see View::attached()
      */

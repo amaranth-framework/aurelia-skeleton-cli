@@ -1,7 +1,181 @@
 import { Container } from 'aurelia-dependency-injection';
+import { validateTrigger, ValidationController } from 'aurelia-validation';
 
 import { Component } from 'features/views/component';
 import { className, deprecate, extend, waitForVariable } from 'features/utils';
+
+/**
+ * Abstract Model View (usable with <compose>)
+ * @note Please keep in mind that Component and Model are almost the same thing, however Model is oriented to the idea
+ * of a model-view having all it's functionality within a Model class, while the notion of a component can be extended
+ * to any piece of replicable code or functionality within the website.
+ */
+export class Model extends Component {
+    /**
+     * Model Index Field Name
+     * @type {String}
+     */
+    static INDEX_NAME = 'id';
+    /**
+     * @see Base::constructor()
+     * @see View::constructor()
+     * @param {any} validationController
+     */
+    constructor(validationController, ...args) {
+        super(...args);
+
+        this.validationController = validationController;
+        this.validationController.validateTrigger = validateTrigger.change;
+    }
+    /**
+     * @see View::defaultSettings()
+     * @return {Object}
+     */
+    get defaultSettings() {
+        return extend(true, super.defaultSettings, {
+            endpoint: 'default'
+        });
+    }
+    /**
+     * Getter: Obtain the form config for the model
+     * @return {[type]}
+     */
+    get formConfig() {
+        return [{ name: this.__proto__.INDEX_NAME, type: 'hidden' }];
+    }
+    /**
+     * @singleton
+     * @type {[type]}
+     */
+    static get instance() {
+        if (!this.__instance__) {
+            this.__instance__ = this.newInstance();
+        }
+        return this.__instance__;
+    }
+    /**
+     * Load data for a certain model, by model's id.
+     * @param {Number} id?
+     * @returns {Promise<Object>|Promise<Error>}
+     */
+    async load(id = null) {
+        this[this.__proto__.INDEX_NAME] = this[this.__proto__.INDEX_NAME] || id;
+
+        if (!this[this.__proto__.INDEX_NAME]) {
+            throw Error(`Model has no '${this.__proto__.INDEX_NAME}' value. Cannot load an empty model.`);
+        }
+
+        return await this.getEndpoint(this.settings.endpoint || 'default')
+            .findOne(this.settings.services.load, this[this.__proto__.INDEX_NAME])
+            .then(result => {
+                console.log('result', result);
+                this.setData(result);
+                return this.toObject();
+            });
+    }
+    /**
+     * List the entire set of entities from the table.
+     * @param  {Array|String|null} properties
+     * @param  {Array|String|null} filter
+     * @return {Promise<Array>|Promise<Error>}
+     */
+    static async list(properties = null, filter = null) {
+        const model = this.instance;
+        if (model.canActivate && !model.canActivate()) {
+            throw Error(`'${className(model)}' could not pass by 'canActivate()' method.`);
+        }
+        model.activate();
+        return model.getEndpoint(model.settings.endpoint || 'default').find(model.settings.services.list);
+    }
+    /**
+     * Return new empty instance of the model
+     * @return {Model}
+     */
+    static newInstance() {
+        // return new this();
+        return Container.instance.get(this);
+    }
+    /**
+     * Remove existing model
+     * @return {Promise<*>|Promise<Error>}
+     */
+    async remove() {
+        return await this.getEndpoint(this.settings.endpoint || 'default')
+            .destroyOne(this.settings.services.remove, this[this.__proto__.INDEX_NAME]);
+    }
+    /**
+     * Remove the model with id ...
+     * @param  {Number} id
+     * @return {Promise<*>|Promise<Error>}
+     */
+    static async remove(id) {
+        let model = this.newInstance();
+        model[model.__proto__.INDEX_NAME] = id;
+        return model.remove();
+    }
+    /**
+     * Set data to the model, from an external source.
+     * @param  {Object} data
+     */
+    setData(data) {
+        this._properties.forEach((key) => {
+            if (data[key] !== undefined) {
+                this[key] = data[key];
+            }
+        });
+    }
+    /**
+     * Save model.
+     * @returns {Promise<*>|Promise<Error>}
+     */
+    async save() {
+        const RESULT = await this.validate();
+        if (!RESULT.valid) {
+            this.logger.warn('Cannot save model. Validation failed.', RESULT);
+            throw new Error('Canot save model. Validation failed.');
+        }
+
+        if (this[this.__proto__.INDEX_NAME]) {
+            return await this.getEndpoint(this.settings.endpoint || 'default')
+                .updateOne(this.settings.services.update, this[this.__proto__.INDEX_NAME], this.toObject());
+        }
+
+        return await this.getEndpoint(this.settings.endpoint || 'default')
+            .create(this.settings.services.save, this.toObject());
+    }
+    /**
+     * Convert model to list of inputs for form component.
+     * @method toFormConfig
+     * @return {Array<{}>}
+     */
+    toFormConfig() {
+        return this._properties.map((key) => {
+            const input = {
+                type: 'text',
+                label: this._propertySettings[key].name || key,
+                name:  this._propertySettings[key].name || key
+            };
+            return (this._propertySettings[key] && this._propertySettings[key].form) ?
+                extend(true, input, this._propertySettings[key].form) : input;
+        });
+    }
+    /**
+     * Take the entire Model class and obtain only the saveable/workable object data.
+     * @return {Object}
+     */
+    toObject() {
+        let obj = {};
+        this._properties.forEach((key) => obj[key] = this[key]);
+        return obj;
+    }
+    /**
+     * Validate model
+     * @return {Promise<*>}
+     */
+    async validate() {
+        return this.validationController.validate();
+    }
+}
 
 /**
  * Experimental decorator for mentioning the model's table properties.
@@ -105,151 +279,4 @@ export function property(...args) {
     // if calling `@property`
     // @NOTE: For the moment this method will not work with html bindable variables
     return decorator.apply(null, args);
-}
-
-/**
- * Abstract Model View (usable with <compose>)
- * @note Please keep in mind that Component and Model are almost the same thing, however Model is oriented to the idea
- * of a model-view having all it's functionality within a Model class, while the notion of a component can be extended
- * to any piece of replicable code or functionality within the website.
- */
-export class Model extends Component {
-    /**
-     * Model Index Field Name
-     * @type {String}
-     */
-    static INDEX_NAME = 'id';
-    /**
-     * @see View::defaultSettings()
-     * @return {Object}
-     */
-    get defaultSettings() {
-        return extend(true, super.defaultSettings, {
-            endpoint: 'default'
-        });
-    }
-    /**
-     * @see View::detached()
-     */
-    detached() {
-        $('.modal-backdrop').fadeOut('fast');
-    }
-    /**
-     * @singleton
-     * @type {[type]}
-     */
-    static get instance() {
-        if (!this.__instance__) {
-            this.__instance__ = this.newInstance();
-        }
-        return this.__instance__;
-    }
-    /**
-     * Return new empty instance of the model
-     * @return {Model}
-     */
-    static newInstance() {
-        // return new this();
-        return Container.instance.get(this);
-    }
-    /**
-     * Load data for a certain model, by model's id.
-     * @param {Number} id?
-     * @returns {Promise<Object>|Promise<Error>}
-     */
-    async load(id = null) {
-        this[this.__proto__.INDEX_NAME] = this[this.__proto__.INDEX_NAME] || id;
-
-        if (!this[this.__proto__.INDEX_NAME]) {
-            throw Error(`Model has no '${this.__proto__.INDEX_NAME}' value. Cannot load an empty model.`);
-        }
-
-        return await this.getEndpoint(this.settings.endpoint || 'default')
-            .findOne(this.settings.services.load, this[this.__proto__.INDEX_NAME])
-            .then(result => {
-                console.log('result', result);
-                this.setData(result);
-                return this.toObject();
-            });
-    }
-    /**
-     * List the entire set of entities from the table.
-     * @param  {Array|String|null} properties
-     * @param  {Array|String|null} filter
-     * @return {Promise<Array>|Promise<Error>}
-     */
-    static async list(properties = null, filter = null) {
-        const model = this.instance;
-        if (model.canActivate && !model.canActivate()) {
-            throw Error(`'${className(model)}' could not pass by 'canActivate()' method.`);
-        }
-        model.activate();
-        return model.getEndpoint(model.settings.endpoint || 'default').find(model.settings.services.list);
-    }
-    /**
-     * Remove existing model
-     * @return {Promise<*>|Promise<Error>}
-     */
-    async remove() {
-        return await this.getEndpoint(this.settings.endpoint || 'default')
-            .destroyOne(this.settings.services.remove, this[this.__proto__.INDEX_NAME]);
-    }
-    /**
-     * Remove the model with id ...
-     * @param  {Number} id
-     * @return {Promise<*>|Promise<Error>}
-     */
-    static async remove(id) {
-        let model = this.newInstance();
-        model[model.__proto__.INDEX_NAME] = id;
-        return model.remove();
-    }
-    /**
-     * Set data to the model, from an external source.
-     * @param  {Object} data
-     */
-    setData(data) {
-        this._properties.forEach((key) => {
-            if (data[key] !== undefined) {
-                this[key] = data[key];
-            }
-        });
-    }
-    /**
-     * Save model.
-     * @returns {Promise<*>|Promise<Error>}
-     */
-    async save() {
-        if (this[this.__proto__.INDEX_NAME]) {
-            return await this.getEndpoint(this.settings.endpoint || 'default')
-                .updateOne(this.settings.services.update, this[this.__proto__.INDEX_NAME], this.toObject());
-        }
-        return await this.getEndpoint(this.settings.endpoint || 'default')
-            .create(this.settings.services.save, this.toObject());
-    }
-    /**
-     * Convert model to list of inputs for form component.
-     * @method toFormConfig
-     * @return {Object}
-     */
-    toFormConfig() {
-        return this._properties.map((key) => {
-            const input = {
-                type: 'text',
-                label: this._propertySettings[key].name || key,
-                name:  this._propertySettings[key].name || key
-            };
-            return (this._propertySettings[key] && this._propertySettings[key].formConfig) ?
-                extend(true, input, this._propertySettings[key].formConfig) : input;
-        });
-    }
-    /**
-     * Take the entire Model class and obtain only the saveable/workable object data.
-     * @return {Object}
-     */
-    toObject() {
-        let obj = {};
-        this._properties.forEach((key) => obj[key] = this[key]);
-        return obj;
-    }
 }
