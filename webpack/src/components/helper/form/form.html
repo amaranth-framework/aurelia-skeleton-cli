@@ -8,33 +8,26 @@
                 validation-errors.bind="$parent[bindingErrorsName(input, $index)]" class="form-group">
 
             <!-- Standard Bootstrap form label. -->
-            <label class.bind="labelStyle" for.bind="getInputId($index)" if.bind="!isMaterialForm() && input.label && input.type !== 'hidden'">${input.label}</label>
+            <label class.bind="labelStyle()" for.bind="getInputId($index)" if.bind="!isMaterialForm() && input.label && input.type !== 'hidden'">${input.label}</label>
 
-            <div class.bind="inputStyle">
+            <div class.bind="inputStyle()">
 
                 <!-- Input / text, password, date, file -->
-                <input class.bind="$parent[bindingFilledMarker(input, $index)]" id.bind="getInputId($index)" if.bind="isTextInput(input)"
-                     placeholder="${input.placeholder || input.label}" type.bind="input.type"
-                     value.bind="data[bindingName(input, $index)] & validate" class="form-control">
+                <!-- <input class.bind="$parent[bindingFilledMarker(input, $index)]" id.bind="getInputId($index)" if.bind="isTextInput(input)" placeholder="${input.placeholder || input.label}" type.bind="input.type" value.bind="$parent[bindingName(input, $index)] & validate" class="form-control"> -->
+                <input class.bind="$parent[bindingFilledMarker(input, $index)]" id.bind="getInputId($index)" if.bind="isTextInput(input)" placeholder="${input.placeholder || input.label}" type.bind="input.type" value.bind="$parent[bindingName(input, $index)] & validate" class="form-control">
 
                 <!-- Textarea -->
-                <textarea if.bind="isTextarea(input)" id="getInputId($index)" class.bind="$parent[bindingFilledMarker(input, $index)]"
-                    placeholder="${input.placeholder || input.label}" value.bind="data[bindingName(input, $index)] & validate"
-                    class="form-control"></textarea>
+                <textarea if.bind="isTextarea(input)" id="getInputId($index)" class.bind="$parent[bindingFilledMarker(input, $index)]" placeholder="${input.placeholder || input.label}" value.bind="$parent[bindingName(input, $index)] & validate" class="form-control"></textarea>
 
                 <!-- Select -->
-                <select if.bind="isSelect(input)" id="getInputId($index)" value.bind="data[bindingName(input, $index)] & validate"
-                        class="form-control">
-                    <option disabled.bind="item.disabled" label.bind="item.label"
-                        model.bind="item" repeat.for="item of input.values">${item.label}</option>
+                <select if.bind="isSelect(input)" id="getInputId($index)" value.bind="$parent[bindingName(input, $index)] & validate" class="form-control">
+                    <option disabled.bind="item.disabled" label.bind="item.label" model.bind="item" repeat.for="item of input.values">${item.label}</option>
                 </select>
 
                 <!--  Checkbox/Radio Lists -->
                 <div class="${input.type}" if.bind="isCheckable(input)">
                     <label for="input-${input.type}-${$parent.$index}-${$index}" repeat.for="item of input.values">
-                        <input checked.bind="data[bindingName(input, $parent.$index)] & validate" disabled.bind="item.disabled"
-                            id="input-${input.type}-${$parent.$index}-${$index}" model.bind="item"
-                            name.bind="getInputName(input, $parent.$index)" type.bind="input.type">
+                        <input checked.bind="$parent[bindingName(input, $parent.$index)] & validate" disabled.bind="item.disabled" id="input-${input.type}-${$parent.$index}-${$index}" model.bind="item" name.bind="getInputName(input, $parent.$index)" type.bind="input.type">
                         <span></span> ${item.label}
                     </label>
                 </div>

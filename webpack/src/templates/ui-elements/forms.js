@@ -15,7 +15,7 @@ export class TemplateForms extends Template {
      * Form settings.
      * @type {Object}
      */
-    inputs = [
+    inputs =[
         {
             label: 'Regular Input',
             type: 'text',
@@ -111,16 +111,15 @@ export class TemplateForms extends Template {
 
         this.subscribeEvent('form:basic-form:init', (form) => {
             // setting default values for validated fields
-            form.data = {
-                text: 'Valid Content',
-                email: 'Invalid Content'
-            };
+            form.text = 'Valid Content';
+            form.email = 'Invalid Content';
+
             // just setting default vaules for checkable inputs
             this.inputs.forEach((input) => {
                 if (/checkbox|radio|select/.test(input.type)) {
-                    form.data[form.bindingName(input)] = input.values[1];
+                    form[form.bindingName(input)] = input.values[1];
                     if (input.type === 'checkbox') {
-                        form.data[form.bindingName(input)] = [form.data[form.bindingName(input)]];
+                        form[form.bindingName(input)] = [form[form.bindingName(input)]];
                     }
                 }
             });
@@ -131,7 +130,7 @@ export class TemplateForms extends Template {
                 .ensure('email').displayName('Email Input')
                 .email().withMessage(`\${$displayName} must be an email.`)
                 .required()
-                .on(form.data);
+                .on(form);
         });
 
         this.subscribeEvent('form:basic-form:validated', (data) => messg.success('Form validated succesfully.'));

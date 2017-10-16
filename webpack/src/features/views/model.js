@@ -1,4 +1,4 @@
-import { Container } from 'aurelia-dependency-injection';
+import { Container, inject, NewInstance } from 'aurelia-dependency-injection';
 import { validateTrigger, ValidationController } from 'aurelia-validation';
 
 import { Component } from 'features/views/component';
@@ -10,6 +10,7 @@ import { className, deprecate, extend, waitForVariable } from 'features/utils';
  * of a model-view having all it's functionality within a Model class, while the notion of a component can be extended
  * to any piece of replicable code or functionality within the website.
  */
+@inject(NewInstance.of(ValidationController))
 export class Model extends Component {
     /**
      * Model Index Field Name
@@ -19,7 +20,7 @@ export class Model extends Component {
     /**
      * @see Base::constructor()
      * @see View::constructor()
-     * @param {any} validationController
+     * @param {ValidationController} validationController
      */
     constructor(validationController, ...args) {
         super(...args);
@@ -37,11 +38,14 @@ export class Model extends Component {
         });
     }
     /**
-     * Getter: Obtain the form config for the model
-     * @return {[type]}
+     * @see View::init()
      */
-    get formConfig() {
-        return [{ name: this.__proto__.INDEX_NAME, type: 'hidden' }];
+    init() {
+        super.init();
+        // init validation if method exists
+        if (typeof this.applyValidationRules === 'function') {
+            this.applyValidationRules();
+        }
     }
     /**
      * @singleton
@@ -129,12 +133,6 @@ export class Model extends Component {
      * @returns {Promise<*>|Promise<Error>}
      */
     async save() {
-        const RESULT = await this.validate();
-        if (!RESULT.valid) {
-            this.logger.warn('Cannot save model. Validation failed.', RESULT);
-            throw new Error('Canot save model. Validation failed.');
-        }
-
         if (this[this.__proto__.INDEX_NAME]) {
             return await this.getEndpoint(this.settings.endpoint || 'default')
                 .updateOne(this.settings.services.update, this[this.__proto__.INDEX_NAME], this.toObject());
@@ -168,14 +166,8 @@ export class Model extends Component {
         this._properties.forEach((key) => obj[key] = this[key]);
         return obj;
     }
-    /**
-     * Validate model
-     * @return {Promise<*>}
-     */
-    async validate() {
-        return this.validationController.validate();
-    }
 }
+
 
 /**
  * Experimental decorator for mentioning the model's table properties.
