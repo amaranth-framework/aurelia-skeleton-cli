@@ -3,75 +3,65 @@
  *
  */
 export class Form {
-    /**
-     * Obtain name for errors variable, for a certain input
-     * @param  {Object} input
-     * @return {String}
-     */
-    bindingErrorsName(input, index = 0) {
-        return this.bindingName(input, index) + 'Errors';
-    }
-    /**
-     * Calculate a marker for specifying the input is filled in, only for material style.
-     * @method materialFilledMarker
-     * @param  {Object}  input
-     * @return {String}
-     */
-    bindingFilledMarker(input, index = 0) {
-        // get input binding name
-        const bindingName = this.bindingName(input, index);
-        // obtain a getter name for our property
-        const bingingNameIsFilled = bindingName + 'IsFilled';
-        // find out if it already has descriptors
-        const propertyDescriptor = Object.getOwnPropertyDescriptor(this, bingingNameIsFilled);
-        // if so... leave it alone
-        if (propertyDescriptor && propertyDescriptor.get) {
-            return bingingNameIsFilled;
-        }
-        // create the descriptor for the getter
-        Object.defineProperty(this, bingingNameIsFilled, {
-            get: function() {
-                return (this[bindingName] && (new String(this[bindingName])).length) ? 'is-not-empty' : '';
-            }
-        });
-        return bingingNameIsFilled;
-    }
-    /**
-     * Obtain
-     * @param  {Object} input
-     * @return {Number}
-     */
-    bindingName(input, index = 0) {
-        return input.name || this.getInputName(input, index);
+    bindingElement(input) {
+        return this[input.name];
     }
     /**
      * Getter: Obtain the form config for the model
      * @return {[type]}
      */
     formConfig() {
-        return [{ name: this.__proto__.INDEX_NAME, type: 'hidden' }];
+        return (this.settings ? this.settings.inputs : null) || [{ name: 'id', type: 'hidden' }];
     }
     /**
-     * Obtain a generig id for a certain input.
-     * @param  {Number}   index
-     * @return {String}
+     * @param  {{}} input
+     * @return {{}}
      */
-    getInputId(index = 0) {
-        return `input-${index}-${this.__uuid.toString()}`
-    }
-    /**
-     * Define the name for a certain input.
-     * @param  {Object} input
-     * @param  {Number} index
-     * @return {String}
-     */
-    getInputName(input, index = 0) {
-        let name = input.name ? input.name : 'input';
-        name = `${name}-${index}-${this.__uuid.toString()}`;
-        if (input.type === 'checkbox') {
-            name = `${name}[]`
+    _input(input) {
+        // if input already formed, just return it
+        if (input.__formed__) {
+            return input;
         }
-        return name;
+        // throw error if input has no name
+        if (!input.name) {
+            throw Error(`Form '#${this.settings.name}' has inputs without name property. Please fix before advancing.`);
+        }
+        // render input id
+        input.id = `${input.id || input.name}-${this.__uuid}`;
+        // property -> determine whether input is filled or not
+        Object.defineProperty(input, 'isFilled', {
+            get: () => {
+                return this[input.name] && (new String(this[input.name])).length > 0;
+            }
+        });
+        // property -> determine or set the validation errors
+        Object.defineProperty(input, 'validationErrors', {
+            get: () => {
+                return this[`${input.name}Errors`] ||  [];
+            },
+            set: (value) => {
+                this[`${input.name}Errors`] = value;
+            }
+        });
+        // property -> determine the validation style
+        Object.defineProperty(input, 'validationStyle', {
+            get: () => {
+                return this.validationStyle(input);
+            }
+        });
+        // property -> determine or set the binded value -> NOT USED
+        // Object.defineProperty(input, 'bindValue', {
+        //     get: () => {
+        //         return this[input.name];
+        //     },
+        //     set: (value) => {
+        //         this[input.name] = value;
+        //     }
+        // });
+
+        // mark as formed and return
+        input.__formed__ = true;
+        return input;
     }
     /**
      * Getter: Calculate style for input div wrapper.
@@ -148,29 +138,22 @@ export class Form {
      * @param {String} input
      * @param {Number} index
      */
-    validationStyle(input, index) { //, errors, value) {
-        let bindingName = this.bindingName(input, index);
-        let bindingErrorsName = this.bindingErrorsName(input, index);
+    validationStyle(input) {
         // test whether there are rules to validate the field
-        let ruleFilter = (item) => item.property && item.property.name === bindingName;
-        let setFilter = (set) => set.filter(ruleFilter).length;
+        let ruleFilter = (item) => item.property && item.property.name === input.name;
+        let setFilter = (set) => set.length > 0 && set.filter(ruleFilter).length > 0;
+        // and return only the input style
         if (!this.__rules__ || !this.__rules__.filter(setFilter).length) {
             return input.style || '';
         }
-        // have errors
-        let errors = this[bindingErrorsName] && this[bindingErrorsName].length;
-        // errors = errors && errors.length;
-        // have value and value has length
-        let value = this[bindingName] && this[bindingName].length;
-        // value = value && value.length;
         // validation class name
         let validationClass = '';
         // if filled in and no errors
-        if (value && !errors) {
+        if (input.isFilled && !input.validationErrors.length) {
             validationClass = 'is-valid';
         }
         // if errors
-        if (errors) {
+        if (input.validationErrors.length) {
             validationClass = 'is-error';
         }
         return `${input.style || ''} ${validationClass}`;

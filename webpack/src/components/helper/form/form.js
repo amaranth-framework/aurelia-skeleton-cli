@@ -30,12 +30,13 @@ export class ComponentHelperForm extends Component {
         super(...args);
 
         this.validationController = validationController;
-        this.validationController.validateTrigger = validateTrigger.change;
+        this.validationController.validateTrigger = validateTrigger.changeOrBlur;
     }
     /**
      * @see View::attached()
      */
     attached() {
+        // signal form has been attached
         this.events.publish(`form:${this.settings.name}:attached`, this);
     }
     /**
@@ -56,7 +57,16 @@ export class ComponentHelperForm extends Component {
      */
     detached() {
         super.detached();
+        // signal form has been detached
         this.events.publish(`form:${this.settings.name}:detached`, this);
+    }
+    /**
+     * @return {Array<*>}
+     */
+    getData() {
+        let data = {};
+        this.formConfig().forEach(input => data[input.name] = this[input.name]);
+        return data;
     }
     /**
      * @see View::init()
@@ -85,6 +95,7 @@ export class ComponentHelperForm extends Component {
      */
     async validate() {
         const RESULT = await this.validationController.validate();
+        console.log('validate', RESULT, this.getData());
         if (RESULT.valid) {
             this.events.publish(`form:${this.settings.name}:validated`, this);
             return;

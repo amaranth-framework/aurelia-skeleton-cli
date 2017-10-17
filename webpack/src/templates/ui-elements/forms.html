@@ -12,10 +12,10 @@
                 <h3>Basic Forms</h3>
                 <p>Individual form controls automatically receive some global styling.</p>
 
-                <compose containerless view-model="components/helper/form/form" model.bind="{ settings: settings.form, inputs: inputs }" ></compose>
+                <compose containerless view-model="components/helper/form/form" model.bind="{ settings: settings.form }" ></compose>
 
-                <button click.trigger="events.publish('form:default:validate')" class="btn btn-primary" type="submit">Submit</button>
-                <button click.trigger="events.publish('form:default:reset')" class="btn btn-default" type="reset">Reset</button>
+                <button click.trigger="events.publish('form:basic-form:validate')" class="btn btn-primary" type="submit">Submit</button>
+                <button click.trigger="events.publish('form:basic-form:reset')" class="btn btn-default" type="reset">Reset</button>
             </div>
 		</div>
     </div>

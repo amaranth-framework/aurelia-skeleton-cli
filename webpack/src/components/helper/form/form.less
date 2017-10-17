@@ -163,7 +163,7 @@ form {
                 top: @font-small * 3;
             }
             &:focus + label,
-            &.is-not-empty + label {
+            &.is-filled + label {
                 color: @color-dark;
                 top: 0;
                 font-weight: bold;
@@ -172,14 +172,14 @@ form {
         & .form-group.is-valid .form-control {
             & + label,
             &:focus + label,
-            &.is-not-empty + label {
+            &.is-filled + label {
                 color: @color-valid;
             }
         }
         & .form-group.is-error .form-control {
             & + label,
             &:focus + label,
-            &.is-not-empty + label {
+            &.is-filled + label {
                 color: @color-error;
             }
         }

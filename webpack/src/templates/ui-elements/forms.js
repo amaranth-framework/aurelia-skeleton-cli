@@ -25,6 +25,8 @@ export class TemplateForms extends Template {
         },
         {
             label: 'Password',
+            name: 'password',
+            placeholder: 'Password (Validation set, but triggered when change)',
             type: 'password',
             style: 'col-md-6'
         },
@@ -35,7 +37,9 @@ export class TemplateForms extends Template {
             style: 'col-md-6'
         },
         {
+            // bindByModel: true,
             label: 'Select',
+            name: 'select',
             type: 'select',
             values: [
                 { label: 'First Selectable Item', value: 0 },
@@ -51,10 +55,22 @@ export class TemplateForms extends Template {
         // },
         {
             label: 'Textarea',
+            name: 'textarea',
             type: 'textarea',
             style: 'col-md-12'
         },
         {
+            // bindByModel: true,
+            label: 'Single Checkbox',
+            type: 'checkbox',
+            name: 'check0',
+            values: [
+                { label: 'First Selectable Item', value: 21 },
+            ],
+            style: 'col-md-12'
+        },
+        {
+            // bindByModel: true,
             label: 'Checkboxes',
             type: 'checkbox',
             name: 'check1',
@@ -67,6 +83,7 @@ export class TemplateForms extends Template {
             style: 'col-md-6'
         },
         {
+            // bindByModel: true,
             label: 'Radio Buttons',
             type: 'radio',
             name: 'check2',
@@ -79,6 +96,7 @@ export class TemplateForms extends Template {
             style: 'col-md-6'
         },
         {
+            // bindByModel: true,
             label: 'Checkboxes Inline',
             type: 'checkbox',
             style: 'form-group--inline col-md-12',
@@ -91,6 +109,7 @@ export class TemplateForms extends Template {
             ]
         },
         {
+            // bindByModel: true,
             label: 'Radio Buttons Inline',
             type: 'radio',
             style: 'form-group--inline col-md-12',
@@ -110,22 +129,32 @@ export class TemplateForms extends Template {
         super(...args);
 
         this.subscribeEvent('form:basic-form:init', (form) => {
+            // attach the input list
+            // @NOTE This practice is not recommended for production. We just used this for the demo purpose.
+            form.settings.inputs = this.inputs;
+
             // setting default values for validated fields
             form.text = 'Valid Content';
-            form.email = 'Invalid Content';
+            form.email = 'Invalid Content (Wrong value, Validation trigger when changed)';
 
             // just setting default vaules for checkable inputs
             this.inputs.forEach((input) => {
                 if (/checkbox|radio|select/.test(input.type)) {
-                    form[form.bindingName(input)] = input.values[1];
+                    let index = input.values.length > 1 ? this.random() % input.values.length : 0;
+                    // form[input.name] = input.values[];
+                    // form[input.name] = input.values[index];
+                    form[input.name] = input.values[index].value;
                     if (input.type === 'checkbox') {
-                        form[form.bindingName(input)] = [form[form.bindingName(input)]];
+                        form[input.name] = [form[input.name]];
                     }
                 }
             });
+            console.log('data', form.getData());
             // validation rules
             ValidationRules
                 .ensure('text').displayName('Text Input')
+                .required()
+                .ensure('password').displayName('Password Input')
                 .required()
                 .ensure('email').displayName('Email Input')
                 .email().withMessage(`\${$displayName} must be an email.`)
@@ -152,5 +181,12 @@ export class TemplateForms extends Template {
                 name: 'basic-form'
             }
         })
+    }
+    /**
+     * @return {Number}
+     */
+    random() {
+        let rand = (Math.random() + Math.random() + Math.random() + Math.random() + Math.random() + Math.random()) / 3;
+        return Math.floor(rand * 100);
     }
 }
