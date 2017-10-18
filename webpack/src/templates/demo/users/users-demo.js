@@ -16,18 +16,19 @@ export class TemplateUsers extends Template {
      */
     constructor(...args) {
         super(...args);
-        // obtain the form config from the user model
-        this.formConfig = User.newInstance().toFormConfig();
 
-        // this.subscribeEvent('form:user-edit:attached', async (formView) => {
-        //     this.formView = formView;
-        //     if (this.params.action && this.params.action === 'edit') {
-        //         let model = await User.newInstance().load(this.params.id);
-        //         this.formView.setData(model);
-        //         model.applyValidationRules(this.formView.data);
-        //     }
-        // });
-        this.subscribeEvent('form:user-edit:validated', async (formView) => {
+        this.subscribeEvent('model:user:attached', async (formView) => {
+            if (!formView.parent || formView.parent !== this) {
+                return;
+            }
+            this.formView = formView;
+            console.log('edit', formView);
+            if (this.params.action && this.params.action === 'edit') {
+                await this.formView.load(this.params.id);
+            }
+        });
+
+        this.subscribeEvent('form:user:validated', async (formView) => {
             let user = User.newInstance();
             if (this.params.action && this.params.action === 'edit') {
                 await user.load(this.params.id);

@@ -62,15 +62,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr repeat.for="row of tbody" id="${row.model.id}">
+                <tr repeat.for="row of tbody" id="table-${__uuid}-row-${row.model.id}">
                     <th if.bind="!settings.rows.selectable" scope="row">${row[0]}</th>
                     <th if.bind="settings.rows.selectable" scope="row">
                         <input type="checkbox" value="${row[0]}">
                     </th>
                     <td repeat.for="item of row.slice(1)" innerhtml.bind='item'></td>
                     <td if.bind="settings.actions && settings.actions.length">
-                        <a repeat.for="action of settings.actions" click.trigger="events.publish(action.event, row.model)"
-                            href="#" title="${action.title}"><i class="${action.icon}"></i></a>
+                        <a repeat.for="action of settings.actions" click.trigger="events.publish(action.event, row.model)" href="#" title="${action.title}"><i class="${action.icon}"></i></a>
                     </td>
                 </tr>
             </tbody>

@@ -7,7 +7,10 @@ import { AuthorizeStepJWT as AuthorizeStep } from 'features/authorize-step/autho
 import { extend, waitForVariable } from 'features/utils';
 import { Form } from 'features/traits/form';
 
-@traits(Form::excludes('detached', 'init', 'setData'))
+/**
+ *
+ */
+@traits(Form::excludes('formConfig'))
 export class User extends Model {
     @properties([
         {name: 'id', formConfig: { type: 'hidden' }},
@@ -45,10 +48,19 @@ export class User extends Model {
                 save: 'users',
                 update: 'users'
             },
-            form: {
-                name: 'user-edit'
-            }
+            name: 'user'
         }, super.defaultSettings);
+    }
+    /**
+     * @return {Array<{}>}   [description]
+     */
+    formConfig() {
+        return [
+            { name: 'id', type: 'hidden' },
+            { name: 'email', type: 'email' },
+            { name: 'name', type: 'text' },
+            { name: 'username', type: 'text' },
+        ];
     }
     /**
      * [init description]

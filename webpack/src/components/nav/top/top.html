@@ -17,10 +17,8 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse">
                 <!-- navbar-nav -->
-                <div repeat.for="component of settings.components" class="component component--${component.type}"
-                        class.bind="settings.styles[component.type]">
-                    <compose containerless view.bind="component.view || (component.module + '.html')"
-                        view-model.bind="component.module" model.bind="{ settings: component.settings }"></compose>
+                <div repeat.for="component of settings.components" class="component component--${component.type}" class.bind="settings.styles[component.type]">
+                    <compose containerless view.bind="component.view || (component.module + '.html')" view-model.bind="component.module" model.bind="{ settings: component.settings }"></compose>
                 </div>
                 <!-- <compose containerless view-model="components/nav/nav" model.bind="{ settings: settings.navbar }"></compose> -->
                 <!-- /navbar-nav -->

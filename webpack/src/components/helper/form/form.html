@@ -4,7 +4,7 @@
     <form class.bind="style" id.bind="settings.name" name.bind="settings.name">
 
         <!-- This is a Bootstrap 3 form, so we're using .form-group -->
-        <div repeat.for="input of formConfig()" class.bind="_input(input).validationStyle" validation-errors.bind="_input(input).validationErrors" class="form-group">
+        <div repeat.for="input of formConfig()" if.bind="input.type !== 'hidden'" class.bind="_input(input).validationStyle" validation-errors.bind="_input(input).validationErrors" class="form-group">
 
             <!-- Standard Bootstrap form label. -->
             <label class.bind="labelStyle()" for.bind="_input(input).id" if.bind="!isMaterialForm() && input.label && input.type !== 'hidden'">${input.label}</label>
@@ -53,5 +53,7 @@
                 </span>
             </div>
         </div>
+
+        <input repeat.for="input of formConfig()" if.bind="input.type === 'hidden'" id.bind="_input(input).id" value.bind="$parent[input.name]" type="hidden">
     </form>
 </template>

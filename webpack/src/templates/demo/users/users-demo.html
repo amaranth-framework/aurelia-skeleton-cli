@@ -12,11 +12,26 @@
                 <div>
                     <a route-href="route: users-edit; params.bind: {action:'add'}" class="btn btn-primary">Add User</a>
                 </div>
-				<compose containerless view="components/helper/table/table.html" view-model="components/listing/users"
-                    model.bind="{ settings: settings.users }" ></compose>
+				<compose containerless view="components/helper/table/table.html" view-model="components/listing/users" model.bind="{ settings: settings.users }" ></compose>
 			</div>
 		</div>
 	</div>
     <!-- Form Component -->
-    <!-- <compose containerless view-model="models/user/user" model.bind="{  }"></compose> -->
+    <div if.bind="!mode" id="modal-user-form" class="modal modal--form fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" click.trigger="router.navigateToRoute('users')"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<compose containerless view-model="models/user/user" view="components/helper/form/form.html" model.bind="{ parent: $parent }"></compose>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" click.trigger="router.navigateToRoute('users')" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" click.trigger="events.publish('form:user-edit:validate')">Save changes</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 </template>

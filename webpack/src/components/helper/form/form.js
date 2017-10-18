@@ -14,8 +14,8 @@ import { Form } from 'features/traits/form';
  * For full aurelia-validation documentation, please read:
  * http://aurelia.io/hub.html#/doc/article/aurelia/validation/latest/validation-basics/2
  */
-@inject(NewInstance.of(ValidationController))
 @traits(Form)
+@inject(NewInstance.of(ValidationController))
 export class ComponentHelperForm extends Component {
     /**
      * @see View::overrideSettingsKey

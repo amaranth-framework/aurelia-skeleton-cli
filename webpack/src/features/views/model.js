@@ -29,6 +29,12 @@ export class Model extends Component {
         this.validationController.validateTrigger = validateTrigger.change;
     }
     /**
+     * @see View::attached()
+     */
+    attached() {
+        this.events.publish(`model:${this.settings.name}:attached`, this);
+    }
+    /**
      * @see View::defaultSettings()
      * @return {Object}
      */
@@ -36,6 +42,13 @@ export class Model extends Component {
         return extend(true, super.defaultSettings, {
             endpoint: 'default'
         });
+    }
+    /**
+     * @see View::detached()
+     */
+    detached() {
+        super.detached();
+        this.events.publish(`model:${this.settings.name}:attached`);
     }
     /**
      * @see View::init()
