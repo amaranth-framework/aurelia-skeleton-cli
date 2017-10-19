@@ -39,7 +39,7 @@ export class User extends Model {
      * @see ModelView:defaultSettings
      */
     get defaultSettings() {
-        return extend(true, {
+        return extend(true, super.defaultSettings, {
             service: 'users',          // possible service settings for component
             services: {                // possible services settings for component
                 list: 'users',
@@ -49,7 +49,7 @@ export class User extends Model {
                 update: 'users'
             },
             name: 'user'
-        }, super.defaultSettings);
+        });
     }
     /**
      * @return {Array<{}>}   [description]
@@ -63,9 +63,7 @@ export class User extends Model {
         ];
     }
     /**
-     * [init description]
-     * @method init
-     * @return {Promise} [description]
+     * @see View::init()
      */
     async init() {
         super.init();

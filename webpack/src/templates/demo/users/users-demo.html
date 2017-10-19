@@ -28,8 +28,9 @@
 					<compose containerless view-model="models/user/user" view="components/helper/form/form.html" model.bind="{ parent: $parent }"></compose>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" click.trigger="router.navigateToRoute('users')" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" click.trigger="events.publish('form:user-edit:validate')">Save changes</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" click.trigger="events.publish('model:user:validate', user)">Save changes</button>
+					<!-- <button type="button" class="btn btn-primary" click.trigger="user.validate()">Save changes</button> -->
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->

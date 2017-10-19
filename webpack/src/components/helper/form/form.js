@@ -78,7 +78,7 @@ export class ComponentHelperForm extends Component {
             this.applyValidationRules();
         }
         // validate at request
-        this.subscribeEvent(`form:${this.settings.name}:validate`, () => this.validate());
+        this.subscribeEvent(`form:${this.settings.name}:validate`, (form) => form === this ? this.validate() : false);
         // publish form passed init
         this.events.publish(`form:${this.settings.name}:init`, this);
     }
@@ -95,11 +95,10 @@ export class ComponentHelperForm extends Component {
      */
     async validate() {
         const RESULT = await this.validationController.validate();
-        console.log('validate', RESULT, this.getData());
         if (RESULT.valid) {
             this.events.publish(`form:${this.settings.name}:validated`, this);
             return;
         }
-        this.events.publish(`form:${this.settings.name}:invalid`);
+        this.events.publish(`form:${this.settings.name}:invalid`, { form: this, result: RESULT });
     }
 }

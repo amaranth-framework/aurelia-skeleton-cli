@@ -40,7 +40,8 @@ export class Model extends Component {
      */
     get defaultSettings() {
         return extend(true, super.defaultSettings, {
-            endpoint: 'default'
+            endpoint: 'default',
+            name: 'abstract-model'
         });
     }
     /**
@@ -48,7 +49,7 @@ export class Model extends Component {
      */
     detached() {
         super.detached();
-        this.events.publish(`model:${this.settings.name}:attached`);
+        this.events.publish(`model:${this.settings.name}:detached`, this);
     }
     /**
      * @see View::init()
@@ -59,6 +60,10 @@ export class Model extends Component {
         if (typeof this.applyValidationRules === 'function') {
             this.applyValidationRules();
         }
+        // validate at request
+        this.subscribeEvent(`model:${this.settings.name}:validate`, (model) => model === this ? this.validate() : false);
+        // publish form passed init
+        this.events.publish(`model:${this.settings.name}:init`, this);
     }
     /**
      * @singleton
@@ -178,6 +183,17 @@ export class Model extends Component {
         let obj = {};
         this._properties.forEach((key) => obj[key] = this[key]);
         return obj;
+    }
+    /**
+     * Validate method.
+     */
+    async validate() {
+        const RESULT = await this.validationController.validate();
+        if (RESULT.valid) {
+            this.events.publish(`model:${this.settings.name}:validated`, this);
+            return;
+        }
+        this.events.publish(`model:${this.settings.name}:invalid`, { model: this, result: RESULT });
     }
 }
 
