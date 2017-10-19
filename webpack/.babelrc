@@ -1,20 +1,5 @@
 {
-  "sourceMap": true,
-  "sourceRoot": "src",
-  "moduleIds": false,
-  "comments": false,
-  "compact": false,
-  "code": true,
   "presets": [
-    "env",
-    "stage-0",
-    "stage-2"
-  ],
-  "plugins": [
-    "syntax-flow",
-    "transform-decorators-legacy",
-    "transform-class-properties",
-    "transform-flow-strip-types",
-    "transform-es2015-modules-commonjs"
+    "./.babelrc.js"
   ]
 }
