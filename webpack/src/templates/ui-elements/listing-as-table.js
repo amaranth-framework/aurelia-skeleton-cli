@@ -1,11 +1,11 @@
 import {Template} from 'features/views/template';
 import { extend } from 'features/utils';
 
-export class TemplateTables extends Template {
+export class TemplateListingAsTable extends Template {
     /**
      * @see ModelView::overrideSettingsKey
      */
-    overrideSettingsKey = 'templates.tables';
+    overrideSettingsKey = 'templates.listing-as-table';
     /**
      * @see View::defaultSettings()
      * @return {Object}
@@ -14,7 +14,7 @@ export class TemplateTables extends Template {
         return extend(true, super.defaultSettings, {
             pageTitle: {
                 content: {
-                    title: 'Tables'
+                    title: 'Listing (as table)'
                 }
             }
         })

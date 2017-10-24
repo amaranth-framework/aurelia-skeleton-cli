@@ -1,8 +1,8 @@
-import { ComponentHelperTable } from 'components/helper/table/table';
+import { ComponentHelperListing } from 'components/helper/listing/listing';
 import { extend } from 'features/utils';
 import { User } from 'models/user/user';
 
-export class ComponentTableDemoSimple extends ComponentHelperTable {
+export class ComponentTableDemoSimple extends ComponentHelperListing {
     /**
      * @see View::overrideSettingsKey
      */

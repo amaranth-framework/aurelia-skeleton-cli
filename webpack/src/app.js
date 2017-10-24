@@ -161,11 +161,20 @@ export class App extends Base {
                 group: 'left-ui'
             },
             {
-                route: 'tables',
-                name: 'tables',
-                moduleId: PLATFORM.moduleName('templates/ui-elements/tables'),
+                route: 'listing',
+                name: 'listing',
+                moduleId: PLATFORM.moduleName('templates/ui-elements/listing'),
                 nav: true,
-                title: 'Tables',
+                title: 'Listing',
+                group: 'left-ui',
+                routes: ['listing-as-table']
+            },
+            {
+                route: 'listing-as-table',
+                name: 'listing-as-table',
+                moduleId: PLATFORM.moduleName('templates/ui-elements/listing-as-table'),
+                nav: false,
+                title: 'Listing (as table)',
                 group: 'left-ui'
             },
             {

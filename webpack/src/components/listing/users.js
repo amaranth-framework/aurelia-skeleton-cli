@@ -1,9 +1,9 @@
-import { ComponentHelperTable } from 'components/helper/table/table';
+import { ComponentHelperListing } from 'components/helper/listing/listing';
 import { User } from 'models/user/user';
 
 import 'bootstrap';
 
-export class ComponentTableDemoSimple extends ComponentHelperTable {
+export class ComponentTableDemoSimple extends ComponentHelperListing {
     /**
      * @see View::overrideSettingsKey
      */
@@ -17,12 +17,17 @@ export class ComponentTableDemoSimple extends ComponentHelperTable {
     constructor(...args) {
         super(...args);
 
-        this.subscribeEvent('table:edit', (model) => {
-            this.router.navigateToRoute('users-edit', { action: 'edit', id: model.id });
+        this.subscribeEvent('listing:edit', (options) => {
+            this.router.navigateToRoute('users-edit', { action: 'edit', id: options.model.id });
         });
-        this.subscribeEvent('table:remove', async (model) => {
-            let result = await User.remove(model.id);
-            $(`.table tr[id=${model.id}]`).animate({ opacity: 0 }, function() { $(this).remove(); });
+        this.subscribeEvent('listing:remove', async (options) => {
+            User.remove(options.model.id)
+                .then(result => {
+                    this.messages.info('User has been removed.', 0);
+                    $(`tr#table-${options.listing.__uuid}-row-${options.model.id}`)
+                        .animate({ height: 0 }, function() { $(this).remove(); });
+                })
+                .catch(error => alert(error.toString()))
         });
     }
     /**

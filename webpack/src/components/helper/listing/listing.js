@@ -6,7 +6,7 @@ import { extend } from 'features/utils';
 /**
  *
  */
-export class ComponentHelperTable extends Component {
+export class ComponentHelperListing extends Component {
     /**
      * @see View::overrideSettingsKey
      */
@@ -35,13 +35,11 @@ export class ComponentHelperTable extends Component {
     get defaultSettings() {
         return extend(true, super.defaultSettings, {
             rows: { // row options
-                selectable: true, // whether to add select checkboxes in stead of row ids
-                editable: true,   // whether to show te edit button on each row
-                removable: true   // whether to show the remov button on each row
+                selectable: true // whether to add select checkboxes in stead of row ids
             },
             actions: [
-              { icon: 'fa fa-pencil', title: 'Edit', event: 'table:edit' },
-              { icon: 'fa fa-trash', title: 'Remove', event: 'table:remove' }
+              { icon: 'fa fa-pencil', title: 'Edit', event: 'listing:edit' },
+              { icon: 'fa fa-trash', title: 'Remove', event: 'listing:remove' }
             ]
         })
     }

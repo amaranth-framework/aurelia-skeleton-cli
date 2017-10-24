@@ -1,5 +1,5 @@
 <template>
-    <require from="./table.less"></require>
+    <require from="./listing-as-table.less"></require>
 
     <div class="table">
         <div class="table-options">
@@ -69,7 +69,7 @@
                     </th>
                     <td repeat.for="item of row.slice(1)" innerhtml.bind='item'></td>
                     <td if.bind="settings.actions && settings.actions.length">
-                        <a repeat.for="action of settings.actions" click.trigger="events.publish(action.event, row.model)" href="#" title="${action.title}"><i class="${action.icon}"></i></a>
+                        <a repeat.for="action of settings.actions" click.trigger="events.publish(action.event, { model: row.model, listing: $parent.$parent })" href="#" title="${action.title}"><i class="${action.icon}"></i></a>
                     </td>
                 </tr>
             </tbody>

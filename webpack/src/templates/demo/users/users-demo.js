@@ -28,8 +28,12 @@ export class TemplateUsers extends Template {
         });
 
         this.subscribeEvent('model:user:validated', async (user) => {
-            await user.save();
-            $('#modal-user-form').modal('hide');
+            user.save()
+                .then(result => {
+                    this.messages.info('User has been saved.', 1);
+                    $('#modal-user-form').modal('hide');
+                })
+                .catch(error => alert(error.toString()))
         });
     }
     /**
