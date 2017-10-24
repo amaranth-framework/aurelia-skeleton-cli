@@ -1,25 +1,58 @@
-
-/**
- * @link http://www.color-hex.com/color-palettes/popular.php
- * @link http://www.color-hex.com/color-palette/185
- */
-
 // Colors
+// See Blue Gray
+// @link https://material.io/guidelines/style/color.html?gclid=Cj0KCQjwybvPBRDBARIsAA7T2kh3thlIXoR9A8qfDiultOFgQfai6rSNM7oQrus82TUhofS4NG5PU9YaAq77EALw_wcB#color-color-palette
 
-@color-primary: #099AB2;
-@color-primary-light: #14B2CC;
+// 500  #607D8B
+//
+//  50  #ECEFF1
+// 100  #CFD8DC
+// 200  #B0BEC5
+// 300  #90A4AE
+// 400  #78909C
+// 500  #607D8B
+// 600  #546E7A
+// 700  #455A64
+// 800  #37474F
+// 900  #263238
 
-@color-secondary: #FF0076;
-@color-secondary-light: #FF449B;
+@color-500: #607D8B;
+
+@color--50: lighten(@color-500, 50%);
+@color-100: lighten(@color-500, 40%);
+@color-200: lighten(@color-500, 30%);
+@color-300: lighten(@color-500, 20%);
+@color-400: lighten(@color-500, 10%);
+//
+@color-600: darken(@color-500, 10%);
+@color-700: darken(@color-500, 17%);
+@color-800: darken(@color-500, 24%);
+@color-900: darken(@color-500, 30%);
+
+@color-bright: @color--50;
+@color-semi-bright: @color-100;
+@color-neutral: @color-500;
+@color-semi-dark: @color-700;
+@color-dark: @color-900;
+
+@color-primary: @color-bright;
+@color-primary-light: @color-semi-bright;
+
+@color-secondary: @color-dark;
+@color-secondary-light: @color-semi-dark;
 
 @color-error: #900;
 @color-valid: #4caf50;
 
-@color-dark: darken(@color-primary, 20%);
-@color-semi-dark: darken(@color-primary, 15%);
-@color-neutral: #dfe3ee;
-@color-semi-bright: #f7f7f7;
-@color-bright: #ffffff;
+.color--50 { background: @color--50; }
+.color-100 { background: @color-100; }
+.color-200 { background: @color-200; }
+.color-300 { background: @color-300; }
+.color-400 { background: @color-400; }
+.color-500 { background: @color-500; }
+.color-600 { background: @color-600; }
+.color-700 { background: @color-700; }
+.color-800 { background: @color-800; }
+.color-900 { background: @color-900; }
 
 // Spacing
 

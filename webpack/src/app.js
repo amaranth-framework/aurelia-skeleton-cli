@@ -12,7 +12,7 @@ import _ from 'lodash';
 
 import { AuthorizeStepJWT as AuthorizeStep } from 'features/authorize-step/authorize-step';
 import { Base } from 'features/base';
-import { EventsList, SessionConfig } from 'features/utils';
+import { EventsList } from 'features/utils';
 
 /**
  * Application
@@ -27,7 +27,6 @@ export class App extends Base {
     constructor(authStep, ...args) {
         super(...args);
         this.authStep = authStep;
-        this.authStep.sessionConfig = SessionConfig;
         this.config.set('auth-step', this.authStep);
 
         this.config.set('application.layout', '');
