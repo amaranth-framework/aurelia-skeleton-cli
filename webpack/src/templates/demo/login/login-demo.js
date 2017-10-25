@@ -21,15 +21,31 @@ export class TemplateLogin extends Template {
         this.pass = 'foopass';
     }
     /**
+     * @see View::activate()
+     */
+    activate(...args) {
+        super.activate(...args);
+        if (this.config.get('auth-step').isLoggedIn) {
+            this.router.navigateToRoute('dashboard');
+        }
+    }
+    /**
      * @see View::defaultSettings()
      * @return {Object}
      */
     get defaultSettings() {
         return extend(true, super.defaultSettings, {
+            style: 'login sing-up',
             pageTitle: {
                 content: {
                     title: 'Login'
                 }
+            },
+            loginForm: {
+                style: 'form--material form--centered form--login'
+            },
+            logo: {
+                style: 'logo--lg'
             }
         })
     }

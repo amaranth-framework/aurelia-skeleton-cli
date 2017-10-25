@@ -1,5 +1,24 @@
 @import "./variables.less";
 
+/*1********************************************************************************
+ * Colors
+ *1*******************************************************************************/
+
+.color--50 { background: @color--50; }
+.color-100 { background: @color-100; }
+.color-200 { background: @color-200; }
+.color-300 { background: @color-300; }
+.color-400 { background: @color-400; }
+.color-500 { background: @color-500; }
+.color-600 { background: @color-600; }
+.color-700 { background: @color-700; }
+.color-800 { background: @color-800; }
+.color-900 { background: @color-900; }
+
+/*1********************************************************************************
+ * Level up
+ *1*******************************************************************************/
+
 body {
     display: flex;
 	font-family: 'Poppins', sans-serif;
@@ -40,8 +59,14 @@ main-app {
 }
 
 content {
-    flex: 1 1 85%;
-    max-width: 85%;
+    &, &.wide {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+    @media (min-width: @screen-sm-min) {
+        flex: 1 1 85%;
+        max-width: 85%;
+    }
 }
 
 .color-module {

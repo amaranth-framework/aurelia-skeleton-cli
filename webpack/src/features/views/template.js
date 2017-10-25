@@ -21,17 +21,10 @@ export class Template extends View {
 
         // setting up a style class on the <body> element to be able to style page dependent elements
         const BODY = document.querySelector('body');
-        // step one: clear all class names starting with 'page-'
-        BODY.className.split(' ').forEach((name) => {
-            if (/^page-/.test(name)) {
-                document.querySelector('body').className = BODY.className.replace(name, '').trim();
-            }
-        });
+        BODY.className = BODY.className.replace(/page-[^ ]+ /gi, '');
         // step two: add all new classes (if present) prepending 'page-' prefix to each one
         if (this.settings && this.settings.style) {
-            this.settings.style.split(' ').forEach((name) => {
-                document.querySelector('body').className += ` page-${name}`;
-            });
+            BODY.className = this.settings.style.split(' ').map(name => `page-${name} `).join('');
         }
     }
     /**

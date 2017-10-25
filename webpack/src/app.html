@@ -8,7 +8,7 @@
     </nav-left>
     <!-- /left navigation -->
     <!--  application content -->
-    <content class.bind="config.get('application.layout')">
+    <content class.bind="config.get('application.layout') + (!config.get('auth-step').isLoggedIn ? ' wide' : '')">
         <!-- top navigation -->
         <nav-top if.bind="config.get('auth-step').isLoggedIn">
             <compose containerless view-model="components/nav/top/top"></compose>

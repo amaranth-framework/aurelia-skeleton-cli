@@ -1,18 +1,22 @@
 <template>
-    <form>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" value.bind="user" placeholder="Email">
+    <require from="./login-demo.less"></require>
+
+    <section class="section section--logo">
+        <compose containerless view-model="components/helper/logo/logo" model.bind="{ settings: settings.logo }"></compose>
+    </section>
+    <section class="section section--login">
+        <div class="container-fluid">
+            <div class="row">
+                <compose containerless view-model="components/form/login/login" view="components/helper/form/form.html" model.bind="{ parent: $parent, settings: settings.loginForm }"></compose>
+                <form class.bind="settings.loginForm.style" class="form--options">
+                    <p><button type="submit" class="btn btn-default btn-primary" click.trigger="config.get('auth-step').login(user, pass)">Sign in</button></p>
+                    <p><a click.trigger="router.navigateToRoute('dashboard')">Forgot Password?</a></p>
+                    <p class="form__sign-up">Don't have an account? <a click.trigger="router.navigateToRoute('dashboard')">Sign up</a>.</p>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" value.bind="pass" placeholder="Password">
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox"> Keep me logged in.
-            </label>
-        </div>
-        <button type="submit" class="btn btn-default" click.trigger="config.get('auth-step').login(user, pass)">Login</button>
-    </form>
+    </section>
+    <!-- <section class="section section--trade">
+        <p>Copyright 2017 <a href="htpps://amaranth.github.com">Amaranth Framework</a></p>
+    </section> -->
 </template>

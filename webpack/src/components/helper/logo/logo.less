@@ -4,13 +4,24 @@
 	padding: @padding;
 	text-align: center;
 
-	&-title {
-		font-size: @font-giant;
-		color: @color-semi-dark;
+    &--lg {
+        padding: 64px 0;
+    }
 
+	&__title {
+		font-size: @font-giant;
+		color: @color-900;
 		&:hover, &:focus, &:active {
-			color: @color-dark;
 			text-decoration: none;
 		}
+    }
+
+    &__icon {
+        .logo--lg & {
+            display: block;
+            font-size: 64px;
+            text-align: center;
+            width: 100%;
+        }
     }
 }

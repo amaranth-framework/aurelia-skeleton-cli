@@ -91,14 +91,15 @@ export class Form {
      * @return {Boolean}
      */
     isHorizontalForm() {
-        return this.style && this.style.indexOf('form-horizontal') > -1;
+        return this.settings.style && this.settings.style.indexOf('form-horizontal') > -1;
     }
     /**
      * Determine whether the form has 'form--material' style or not.
      * @return {Boolean}
      */
     isMaterialForm() {
-        return this.style && this.style.indexOf('form--material') > -1;
+        console.log(((this.settings || {}).style || '').indexOf('form--material'))
+        return ((this.settings || {}).style || '').indexOf('form--material') > -1;
     }
     /**
      * [isTextarea description]

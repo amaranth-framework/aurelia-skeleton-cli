@@ -1,9 +1,10 @@
 <template>
     <require from="./logo.less"></require>
 
-    <div class="logo">
-        <a href="/" class="logo-title">
-            <i class="fa fa-paw"></i> <span class="logo-title__text">Amaranth</span>
+    <div class.bind="settings.style" class="logo">
+        <a href="/" class.bind="settings.styles.title" class="logo__title">
+            <i class.bind="settings.styles.icon" class="logo__icon fa fa-leaf"></i>
+            <span class.bind="settings.style.titleText" class="logo__title-text">Amaranth</span>
         </a>
     </div>
 </template>
