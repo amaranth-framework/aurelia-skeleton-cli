@@ -108,7 +108,8 @@ export class App extends Base {
                 group: 'left-demo',
                 settings: {
                     auth: true
-                }
+                },
+                icon: 'fa-home'
             },
             {
                 route: 'users',
@@ -116,7 +117,8 @@ export class App extends Base {
                 moduleId: PLATFORM.moduleName('templates/demo/users/users-demo'),
                 nav: true,
                 title: 'Users',
-                group: 'left-demo'
+                group: 'left-demo',
+                icon: 'fa-user'
             },
             {
                 route: 'users/:action?/:id?',
@@ -147,7 +149,8 @@ export class App extends Base {
                 moduleId: PLATFORM.moduleName('templates/ui-elements/general'),
                 nav: true,
                 title: 'UI Elements',
-                group: 'left-ui'
+                group: 'left-ui',
+                icon: 'fa-window-restore'
             },
             {
                 route: 'forms',
@@ -156,7 +159,8 @@ export class App extends Base {
                 nav: true,
                 title: 'Forms',
                 group: 'left-ui',
-                routes: ['forms-horizontal', 'forms-grid']
+                routes: ['forms-horizontal', 'forms-grid'],
+                icon: 'fa-keyboard-o'
             },
             {
                 route: 'forms-horizontal',
@@ -181,7 +185,9 @@ export class App extends Base {
                 nav: true,
                 title: 'Listing',
                 group: 'left-ui',
-                routes: ['listing-as-table']
+                routes: ['listing-as-table'],
+                icon: 'fa-list'
+
             },
             {
                 route: 'listing-as-table',
@@ -189,7 +195,8 @@ export class App extends Base {
                 moduleId: PLATFORM.moduleName('templates/ui-elements/listing-as-table'),
                 nav: false,
                 title: 'Listing (as table)',
-                group: 'left-ui'
+                group: 'left-ui',
+                icon: 'fa-table'
             },
             {
                 route: '404',

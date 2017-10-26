@@ -13,9 +13,10 @@
     "node": ">= 6.0.0"
   },
   "scripts": {
+    "build": "nps webpack.build",
+    "postinstall": "rm -rf ./node_modules/aurelia-validation/node_modules",
     "start": "nps",
-    "test": "nps test",
-    "postinstall": "rm -rf ./node_modules/aurelia-validation/node_modules"
+    "test": "nps test"
   },
   "jest": {
     "modulePaths": [

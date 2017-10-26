@@ -1,10 +1,35 @@
 @import '../../../variables.less';
 
 nav-left {
-    li + li, a + ul, .component--left-nav + .component--left-nav > ul {
-        margin-top: -1px;
+    i.fa {
+        display: inline-block;
+        width: 1.5em;
     }
-	.nav {
+    a {
+        color: @color-300;
+    }
+
+    .nav li {
+        &.active {
+            ul {
+                display: block;
+            }
+        }
+        a:hover, &.active > a {
+            background: @color-800;
+            border-left: 5px solid @color-500;
+            color: @color-200;
+            font-weight: bold;
+        }
+        ul {
+            display: none;
+            li > a  {
+                padding-left: 30px;
+            }
+        }
+    }
+
+	/*.nav {
 		& > li {
             &.active {
                 & > a {
@@ -32,7 +57,7 @@ nav-left {
                 padding-left: 30px;
             }
         }
-	}
+	}*/
 }
 
 .component {
