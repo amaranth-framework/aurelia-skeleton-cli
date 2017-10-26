@@ -1,7 +1,7 @@
 @import '../../../variables.less';
 
 .logo {
-	padding: @padding;
+    line-height: 50px;
 	text-align: center;
 
     &--lg {
@@ -10,10 +10,13 @@
 
 	&__title {
 		font-size: @font-giant;
-		color: @color-900;
+        color: @color--50;
 		&:hover, &:focus, &:active {
 			text-decoration: none;
 		}
+        .logo--lg & {
+    		color: @color-900;
+        }
     }
 
     &__icon {

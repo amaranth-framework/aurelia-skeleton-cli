@@ -34,10 +34,25 @@ export class App extends Base {
         // this.config.set('application.layout', 'material');
         // Uncomment for ux
         // this.config.set('application.layout', 'ux');
+        // Set correct style
+        let BODY = document.querySelector('body');
+        BODY.className = this.config.get('application.layout') + ' ' + BODY.className.replace(/^(material|ux)\s+/ig, '');
 
         this.subscribeEvent('router:navigation:complete', (result) => {
             this.routerMarkActiveRoute(result.instruction.router, result.instruction.config.name);
         });
+    }
+    /**
+     * @return {Boolean}
+     */
+    get canShowNavLeft() {
+        return (this.config.get('auth-step') || {}).isLoggedIn || (this.settings || {}).showNavLeft
+    }
+    /**
+     * @return {Boolean}
+     */
+    get canShowNavTop() {
+        return (this.config.get('auth-step') || {}).isLoggedIn || (this.settings || {}).showNavTop
     }
     /**
      * Configure Application router

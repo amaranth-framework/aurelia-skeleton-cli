@@ -26,8 +26,32 @@ body {
 	min-height: 100vh;
 }
 
+nav-left {
+    background: @color-900;
+    bottom: 0;
+    box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, .1);
+    color: @color-dark;
+    left: 0;
+    max-width: 85%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+
+    .logo-only {
+        height: 50px;
+        width: 50px;
+    }
+
+    /*flex: 1 1 15%;
+    max-width: 15%;
+	position: relative;*/
+}
+
 nav-top {
-    .navbar {
+    display: none;
+    /*.navbar {
         &-default {
             background-color: @color--50;
             border: 0;
@@ -50,7 +74,7 @@ nav-top {
 				}
 			}
         }
-    }
+    }*/
 }
 
 main-app {

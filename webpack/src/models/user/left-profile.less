@@ -5,18 +5,20 @@
     &__profile {
 		display: flex;
 		padding: @padding;
-		background-color: @color-primary-light;
+		background: url(/images/bg-50p.jpg) no-repeat center center;
+        background-size: cover;
 		margin-bottom: @margin;
         &-pic img {
+            border: 3px solid @color-600;
 			height: 70px;
-			border: 3px solid @color-bright;	
+            width: 70px;
         }
         &-info {
-            color: @color-bright;
+            color: @color-900;
             padding: 10px 0 10px 20px;
         }
         &-info h2 {
-            font-size: @font-large;
+            font-size: @font-size-h3;
             padding: 0;
             margin: 0;
 		}

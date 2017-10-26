@@ -33,7 +33,7 @@ export class User extends Model {
     /**
      * @property {type:String}
      */
-    image = 'https://scontent.fotp3-3.fna.fbcdn.net/v/t1.0-1/p160x160/18740252_1314787368636643_6264909807224683_n.jpg?oh=159ffc5fe2c448015e79974826077374&oe=59C7445D';
+    image = '/images/user.png';
 
     /**
      * @see ModelView:defaultSettings
