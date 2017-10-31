@@ -3,10 +3,25 @@
 nav-left {
     i.fa {
         display: inline-block;
+        font-size: @font-size-base;
         width: 1.5em;
+        @media (min-width: @screen-sm-min) {
+            font-size: @font-size-h1;
+            width: 100%;
+        }
+        @media (min-width: @screen-lg-min) {
+            width: auto;
+            font-size: @font-size-base;
+        }
     }
     a {
         color: @color-300;
+        @media (min-width: @screen-sm-min) {
+            text-align: center;
+        }
+        @media (min-width: @screen-lg-min) {
+            text-align: left;
+        }
     }
 
     .nav li {

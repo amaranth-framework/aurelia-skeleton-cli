@@ -23,44 +23,44 @@ export class ComponentNavLeft extends ComponentHelperContent {
                     type: 'left-logo',
                     module: PLATFORM.moduleName('components/helper/logo/logo')
                 },
-                {
-                    type: 'left-profile',
-                    module: PLATFORM.moduleName('models/user/user'),
-                    view: PLATFORM.moduleName('models/user/left-profile.html'),
-                    settings: {
-                        fromSession: true
-                    }
-                },
-                {
-                    type: 'left-nav',
-                    module: PLATFORM.moduleName('components/nav/nav'),
-                    settings: {
-                        content: {
-                            title: 'Demo Elements'
-                        },
-                        filter: { group: 'left-demo', nav: true }
-                    }
-                },
-                {
-                    type: 'left-nav',
-                    module: PLATFORM.moduleName('components/nav/nav'),
-                    settings: {
-                        content: {
-                            title: 'UI/UX Experience'
-                        },
-                        filter: { group: 'left-ui', nav: true }
-                    }
-                },
-                {
-                    type: 'left-nav',
-                    module: PLATFORM.moduleName('components/nav/nav'),
-                    settings: {
-                        content: {
-                            title: 'Forms, Tables & Widgets'
-                        },
-                        filter: { group: 'left-forms', nav: true }
-                    }
-                }
+                // {
+                //     type: 'left-profile',
+                //     module: PLATFORM.moduleName('models/user/user'),
+                //     view: PLATFORM.moduleName('models/user/left-profile.html'),
+                //     settings: {
+                //         fromSession: true
+                //     }
+                // },
+                // {
+                //     type: 'left-nav',
+                //     module: PLATFORM.moduleName('components/nav/nav'),
+                //     settings: {
+                //         content: {
+                //             title: 'Demo Elements'
+                //         },
+                //         filter: { group: 'left-demo', nav: true }
+                //     }
+                // },
+                // {
+                //     type: 'left-nav',
+                //     module: PLATFORM.moduleName('components/nav/nav'),
+                //     settings: {
+                //         content: {
+                //             title: 'UI/UX Experience'
+                //         },
+                //         filter: { group: 'left-ui', nav: true }
+                //     }
+                // },
+                // {
+                //     type: 'left-nav',
+                //     module: PLATFORM.moduleName('components/nav/nav'),
+                //     settings: {
+                //         content: {
+                //             title: 'Forms, Tables & Widgets'
+                //         },
+                //         filter: { group: 'left-forms', nav: true }
+                //     }
+                // }
             ]
         })
     }

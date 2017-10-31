@@ -4,22 +4,45 @@
 .left-nav {
     &__profile {
 		display: flex;
-		padding: @padding;
+		padding: @padding-base-vertical * 2 @padding-base-horizontal;
 		background: url(/images/bg-50p.jpg) no-repeat center center;
         background-size: cover;
 		margin-bottom: @margin;
-        &-pic img {
-            border: 3px solid @color-600;
-			height: 70px;
-            width: 70px;
+        &-pic {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            max-width: 70px;
+            width: 100%;
+            img {
+                border: 3px solid @color-600;
+    			height: 70px;
+                width: 70px;
+            }
+            @media (min-width: @screen-md-min) {
+                max-width: 100%;
+            }
+            @media (min-width: @screen-lg-min) {
+                max-width: 70px;
+            }
         }
         &-info {
+            align-items: left;
             color: @color-900;
-            padding: 10px 0 10px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: @padding-base-horizontal;
             & h2 {
                 font-size: @font-size-h3;
                 padding: 0;
                 margin: 0;
+            }
+            @media (min-width: @screen-md-min) {
+                display: none;
+            }
+            @media (min-width: @screen-lg-min) {
+                display: flex;
             }
         }
     }

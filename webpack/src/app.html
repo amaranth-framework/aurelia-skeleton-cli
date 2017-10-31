@@ -3,7 +3,8 @@
     <require from="./app.less"></require>
 
     <!-- left navigation -->
-    <nav-left if.bind="canShowNavLeft">
+    <!-- <nav-left if.bind="canShowNavLeft"> -->
+    <nav-left if.bind="canShowNavLeft" class.bind="navLeftStyle">
         <compose containerless view-model="components/nav/left/left"></compose>
     </nav-left>
     <!-- /left navigation -->

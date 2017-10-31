@@ -1,10 +1,24 @@
 @import '../../../variables.less';
 
 .logo {
-    line-height: 50px;
+    line-height: 64px;
 	text-align: center;
 
-    &--lg {
+    &__title {
+        i.fa {
+            font-size: @font-size-h2;
+        }
+        color: @color-900;
+        /* Medium devices (desktops, 992px and up) */
+        @media (min-width: @screen-md-min) {
+            color: @color--50;
+        }
+        .is-open & {
+            color: @color--50;
+        }
+    }
+
+    /*&--lg {
         padding: 64px 0;
     }
 
@@ -26,5 +40,5 @@
             text-align: center;
             width: 100%;
         }
-    }
+    }*/
 }
