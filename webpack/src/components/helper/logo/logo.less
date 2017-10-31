@@ -1,44 +1,34 @@
 @import '../../../variables.less';
 
 .logo {
-    line-height: 64px;
-	text-align: center;
-
+    display: flex;
+    justify-content: center;
+    line-height: 52px; // height of the top-menu + border
+    height: 52px;
+    &--lg {
+        padding: 100px;
+    }
     &__title {
-        i.fa {
-            font-size: @font-size-h2;
-        }
         color: @color-900;
-        /* Medium devices (desktops, 992px and up) */
+        font-size: @font-size-h3;
+        .logo--lg & {
+            font-size: @font-size-h1 * 2;
+        }
         @media (min-width: @screen-md-min) {
             color: @color--50;
         }
-        .is-open & {
-            color: @color--50;
+        &-text {
+            display: none;
         }
     }
+}
 
-    /*&--lg {
-        padding: 64px 0;
-    }
-
-	&__title {
-		font-size: @font-giant;
+nav-left.is-open .logo {
+    padding: 0 @padding-base-horizontal;
+    &__title {
         color: @color--50;
-		&:hover, &:focus, &:active {
-			text-decoration: none;
-		}
-        .logo--lg & {
-    		color: @color-900;
+        &-text {
+            display: inline-block;
         }
     }
-
-    &__icon {
-        .logo--lg & {
-            display: block;
-            font-size: 64px;
-            text-align: center;
-            width: 100%;
-        }
-    }*/
 }

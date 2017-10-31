@@ -23,14 +23,14 @@ export class ComponentNavLeft extends ComponentHelperContent {
                     type: 'left-logo',
                     module: PLATFORM.moduleName('components/helper/logo/logo')
                 },
-                // {
-                //     type: 'left-profile',
-                //     module: PLATFORM.moduleName('models/user/user'),
-                //     view: PLATFORM.moduleName('models/user/left-profile.html'),
-                //     settings: {
-                //         fromSession: true
-                //     }
-                // },
+                {
+                    type: 'left-profile',
+                    module: PLATFORM.moduleName('models/user/user'),
+                    view: PLATFORM.moduleName('models/user/navigation-profile.html'),
+                    settings: {
+                        fromSession: true
+                    }
+                },
                 // {
                 //     type: 'left-nav',
                 //     module: PLATFORM.moduleName('components/nav/nav'),
