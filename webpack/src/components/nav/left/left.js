@@ -31,16 +31,17 @@ export class ComponentNavLeft extends ComponentHelperContent {
                         fromSession: true
                     }
                 },
-                // {
-                //     type: 'left-nav',
-                //     module: PLATFORM.moduleName('components/nav/nav'),
-                //     settings: {
-                //         content: {
-                //             title: 'Demo Elements'
-                //         },
-                //         filter: { group: 'left-demo', nav: true }
-                //     }
-                // },
+                {
+                    type: 'left-nav',
+                    module: PLATFORM.moduleName('components/nav/nav'),
+                    settings: {
+                        content: {
+                            title: 'Demo Elements'
+                        },
+                        filter: { group: 'left-demo', nav: true },
+                        style: 'menu'
+                    }
+                },
                 // {
                 //     type: 'left-nav',
                 //     module: PLATFORM.moduleName('components/nav/nav'),
