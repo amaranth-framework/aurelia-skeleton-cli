@@ -5,15 +5,8 @@ module.exports = {
     scripts: {
         default: 'nps webpack',
         test: {
-            default: 'nps test.jest',
-            jest: {
-                default: series(
-                    rimraf('test/coverage-jest'),
-          crossEnv('BABEL_TARGET=node jest')
-                ),
-        accept: crossEnv('BABEL_TARGET=node jest -u'),
-        watch: crossEnv('BABEL_TARGET=node jest --watch'),
-            },
+
+      default: 'nps test.karma',
             karma: {
                 default: series(
                     rimraf('test/coverage-karma'),
@@ -27,8 +20,7 @@ module.exports = {
                 fix: 'eslint --fix'
             },
             all: concurrent({
-                browser: series.nps('test.karma', 'e2e'),
-                jest: 'nps test.jest',
+        browser: series.nps('test.karma'),
                 lint: 'nps test.lint'
             })
         },
@@ -89,9 +81,9 @@ module.exports = {
                 }
             },
             server: {
-                default: `webpack-dev-server -d --inline --env.server`,
-                extractCss: `webpack-dev-server -d --inline --env.server --env.extractCss`,
-                hmr: `webpack-dev-server -d --inline --hot --env.server`
+        default: `webpack-dev-server -d --devtool '#source-map' --inline --env.server`,
+        extractCss: `webpack-dev-server -d --devtool '#source-map' --inline --env.server --env.extractCss`,
+        hmr: `webpack-dev-server -d --devtool '#source-map' --inline --hot --env.server`
             },
         },
         serve: 'http-server dist --cors',
