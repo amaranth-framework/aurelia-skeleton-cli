@@ -1,4 +1,5 @@
 @import "./variables.less";
+@import "./mixins.less";
 
 /*1********************************************************************************
  * Colors
@@ -29,11 +30,10 @@ body {
 }
 
 nav-left {
-    // background: @color-900;
     color: @color-dark;
     height: 52px; // height of the navbar
     left: 0;
-    overflow: hidden;
+    overflow: visible;
     position: absolute;
     top: 0;
     width: 64px;
@@ -48,7 +48,7 @@ nav-left {
         position: relative;
     }
     &.is-open {
-        background: @color-900;
+        .nav-left--open-background;
         box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, .1);
         bottom: 0;
         height: auto;

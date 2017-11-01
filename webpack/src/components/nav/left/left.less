@@ -1,125 +1,92 @@
 @import '../../../variables.less';
+@import '../../../mixins.less';
 
-.nav-left-hover() {
+.nav-left--a {
+    font-size: @font-size-base;
+    text-align: left;
+}
+
+.nav-left--a-hover {
     background-color: @color-700;
+    border-left: 4px solid @color-500;
     color: @color-100;
 }
 
 nav-left .menu {
-
-	padding-top: @padding-base-vertical * 4;
-
-	li {
-		border-bottom: 1px solid @color-800;
-		& > a {
-			color: @color-200;
-			line-height: 36px;
-            &:hover {
-                .nav-left-hover();
-            }
-		}
-        &.active > a {
-            .nav-left-hover();
-        }
-	}
-
-    /*i.fa {
-        display: inline-block;
-        font-size: @font-size-base;
-        width: 1.5em;
-        @media (min-width: @screen-sm-min) {
-            font-size: @font-size-h1;
-            width: 100%;
-        }
-        @media (min-width: @screen-lg-min) {
-            width: auto;
-            font-size: @font-size-base;
-        }
-    }
-    a {
-        color: @color-300;
-        @media (min-width: @screen-sm-min) {
-            text-align: center;
-            color: @color-100;
-        }
-        @media (min-width: @screen-lg-min) {
-            text-align: left;
-        }
+    padding-top: @padding-base-vertical * 4;
+    display: none;
+    @media (min-width: @screen-md-min) {
+        display: block;
     }
 
-    .nav li {
-        &.active {
-            ul {
-                display: block;
-            }
+    li {
+        border-bottom: 1px solid @color-800;
+        &:first-child {
+            border-top: 1px solid @color-800;
         }
-        a:hover, &.active > a {
-            background: @color-800;
-            border-left: 5px solid @color-500;
-            color: @color-200;
-            font-weight: bold;
-        }
-        ul {
-            display: none;
-            li > a  {
-                padding-left: 30px;
-            }
-        }
-    }
-
-	/*.nav {
-		& > li {
-            &.active {
-                & > a {
-                    border-left: 3px solid @color-semi-dark;
-                    color: @color-dark;
-                }
+        &:hover {
+            overflow: visible;
+            position: relative;
+            @media (min-width: @screen-md-min) {
                 ul {
+                    .nav-left--open-background;
                     display: block;
+                    left: 100%;
+                    position: absolute;
+                    top: 0;
+                    width: 220px;
+                    li a {
+                        .nav-left--a;
+                    }
                 }
             }
-			& > a {
-                border-top: 1px solid @color-200;
-                border-bottom:  1px solid @color-200;
-				color: @color-semi-dark;
-                padding: 15px;
-				&:hover, &:focus {
-					color: @color-dark;
-                    background: transparent;
-				}
-			}
-		}
-        ul {
-            display: none;
-            li a {
-                padding-left: 30px;
+        }
+        & > a {
+            color: @color-200;
+            line-height: 36px;
+            font-size: @font-size-large;
+            text-align: center;
+            &:hover {
+                .nav-left--a-hover();
+            }
+            span {
+                display: none;
             }
         }
-	}*/
+        &.active {
+            & > a {
+                .nav-left--a-hover();
+            }
+        }
+        ul {
+            display: none;
+            li:last-child {
+                border-bottom: none;
+            }
+        }
+    }
 }
 
-.component {
-	/*&--left {
-		&-nav {
-
-		}
-
-		&-toggle {
-			overflow: hidden;
-			position: absolute;
-			right: 0;
-			height: @left-nav-toggle;
-			top: 50%;
-			transform: translate(100%, -50%);
-			background-color: inherit;
-			width: 0;
-			text-align: center;
-			border-radius: 0 @left-nav-toggle @left-nav-toggle 0;
-			transition: width .2s ease-in-out;
-
-			&.toggle {
-				width: @left-nav-toggle/2;
-			}
-		}
-	}*/
+nav-left.is-open .menu {
+    display: block;
+    a {
+        .nav-left--a;
+        span {
+            display: inline-block;
+        }
+    }
+    li {
+        &:hover {
+            @media (min-width: @screen-md-min) {
+                ul {
+                    left: 0;
+                    position: relative;
+                    width: 100%;
+                }
+            }
+        }
+        &.active ul {
+            display: block;
+        }
+    }
 }

@@ -98,7 +98,7 @@ export class Form {
      * @return {Boolean}
      */
     isMaterialForm() {
-        console.log(((this.settings || {}).style || '').indexOf('form--material'))
+        // console.log(((this.settings || {}).style || '').indexOf('form--material'))
         return ((this.settings || {}).style || '').indexOf('form--material') > -1;
     }
     /**

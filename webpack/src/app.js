@@ -42,15 +42,8 @@ export class App extends Base {
             this.routerMarkActiveRoute(result.instruction.router, result.instruction.config.name);
         });
 
-        this.navLeftStyle = 'is-open'
-        // this.navLeftStyle = ''
-        this.subscribeEvent('open', () => {
-            if (this.navLeftStyle.indexOf('is-open') > -1) {
-                this.navLeftStyle = '';
-                return;
-            }
-            this.navLeftStyle = 'is-open';
-        })
+        this.subscribeEvent('nav-left:hide', () => this.navLeftStyle = '')
+        this.subscribeEvent('nav-left:open', () => this.navLeftStyle = 'is-open')
     }
     /**
      * @return {Boolean}

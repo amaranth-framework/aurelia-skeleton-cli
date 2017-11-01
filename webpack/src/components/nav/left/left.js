@@ -1,5 +1,3 @@
-import 'jquery';
-
 import { ComponentHelperContent } from 'components/helper/content/content';
 import { extend } from 'features/utils';
 
@@ -42,26 +40,17 @@ export class ComponentNavLeft extends ComponentHelperContent {
                         style: 'menu'
                     }
                 },
-                // {
-                //     type: 'left-nav',
-                //     module: PLATFORM.moduleName('components/nav/nav'),
-                //     settings: {
-                //         content: {
-                //             title: 'UI/UX Experience'
-                //         },
-                //         filter: { group: 'left-ui', nav: true }
-                //     }
-                // },
-                // {
-                //     type: 'left-nav',
-                //     module: PLATFORM.moduleName('components/nav/nav'),
-                //     settings: {
-                //         content: {
-                //             title: 'Forms, Tables & Widgets'
-                //         },
-                //         filter: { group: 'left-forms', nav: true }
-                //     }
-                // }
+                {
+                    type: 'left-nav',
+                    module: PLATFORM.moduleName('components/nav/nav'),
+                    settings: {
+                        content: {
+                            title: 'UI/UX Experience'
+                        },
+                        filter: { group: 'left-ui', nav: true },
+                        style: 'menu'
+                    }
+                }
             ]
         })
     }

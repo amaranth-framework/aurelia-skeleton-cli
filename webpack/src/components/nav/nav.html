@@ -1,9 +1,9 @@
 <template>
     <ul if.bind="filteredRoutes.length" class="nav" class.bind="style">
-        <li repeat.for="route of filteredRoutes" class.bind="route.active ? 'active': ''">
+        <li repeat.for="route of filteredRoutes" class.bind="route.active ? 'active': ''" class="nav__item">
             <a if.bind="!isNavbarNav" click.trigger="router.navigateToRoute(route.name, route.params || {})" href="#">
                 <i if.bind="route.icon" class="fa ${route.icon}"></i>                
-                ${route.title}
+                <span innerhtml.bind="route.title"></span>
                 <span if.bind="route.routes && route.routes.length" class="caret"></span>
             </a>
             <a if.bind="isNavbarNav" click.trigger="router.navigateToRoute(route.name, route.params || {})" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

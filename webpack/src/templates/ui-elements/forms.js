@@ -149,7 +149,7 @@ export class TemplateForms extends Template {
                     }
                 }
             });
-            console.log('data', form.getData());
+            // console.log('data', form.getData());
             // validation rules
             ValidationRules
                 .ensure('text').displayName('Text Input')

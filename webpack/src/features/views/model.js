@@ -90,7 +90,7 @@ export class Model extends Component {
         return await this.getEndpoint(this.settings.endpoint || 'default')
             .findOne(this.settings.services.load, this[this.__proto__.INDEX_NAME])
             .then(result => {
-                console.log('result', result);
+                // console.log('result', result);
                 this.setData(result);
                 return this.toObject();
             });
