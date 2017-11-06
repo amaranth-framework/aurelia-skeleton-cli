@@ -1,5 +1,49 @@
 @import '../../../variables.less';
 
+.nav-item-style {
+    color: @color--50;
+}
+
+.nav-item-style-active {
+    background-color: @color-600;
+    color: @color-100;
+}
+
+.nav-top-style {
+    background-color: @color-800;
+    border: 1px solid @color-700;
+}
+
+nav-top {
+    .navbar-default {
+        .nav-top-style;
+        border-left: 0;
+        border-radius: 0;
+        border-right: 0;
+        .navbar-nav {
+            & > li {
+                & > a, & > a:hover {
+                    .nav-item-style;
+                }
+            }
+            & > .open, & .active {
+                & > a, & > a:hover, & > a:focus {
+                    .nav-item-style-active
+                }
+            }
+        }
+    }
+    .navbar-nav > li > .dropdown-menu {
+        .nav-top-style;
+        & > li > a {
+            .nav-item-style;
+        }
+        & > li.active > a, & > li > a:hover, & > li > a:focus {
+            .nav-item-style-active;
+        }
+    }
+}
+
 .component {
 	/*&--top {
 		&-user {

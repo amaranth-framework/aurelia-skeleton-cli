@@ -6,7 +6,10 @@
                 <span innerhtml.bind="route.title"></span>
                 <span if.bind="route.routes && route.routes.length" class="caret"></span>
             </a>
-            <a if.bind="isNavbarNav" click.trigger="router.navigateToRoute(route.name, route.params || {})" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <a if.bind="isNavbarNav && !route.routes.length" click.trigger="router.navigateToRoute(route.name, route.params || {})" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                ${route.title}
+            </a>
+            <a if.bind="isNavbarNav && route.routes.length" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 ${route.title}
                 <span if.bind="route.routes && route.routes.length" class="caret"></span>
             </a>
