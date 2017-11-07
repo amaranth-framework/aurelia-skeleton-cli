@@ -1,17 +1,6 @@
 @import '../../../variables.less';
 @import '../../../mixins.less';
 
-.nav-left--a {
-    font-size: @font-size-base;
-    text-align: left;
-}
-
-.nav-left--a-hover {
-    background-color: @color-700;
-    border-left: 4px solid @color-500;
-    color: @color-100;
-}
-
 nav-left .menu {
     padding-top: @padding-base-vertical * 4;
     display: none;
@@ -87,6 +76,23 @@ nav-left.is-open .menu {
         }
         &.active ul {
             display: block;
+        }
+    }
+}
+
+.component {
+    &--left-profile {
+        .nav > li > a:hover, .nav > li > a:focus {
+            background-color: transparent;
+        }
+        .dropdown-menu {
+            .nav-top--style;
+            & > li > a {
+                .nav-top--item-style;
+            }
+            & > li.active > a, & > li > a:hover, & > li > a:focus {
+                .nav-top--item-style-active;
+            }
         }
     }
 }

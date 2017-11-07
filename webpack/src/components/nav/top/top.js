@@ -22,7 +22,7 @@ export class ComponentNavTop extends ComponentHelperContent {
                     }
                 },
                 {
-                    type: 'top-user',
+                    type: 'top-profile',
                     module: PLATFORM.moduleName('models/user/user'),
                     view: PLATFORM.moduleName('models/user/navigation-profile.html'),
                     settings: {

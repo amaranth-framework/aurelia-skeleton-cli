@@ -1,133 +1,47 @@
 @import '../../../variables.less';
-
-.nav-item-style {
-    color: @color--50;
-}
-
-.nav-item-style-active {
-    background-color: @color-600;
-    color: @color-100;
-}
-
-.nav-top-style {
-    background-color: @color-800;
-    border: 1px solid @color-700;
-}
+@import '../../../mixins.less';
 
 nav-top {
     .navbar-default {
-        .nav-top-style;
+        .nav-top--style;
         border-left: 0;
         border-radius: 0;
         border-right: 0;
         .navbar-nav {
             & > li {
                 & > a, & > a:hover {
-                    .nav-item-style;
+                    .nav-top--item-style;
                 }
             }
             & > .open, & .active {
                 & > a, & > a:hover, & > a:focus {
-                    .nav-item-style-active
+                    .nav-top--item-style-active
                 }
             }
         }
     }
     .navbar-nav > li > .dropdown-menu {
-        .nav-top-style;
+        .nav-top--style;
         & > li > a {
-            .nav-item-style;
+            .nav-top--item-style;
         }
         & > li.active > a, & > li > a:hover, & > li > a:focus {
-            .nav-item-style-active;
+            .nav-top--item-style-active;
         }
     }
 }
 
 .component {
-	/*&--top {
-		&-user {
-			float: right;
-
-			.user-link {
-				position: relative;
-
-				& > a {
-					padding-left: 50px;
-				}
-
-				img {
-					position: absolute;
-		            transform: translateY(-50%);
-		            width: 30px;
-		            height: 30px;
-		            border-radius: 50%;
-		            margin: 10px;
-		            left: 0;
-				}
-			}
-
-			.dropdown-menu {
-				max-width: 320px;
-				overflow: hidden;
-				left: auto;
-				right: 0;
-			}
-		}
-
-		&-inbox {
-			float: right;
-
-			.dropdown-menu {
-				max-width: 320px;
-				overflow: hidden;
-				left: auto;
-				right: 0;
-				padding: 0;
-			}
-
-			.inbox {
-				&-item {
-					&__link {
-						padding: @padding;
-						display: flex;
-						flex-wrap: wrap;
-
-						&.more {
-							display: flex;
-							justify-content: center;
-							align-items: center;
-
-							i.fa {
-								margin: @margin;
-							}
-						}
-					}
-
-					.image {
-						margin-right: @margin;
-					}
-
-					.source {
-						font-weight: 700;
-					}
-
-					.info {
-						flex: 1;
-					}
-
-					.time {
-						float: right;
-						color: @color-neutral;
-					}
-
-					.message {
-						flex: 1 0 100%;
-						overflow: hidden;
-						text-overflow: ellipsis;
-					}
-				}
-			}
-		}
-	}*/
+	&--top-profile, &--top-inbox {
+        float: right;
+    }
+    &--top-inbox {
+        .dropdown-menu {
+            width: 260px;
+            &  > li > a {
+                font-size: @font-size-small;
+                white-space: normal;
+            }
+        }
+    }
 }

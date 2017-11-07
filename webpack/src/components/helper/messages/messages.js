@@ -37,7 +37,6 @@ export class ComponentHelperMessages extends Component {
         //         this.events.publish('messages:add', message);
         //     })
         // })
-
     }
     /**
      * @see View::detached()

@@ -2,10 +2,14 @@
 @import "../../../variables.less";
 
 .page-title {
-	border-bottom: 1px @color-neutral solid;
-	margin: -20px -20px 0;
-	overflow: auto;
-	h2 {
-		color: @color-dark;
-	}
+	border-bottom: 1px @color-500 solid;
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+    &__content {
+        padding-left: 20px;
+    }
+    &__additional {
+        padding-right: 20px;
+    }
 }
