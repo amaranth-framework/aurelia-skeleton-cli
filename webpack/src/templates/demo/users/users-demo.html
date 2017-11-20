@@ -1,7 +1,7 @@
 <template>
 	<compose containerless view-model="components/helper/page-title/page-title" model.bind="{ settings: settings.pageTitle }" ></compose>
-	
-	<!-- Table Component -->
+
+    <!-- Table Component -->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -27,7 +27,6 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary" click.trigger="events.publish('model:user:validate', user)">Save changes</button>
-					<!-- <button type="button" class="btn btn-primary" click.trigger="user.validate()">Save changes</button> -->
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
