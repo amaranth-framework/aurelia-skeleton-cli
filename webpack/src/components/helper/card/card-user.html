@@ -1,0 +1,41 @@
+<template>
+    <require from="./card.less"></require>
+
+    <div class="card card--profile">
+        <div class="card__content">
+            <div class="card__media">
+                <!-- Sample of lazy loading for images -->
+                <img alt="${model.name}" src="${model.image}" style="background-image: url(${model.smallImage})" class="card__img" />
+            </div>
+            <p class="card__name">${model.name}</p>
+            <address class="card__contact">
+                <p class="card__contact-item">
+                    <strong>Email:</strong> <a href="mailto:${model.email}">${model.email}</a>
+                </p>
+                <p class="card__contact-item">
+                    <strong>Phone:</strong> ${model.phone}
+                </p>
+            </address>
+
+            <div class="card__social">
+                <a class="card__social-item" href="">
+                    <i class="fa fa-facebook card__social-icon"></i>
+                </a>
+                <a class="card__social-item" href="">
+                    <i class="fa fa-google card__social-icon"></i>
+                </a>
+                <a class="card__social-item" href="">
+                    <i class="fa fa-twitter card__social-icon"></i>
+                </a>
+                <a class="card__social-item" href="">
+                    <i class="fa fa-linkedin card__social-icon"></i>
+                </a>
+                <a class="card__social-item" href="">
+                    <i class="fa fa-instagram card__social-icon"></i>
+                </a>
+            </div>
+        </div>
+
+        <a repeat.for="action of settings.actions" class="card__cta" title="${action.title}"><i class="${action.icon}"></i></a>
+    </div>
+</template>

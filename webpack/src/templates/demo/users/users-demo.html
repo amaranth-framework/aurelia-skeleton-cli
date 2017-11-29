@@ -1,20 +1,25 @@
 <template>
+    <require from="./users-demo.less"></require>
+
+    <!-- Page Title -->
 	<compose containerless view-model="components/helper/page-title/page-title" model.bind="{ settings: settings.pageTitle }" ></compose>
 
     <!-- Table Component -->
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
-				<h3>Users</h3>
-				<div>
-					<a route-href="route: users-edit; params.bind: {action:'add'}" class="btn btn-primary">Add User</a>
-				</div>
-				<compose containerless view="components/helper/listing/listing-as-table.html" view-model="components/listing/users" model.bind="{ settings: settings.users }" ></compose>
-			</div>
+            <div class="col-md-12">
+			    <h3>Users</h3>
+            </div>
+			<!-- <div>
+				<a route-href="route: users-edit; params.bind: {action:'add'}" class="btn btn-primary">Add User</a>
+			</div> -->
+			<compose containerless view-model="components/helper/listing/listing" model.bind="{ settings: settings.listing }" ></compose>
+			<!-- <compose containerless view="components/helper/listing/listing-as-table.html" view-model="components/listing/users" model.bind="{ settings: settings.users }" ></compose> -->
 		</div>
 	</div>
+    
 	<!-- Form Component -->
-	<div if.bind="!mode" id="modal-user-form" class="modal modal--form fade" tabindex="-1" role="dialog">
+	<!-- <div if.bind="!mode" id="modal-user-form" class="modal modal--form fade" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -26,9 +31,9 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" click.trigger="events.publish('model:user:validate', user)">Save changes</button>
+					<button type="button" class="btn btn-primary" click.trigger="publishEvent('model:user:validate', user)">Save changes</button>
 				</div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
+			</div><!-- /.modal-content --
+		</div><!-- /.modal-dialog --
 	</div><!-- /.modal -->
 </template>

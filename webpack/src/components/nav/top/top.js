@@ -39,7 +39,7 @@ export class ComponentNavTop extends ComponentHelperContent {
             navbar: {
                 style: 'navbar-nav'
             }
-        })
+        });
     }
     /**
      * Toggle Visibility of left navigation menu

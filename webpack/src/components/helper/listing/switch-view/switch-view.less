@@ -1,0 +1,21 @@
+@import '../../../../variables.less';
+
+.listing-switch {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: @padding-large-vertical @padding-large-horizontal;
+
+    & .listing-switch__item {
+        &.is-active button {
+            color: @color-900;
+        }
+
+        & button {
+            background: inherit;
+            border: 0;
+            color: @color-300;
+            font-size: @font-size-large;
+        }
+    }
+}

@@ -88,6 +88,6 @@ export class ComponentNavBreadcrumb extends Component {
 	 * @see View::attached()
 	 */
     attached() {
-        this.events.publish('components::breadcrumbs::attached', this.routes);
+        this.publishEvent('components::breadcrumbs::attached', this.routes);
     }
 }

@@ -1,0 +1,12 @@
+<template>
+    <form if.bind="settings.tableStyle" class="form-inline table-style">
+        <div class="form-style">
+            <label for="table-style-${__uuid}">Style</label>
+            <select id="table-style-${__uuid}">
+                <option value="">Stack</option>
+                <option value="">Swipe</option>
+                <option value="">Toggle</option>
+            </select>
+        </div>
+    </form>
+</template>

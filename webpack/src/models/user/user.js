@@ -1,10 +1,7 @@
 import { Model, properties } from 'features/views/model';
 import { ValidationRules } from 'aurelia-validation';
-
 import { excludes, traits } from 'traits-decorator';
-
-import { AuthorizeStepJWT as AuthorizeStep } from 'features/authorize-step/authorize-step';
-import { extend, waitForVariable } from 'features/utils';
+import { extend } from 'features/utils';
 import { Form } from 'features/traits/form';
 
 /**
@@ -48,7 +45,8 @@ export class User extends Model {
                 save: 'users',
                 update: 'users'
             },
-            name: 'user'
+            name: 'user',
+            view: 'default'
         });
     }
     /**
@@ -59,7 +57,7 @@ export class User extends Model {
             { name: 'id', type: 'hidden' },
             { name: 'email', type: 'email' },
             { name: 'name', type: 'text' },
-            { name: 'username', type: 'text' },
+            { name: 'username', type: 'text' }
         ];
     }
     /**
@@ -80,7 +78,7 @@ export class User extends Model {
     applyValidationRules(o) {
         ValidationRules
             .ensure('email').displayName('Email Input')
-            .email().withMessage(`\${$displayName} must be an email.`)
+            .email().withMessage('\${$displayName} must be an email.')
             .required()
             .on(this);
     }

@@ -10,8 +10,8 @@
         
         <compose containerless view-model="components/helper/form/form" model.bind="{ settings: settings.form }" ></compose>
         
-        <button click.trigger="events.publish('form:basic-form:validate')" class="btn btn-primary" type="submit">Submit</button>
-        <button click.trigger="events.publish('form:basic-form:reset')" class="btn btn-default" type="reset">Reset</button>
+        <button click.trigger="publishEvent('form:basic-form:validate')" class="btn btn-primary" type="submit">Submit</button>
+        <button click.trigger="publishEvent('form:basic-form:reset')" class="btn btn-default" type="reset">Reset</button>
       </div>
     </div>
   </div>

@@ -37,7 +37,7 @@ export class ComponentHelperForm extends Component {
      */
     attached() {
         // signal form has been attached
-        this.events.publish(`form:${this.settings.name}:attached`, this);
+        this.publishEvent(`form:${this.settings.name}:attached`, this);
     }
     /**
      * @see View::defaultSettings()
@@ -58,7 +58,7 @@ export class ComponentHelperForm extends Component {
     detached() {
         super.detached();
         // signal form has been detached
-        this.events.publish(`form:${this.settings.name}:detached`, this);
+        this.publishEvent(`form:${this.settings.name}:detached`, this);
     }
     /**
      * @return {Array<*>}
@@ -80,7 +80,7 @@ export class ComponentHelperForm extends Component {
         // validate at request
         this.subscribeEvent(`form:${this.settings.name}:validate`, (form) => form === this ? this.validate() : false);
         // publish form passed init
-        this.events.publish(`form:${this.settings.name}:init`, this);
+        this.publishEvent(`form:${this.settings.name}:init`, this);
     }
     /**
      * [setData description]
@@ -96,9 +96,9 @@ export class ComponentHelperForm extends Component {
     async validate() {
         const RESULT = await this.validationController.validate();
         if (RESULT.valid) {
-            this.events.publish(`form:${this.settings.name}:validated`, this);
+            this.publishEvent(`form:${this.settings.name}:validated`, this);
             return;
         }
-        this.events.publish(`form:${this.settings.name}:invalid`, { form: this, result: RESULT });
+        this.publishEvent(`form:${this.settings.name}:invalid`, { form: this, result: RESULT });
     }
 }

@@ -1,7 +1,88 @@
 
-.card {
-    border: 1px solid @color-200;
-    padding: 10px;
-}
+@import '../../../variables.less';
 
-// https://dribbble.com/shots/2039823-Ui-Card-Material-Design
+.card {
+    margin-bottom: 30px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .2);
+    background-color: @color--50;
+
+    &__content {
+        padding: 30px;
+        text-align: center;
+    }
+
+    &__img {
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 50%;
+        box-shadow: 0 4px 4px 1px rgba(0, 0, 0, .2);
+        min-width: 128px;
+        min-height: 128px;
+    }
+
+    &__name {
+        margin: 20px 10px;
+        font-size: 24px;
+        text-transform: capitalize;
+    }
+
+    &__social {
+        margin: 0 -5px;
+
+        &-item {
+            display: inline-block;
+            width: 2em;
+            height: 2em;
+            margin: 0 5px;
+            border: 1px solid @color-300;
+            border-radius: 50%;
+            color: inherit;
+            transition: all .3s;
+
+            &:hover {
+                border-color: @color-600;
+                background-color: @color-600;
+
+                .card__social-icon {
+                    color: @color--50;
+                }
+            }
+        }
+
+        &-icon {
+            line-height: 2em;
+        }
+    }
+
+    &__cta {
+        position: relative;
+        display: block;
+        padding: 30px;
+        font-weight: 700;
+        text-align: center;
+        text-transform: uppercase;
+        color: inherit;
+        transition: all .3s;
+
+        &:hover {
+            background-color: @color-primary;
+            text-decoration: none;
+            color: #fff;
+
+            &::before {
+                content: none;
+            }
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 20%;
+            height: 1px;
+            background-color: #ccc;
+            transform: translateX(-50%);
+        }
+    }
+}

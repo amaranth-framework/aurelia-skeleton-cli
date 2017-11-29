@@ -2,8 +2,8 @@ import { Component } from 'features/views/component';
 import { extend } from 'features/utils';
 
 /**
-*
-*/
+ *
+ */
 export class ComponentHelperCard extends Component {
     /**
      * @see View::overrideSettingsKey

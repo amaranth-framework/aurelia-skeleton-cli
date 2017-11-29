@@ -1,0 +1,11 @@
+<template>
+    <div if.bind="settings.export" class="btn-toolbar table-export" role="toolbar">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn disabled">Export as: </button>
+            <button if.bind="settings.export.includes('csv')" type="button" class="btn" click.trigger="exportToCSV()">CSV</button>
+            <button if.bind="settings.export.includes('xls')" type="button" class="btn">Excel</button>
+            <button if.bind="settings.export.includes('pdf')"type="button" class="btn">PDF</button>
+            <button if.bind="settings.export.includes('prt')"type="button" class="btn">Print</button>
+        </div>
+    </div>
+</template>

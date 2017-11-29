@@ -2,7 +2,7 @@
     <require from="./logo.less"></require>
 
     <div class.bind="settings.style" class="logo">
-        <a href="#" class.bind="settings.styles.title" class="logo__title" click.trigger="events.publish('nav-left:open')">
+        <a href="#" class.bind="settings.styles.title" class="logo__title" click.trigger="publishEvent('nav-left:open')">
             <i class.bind="settings.styles.icon" class="logo__title-icon fa fa-leaf"></i>
             <span class.bind="settings.style.titleText" class="logo__title-text">Amaranth</span>
         </a>

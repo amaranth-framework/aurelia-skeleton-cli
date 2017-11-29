@@ -4,10 +4,14 @@
 	<div class="page-title">
 		<div class="page-title__content">
 			<h2>${settings.content.title}</h2>
-			<compose containerless view-model="components/nav/breadcrumb/breadcrumb"></compose>
+            <div repeat.for="component of settings.componentsContent" class="component component--${component.type}" class.bind="settings.styles[component.type]">
+                <compose containerless view.bind="component.view || (component.module + '.html')" view-model.bind="component.module" model.bind="{ settings: component.settings }"></compose>
+            </div>
 		</div>
 		<div class="page-title__additional">
-			<!-- TODO: -->
+            <div repeat.for="component of settings.componentsAdditional" class="component component--${component.type}" class.bind="settings.styles[component.type]">
+                <compose containerless view.bind="component.view || (component.module + '.html')" view-model.bind="component.module" model.bind="{ settings: component.settings }"></compose>
+            </div>
 		</div>
 	</div>
     <compose containerless view-model="components/helper/messages/messages"></compose>

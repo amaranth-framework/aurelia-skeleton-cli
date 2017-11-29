@@ -34,7 +34,7 @@ export class ComponentHelperMessages extends Component {
         // ['debug', 'info', 'warn', 'error'].forEach(type => {
         //     this.events.subscribe(`messages:add:${type}`, message => {
         //         message.type = type;
-        //         this.events.publish('messages:add', message);
+        //         this.publishEvent('messages:add', message);
         //     })
         // })
     }

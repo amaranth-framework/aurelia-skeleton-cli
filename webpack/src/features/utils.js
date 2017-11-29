@@ -1,11 +1,22 @@
+/**
+ * Amaranth :: Aurelia Skeleton (http://github.com/amaranth-framework/aurelia-skeleton/)
+ *
+ * @link      http://github.com/amaranth-framework/aurelia-skeleton/ for the canonical source repository
+ * @copyright Copyright (c) 2007-2017 IT Media Connect (http://itmediaconnect.ro)
+ * @license   http://github.com/amaranth-framework/aurelia-skeleton/LICENSE MIT License
+ */
+
 import { LogManager } from 'aurelia-framework';
 
 const _logger = LogManager.getLogger('features/utils');
 
+/**
+ *
+ */
 export const EventsList = {
     AUTH_USER_REQUESTED: 'auth:user:requested',
-    AUTH_USER_OFFERED: 'auth:user:offered',
-}
+    AUTH_USER_OFFERED: 'auth:user:offered'
+};
 
 /**
  * Extend the `target` object with all the objects behind him (in the list of params).

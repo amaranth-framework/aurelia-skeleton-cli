@@ -1,10 +1,14 @@
-import {validateTrigger, ValidationController, ValidationRules} from 'aurelia-validation';
+/**
+ * Amaranth :: Aurelia Skeleton (http://github.com/amaranth-framework/aurelia-skeleton/)
+ *
+ * @link      http://github.com/amaranth-framework/aurelia-skeleton/ for the canonical source repository
+ * @copyright Copyright (c) 2007-2017 IT Media Connect (http://itmediaconnect.ro)
+ * @license   http://github.com/amaranth-framework/aurelia-skeleton/LICENSE MIT License
+ */
 
-import { Template } from 'features/views/template';
 import { extend } from 'features/utils';
+import { Template } from 'features/views/template';
 import { User } from 'models/user/user';
-
-
 
 export class TemplateUsers extends Template {
     /**
@@ -17,7 +21,9 @@ export class TemplateUsers extends Template {
     constructor(...args) {
         super(...args);
 
-        this.subscribeEvent('model:user:attached', async (user) => {
+        this.subscribeEvent('listing:users:init', (listing) => this.loadUsers(listing));
+
+        this.subscribeEvent('model:user:attached', async(user) => {
             if (!user || !user.parent || user.parent !== this) {
                 return;
             }
@@ -27,7 +33,7 @@ export class TemplateUsers extends Template {
             }
         });
 
-        this.subscribeEvent('model:user:validated', async (user) => {
+        this.subscribeEvent('model:user:validated', async(user) => {
             user.save()
                 .then(result => {
                     this.messages.info('User has been saved.', 1);
@@ -35,6 +41,20 @@ export class TemplateUsers extends Template {
                 })
                 .catch(error => alert(error.toString()))
         });
+    }
+    /**
+     * @param  {ComponentHelperListing}              listing [description]
+     */
+    applyListingRenderers(listing) {
+        listing
+            .addFieldRenderer({
+                key: 'image',
+                renderer: (value, model) => `<img src="${value}" alt="${model.name}" />`
+            })
+            .addFieldRenderer({
+                key: 'email',
+                renderer: (value, model) => `<a href="mailto:${value}" title="${value}">${value}</a>`
+            });
     }
     /**
      * @see View::attached()
@@ -54,12 +74,47 @@ export class TemplateUsers extends Template {
     get defaultSettings() {
         return extend(true, super.defaultSettings, {
             pageTitle: {
+                componentsAdditional: [
+                    {
+                        type: 'listing-swtich',
+                        module: PLATFORM.moduleName('components/helper/listing/switch-view/switch-view'),
+                        settings: {
+                            name: 'users'
+                        }
+                    }
+                ],
                 content: {
                     title: 'Users'
                 }
             },
-            users: {}
-        })
+            listing: {
+                card: {
+                    view: PLATFORM.moduleName('components/helper/card/card-user.html')
+                },
+                name: 'users',
+                rows: [
+                    { head: '', map: 'image' },
+                    { head: 'Name', map: 'name' },
+                    { head: 'Email', map: 'email' },
+                    { head: 'Phone', map: 'phone' },
+                    { head: 'Website', map: 'website' },
+                    { head: 'Company', map: 'company.name' }
+                ],
+                style: 'listing--3 listing--users'
+            }
+        });
+    }
+    /**
+     * @param  {Component}  listing
+     */
+    async loadUsers(listing) {
+        this.applyListingRenderers(listing);
+        this.publishEvent('listing:users:set-list', (await User.list()).map(user => {
+            const rand = Math.random();
+            user.image = 'http://lorempixel.com/128/128/people/?hash=' + rand;
+            user.smallImage = 'http://lorempixel.com/20/20/people/?hash=' + rand;
+            return user;
+        }));
     }
     // /**
     //  * @see View::detached()
