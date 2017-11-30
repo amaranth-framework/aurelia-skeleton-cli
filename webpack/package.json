@@ -14,6 +14,9 @@
   },
   "scripts": {
     "build": "nps webpack.build",
+    "lint": "npm run lint:es && npm run lint:less",
+    "lint:es": "eslint ./*.js src --fix",
+    "lint:less": "",
     "postinstall": "rm -rf ./node_modules/aurelia-validation/node_modules",
     "start": "nps",
     "test": "nps test"
