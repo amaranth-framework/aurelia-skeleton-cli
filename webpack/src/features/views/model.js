@@ -169,7 +169,7 @@ export class Model extends Component {
             const input = {
                 type: 'text',
                 label: this._propertySettings[key].name || key,
-                name:  this._propertySettings[key].name || key
+                name: this._propertySettings[key].name || key
             };
             return (this._propertySettings[key] && this._propertySettings[key].form) ?
                 extend(true, input, this._propertySettings[key].form) : input;
@@ -206,7 +206,7 @@ export class Model extends Component {
 export function properties(list) {
     return (target, key) => {
         list.forEach(item => property(target, item));
-    }
+    };
 }
 
 /**
@@ -278,11 +278,11 @@ export function property(...args) {
         // otherwise, just add our own getter and setter descriptor
         } else {
             Object.defineProperty(target, key, {
-                get: function () {
-                    return this["__" + key];
+                get: function() {
+                    return this['__' + key];
                 },
-                set: function (newValue) {
-                    this["__" + key] = newValue;
+                set: function(newValue) {
+                    this['__' + key] = newValue;
                 },
                 enumerable: true,
                 configurable: true
@@ -292,7 +292,7 @@ export function property(...args) {
         if (props.default) {
             target[key] = props.default;
         }
-    }
+    };
     // if calling `@property(...)`
     if (args.length < 2) {
         return decorator;

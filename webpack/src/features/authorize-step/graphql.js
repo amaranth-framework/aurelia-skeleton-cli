@@ -52,7 +52,7 @@ export class GraphQL extends AuthorizeStepJWT {
                 }`)
             });
             this.logger.debug('authStep.getUser', data);
-            this._user = data.data.User
+            this._user = data.data.User;
         }
         return this._user;
     }

@@ -18,9 +18,9 @@ export class ComponentNavBreadcrumb extends Component {
             content: {
                 title: 'Page Title'
             },
-            routes: [{route:''}],
+            routes: [{route: ''}],
             filter: {}
-        })
+        });
     }
 	/**
      * @see ModelView::init()

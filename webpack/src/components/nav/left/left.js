@@ -52,7 +52,7 @@ export class ComponentNavLeft extends ComponentHelperContent {
                     }
                 }
             ]
-        })
+        });
     }
     /**
      * @see View::init()

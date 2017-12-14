@@ -65,7 +65,7 @@ export class TemplateForms extends Template {
             type: 'checkbox',
             name: 'check0',
             values: [
-                { label: 'First Selectable Item', value: 21 },
+                { label: 'First Selectable Item', value: 21 }
             ],
             style: 'col-md-12'
         },
@@ -157,7 +157,7 @@ export class TemplateForms extends Template {
                 .ensure('password').displayName('Password Input')
                 .required()
                 .ensure('email').displayName('Email Input')
-                .email().withMessage(`\${$displayName} must be an email.`)
+                .email().withMessage('${$displayName} must be an email.')
                 .required()
                 .on(form);
         });
@@ -180,7 +180,7 @@ export class TemplateForms extends Template {
             form: {
                 name: 'basic-form'
             }
-        })
+        });
     }
     /**
      * @return {Number}

@@ -21,7 +21,7 @@ export class ComponentHelperContent extends Component {
             styles: {
                 inner: ''
             }
-        })
+        });
     }
     /**
      * @see Template::constructor()

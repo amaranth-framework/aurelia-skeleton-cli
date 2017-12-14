@@ -16,7 +16,7 @@ import { getCookie, setCookie, removeCookie } from 'features/utils';
  */
 export var StorageOptions = {
     type: 'local'
-}
+};
 
 /**
  * Class used for storing data using differen browser functionalities.
@@ -51,7 +51,7 @@ export class Storage {
         if (this.type !== Storage.TYPE_COOKIE) {
             try {
                 return JSON.parse(window[`${this.type}Storage`].getItem(key) || 'null');
-            } catch(e) {
+            } catch (e) {
                 this.logger.warn(
                     'session()',
                     `Could not implement session (${this.type}). Fallback to cookie.`,
@@ -71,7 +71,7 @@ export class Storage {
             try {
                 window[`${this.type}Storage`].removeItem(key);
                 return true;
-            } catch(e) {
+            } catch (e) {
                 this.logger.warn(
                     'sessionRemove()',
                     `Could not implement session (${this.type}). Fallback to cookie.`,
@@ -92,7 +92,7 @@ export class Storage {
                 let storage = window[`${this.type}Storage`];
                 storage.setItem(key, JSON.stringify(value));
                 return true;
-            } catch(e) {
+            } catch (e) {
                 this.logger.warn(
                     'sessionStore()',
                     `Could not implement session:${this.type}. Fallback to cookie.`,

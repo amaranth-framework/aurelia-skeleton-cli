@@ -10,7 +10,7 @@ export class ComponentFormLogin extends ComponentHelperForm {
         return [
             {
                 name: 'user',
-                label: 'Email or username',
+                label: 'Email or username'
             },
             {
                 name: 'pass',
@@ -26,6 +26,6 @@ export class ComponentFormLogin extends ComponentHelperForm {
                     { value: 'yes', label: 'Remember me' }
                 ]
             }
-        ]
+        ];
     }
 }

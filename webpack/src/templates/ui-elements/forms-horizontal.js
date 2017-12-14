@@ -26,6 +26,6 @@ export class TemplateFormsHorizontal extends TemplateForms {
                 name: 'basic-form',
                 style: 'form-horizontal'
             }
-        })
+        });
     }
 }

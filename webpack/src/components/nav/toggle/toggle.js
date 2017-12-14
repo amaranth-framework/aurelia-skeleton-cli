@@ -14,10 +14,10 @@ export class ComponentNavToggle extends Component {
         return extend(true, super.defaultSettings, {
             routes: [],
             filter: {}
-        })
+        });
     }
     /**
      *
      */
-    togglerRetract(){}
+    togglerRetract() {}
 }

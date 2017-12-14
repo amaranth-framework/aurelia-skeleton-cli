@@ -42,20 +42,20 @@ export class App extends Base {
             this.routerMarkActiveRoute(result.instruction.router, result.instruction.config.name);
         });
 
-        this.subscribeEvent('nav-left:hide', () => this.navLeftStyle = '')
-        this.subscribeEvent('nav-left:open', () => this.navLeftStyle = 'is-open')
+        this.subscribeEvent('nav-left:hide', () => this.navLeftStyle = '');
+        this.subscribeEvent('nav-left:open', () => this.navLeftStyle = 'is-open');
     }
     /**
      * @return {Boolean}
      */
     get canShowNavLeft() {
-        return (this.config.get('auth-step') || {}).isLoggedIn || (this.settings || {}).showNavLeft
+        return (this.config.get('auth-step') || {}).isLoggedIn || (this.settings || {}).showNavLeft;
     }
     /**
      * @return {Boolean}
      */
     get canShowNavTop() {
-        return (this.config.get('auth-step') || {}).isLoggedIn || (this.settings || {}).showNavTop
+        return (this.config.get('auth-step') || {}).isLoggedIn || (this.settings || {}).showNavTop;
     }
     /**
      * Configure Application router
@@ -298,7 +298,7 @@ export class App extends Base {
         routes.forEach((route) => {
             route.active = true;
             this.routerMarkActiveRoute(router, route.name, false);
-        })
+        });
         // console.log('nav done', result);
         // // determine router
         // let router = result.instruction.router;
@@ -338,7 +338,7 @@ export class App extends Base {
                 });
             });
         } else {
-            this.logger.warning(`ServiceWorker is not enabled. Please enable ServiceWorkers. See 'https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers'.`);
+            this.logger.warning('ServiceWorker is not enabled. Please enable ServiceWorkers. See \'https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers\'.');
         }
     }
     /**

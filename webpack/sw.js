@@ -1,8 +1,8 @@
 
-var CACHE_NAME = btoa ? btoa(location.hostname) : location.hostname;
+let CACHE_NAME = btoa ? btoa(location.hostname) : location.hostname;
 
-var urlsToCache = [
-    '/',
+let urlsToCache = [
+    '/'
 ];
 
 self.addEventListener('install', function(event) {

@@ -14,7 +14,7 @@ import { getCookie, setCookie, removeCookie } from 'features/utils';
 export const SessionConfig = {
     type: 'local',
     key: 'secret'
-}
+};
 
 /**
  * Aurelia Pipeline, authorize step

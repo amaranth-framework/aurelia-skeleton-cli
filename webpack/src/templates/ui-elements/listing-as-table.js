@@ -17,6 +17,6 @@ export class TemplateListingAsTable extends Template {
                     title: 'Listing (as table)'
                 }
             }
-        })
+        });
     }
 }

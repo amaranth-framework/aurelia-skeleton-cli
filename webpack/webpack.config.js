@@ -19,32 +19,32 @@ const nodeModulesDir = path.resolve(__dirname, 'node_modules');
 const baseUrl = '/';
 
 const cssRules = [
-    { loader: 'css-loader' },
+    { loader: 'css-loader' }
 ];
 
 
 module.exports = ({production, server, extractCss, coverage} = {}) => ({
     resolve: {
         extensions: ['.js'],
-        modules: [srcDir, 'node_modules'],
+        modules: [srcDir, 'node_modules']
     },
     entry: {
         app: ['babel-polyfill', 'aurelia-bootstrapper'],
-        vendor: ['bluebird', 'jquery', 'bootstrap'],
+        vendor: ['bluebird', 'jquery', 'bootstrap']
     },
     output: {
         path: outDir,
         publicPath: baseUrl,
         filename: production ? '[name].[chunkhash].bundle.js' : '[name].[hash].bundle.js',
         sourceMapFilename: production ? '[name].[chunkhash].bundle.map' : '[name].[hash].bundle.map',
-    chunkFilename: production ? '[name].[chunkhash].chunk.js' : '[name].[hash].chunk.js'
+        chunkFilename: production ? '[name].[chunkhash].chunk.js' : '[name].[hash].chunk.js'
     },
     devServer: {
         contentBase: outDir,
         // serve index.html for all 404 (required for push-state)
-    historyApiFallback: true
+        historyApiFallback: true
     },
-  devtool: production ? 'nosources-source-map' : 'cheap-module-eval-source-map',
+    devtool: production ? 'nosources-source-map' : 'cheap-module-eval-source-map',
     module: {
         rules: [
             // CSS required in JS/TS files should use the style-loader that auto-injects it into the website
@@ -54,29 +54,29 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
                 issuer: [{ not: [{ test: /\.html$/i }] }],
                 use: extractCss ? ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-          use: cssRules
-                }) : ['style-loader', ...cssRules],
+                    use: cssRules
+                }) : ['style-loader', ...cssRules]
             },
             {
                 test: /\.css$/i,
                 issuer: [{ test: /\.html$/i }],
                 // CSS required in templates cannot be extracted safely
                 // because Aurelia would try to require it again in runtime
-        use: cssRules
+                use: cssRules
             },
             {
-        test: /\.less$/i,
-        use: ['style-loader', 'css-loader', 'less-loader'],
-        issuer: /\.[tj]s$/i
+                test: /\.less$/i,
+                use: ['style-loader', 'css-loader', 'less-loader'],
+                issuer: /\.[tj]s$/i
             },
             {
-        test: /\.less$/i,
-        use: ['css-loader', 'less-loader'],
-        issuer: /\.html?$/i
-      },
+                test: /\.less$/i,
+                use: ['css-loader', 'less-loader'],
+                issuer: /\.html?$/i
+            },
       { test: /\.html$/i, loader: 'html-loader' },
-      { test: /\.js$/i, loader: 'babel-loader', exclude: nodeModulesDir,
-        options: coverage ? { sourceMap: 'inline', plugins: [ 'istanbul' ] } : {},
+            { test: /\.js$/i, loader: 'babel-loader', exclude: nodeModulesDir,
+                options: coverage ? { sourceMap: 'inline', plugins: [ 'istanbul' ] } : {}
             },
             { test: /\.json$/i, loader: 'json-loader' },
             // use Bluebird as the global Promise implementation:
@@ -87,16 +87,16 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
             { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff2' } },
             { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff' } },
             // load these fonts normally, as files:
-            { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'file-loader' },
+            { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'file-loader' }
         ]
     },
     plugins: [
         new AureliaPlugin(),
         new ProvidePlugin({
-      'Promise': 'bluebird',
+            'Promise': 'bluebird',
             '$': 'jquery',
             'jQuery': 'jquery',
-            'window.jQuery': 'jquery',
+            'window.jQuery': 'jquery'
         }),
         new CopyWebpackPlugin([
             { from: 'favicon.ico', to: 'favicon.ico' },
@@ -105,7 +105,7 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
             { from: 'sw.js', to: 'sw.js' }
         ]),
         new ModuleDependenciesPlugin({
-      'aurelia-testing': [ './compile-spy', './view-spy' ]
+            'aurelia-testing': [ './compile-spy', './view-spy' ]
         }),
         new HtmlWebpackPlugin({
             template: 'index.ejs',
@@ -124,20 +124,20 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
             metadata: {
                 // available in index.ejs //
                 title, server, baseUrl
-      }
+            }
         }),
         ...when(extractCss, new ExtractTextPlugin({
             filename: production ? '[contenthash].css' : '[id].css',
-      allChunks: true
+            allChunks: true
         })),
         ...when(production, new CommonsChunkPlugin({
-      name: ['common']
-    })),
-    ...when(production, new CopyWebpackPlugin([
+            name: ['common']
+        })),
+        ...when(production, new CopyWebpackPlugin([
       { from: 'static/favicon.ico', to: 'favicon.ico' }
-    ])),
-    ...when(production, new UglifyJsPlugin({
-      sourceMap: true
+        ])),
+        ...when(production, new UglifyJsPlugin({
+            sourceMap: true
         }))
-  ]
+    ]
 });

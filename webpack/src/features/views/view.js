@@ -116,7 +116,7 @@ export class View extends Base {
             content: {},
             service: {},
             services: {}
-        }
+        };
     }
     /**
      * Invoked when the view that contains the extension is detached from the DOM.

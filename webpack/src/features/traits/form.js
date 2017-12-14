@@ -76,7 +76,7 @@ export class Form {
      * @return {Boolean}
      */
     isCheckable(input) {
-        return /checkbox|radio/.test(input.type)
+        return /checkbox|radio/.test(input.type);
     }
     /**
      * [isComponent description]
@@ -133,7 +133,7 @@ export class Form {
      * @return {[type]}
      */
     labelStyle() {
-        return this.isHorizontalForm() ? this.settings.styles.labelAsCol : ''
+        return this.isHorizontalForm() ? this.settings.styles.labelAsCol : '';
     }
     /**
      * @param {String} input

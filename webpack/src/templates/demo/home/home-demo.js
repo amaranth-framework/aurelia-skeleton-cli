@@ -43,6 +43,6 @@ export class TemplatesHome extends Template {
                     title: 'Dashboard'
                 }
             }
-        })
+        });
     }
 }

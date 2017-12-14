@@ -22,6 +22,6 @@ export class Loggable {
      * @return {String}
      */
     toString() {
-        return `${parentClassName(this) || 'Object'}/${className(this)}}`
+        return `${parentClassName(this) || 'Object'}/${className(this)}}`;
     }
 }

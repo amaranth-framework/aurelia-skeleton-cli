@@ -50,7 +50,7 @@ export class ComponentHelperForm extends Component {
                 inputAsCol: 'col-md-9'  // for form-horizontal, size of element container
             },
             name: 'default'
-        })
+        });
     }
     /**
      * @see View::detached()

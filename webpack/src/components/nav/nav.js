@@ -18,7 +18,7 @@ export class ComponentNav extends Component {
             filter: {
                 nav: true
             }
-        })
+        });
     }
     /**
      * Search for a list of routes, by their name

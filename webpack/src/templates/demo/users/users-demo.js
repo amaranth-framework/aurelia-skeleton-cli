@@ -39,7 +39,7 @@ export class TemplateUsers extends Template {
                     this.messages.info('User has been saved.', 1);
                     $('#modal-user-form').modal('hide');
                 })
-                .catch(error => alert(error.toString()))
+                .catch(error => alert(error.toString()));
         });
     }
     /**

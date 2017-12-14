@@ -16,7 +16,7 @@ import { waitForVariable, extend, className, parentClassName } from 'features/ut
 /**
  * Aurelia class base for almost each functionality we may build.
  */
-@traits(Eventable,Loggable::excludes('toString'),RESTable)
+@traits(Eventable, Loggable::excludes('toString'), RESTable)
 @inject(AureliaConfiguration, EventAggregator, I18N, Router)
 export class Base {
     /**
@@ -47,6 +47,6 @@ export class Base {
      * @return {String}
      */
     toString() {
-        return `${parentClassName(this) || 'Object'}/${className(this)}/${this.__uuid.toString()}`
+        return `${parentClassName(this) || 'Object'}/${className(this)}/${this.__uuid.toString()}`;
     }
 }

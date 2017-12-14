@@ -17,6 +17,6 @@ export class TemplateListing extends Template {
                     title: 'Listing'
                 }
             }
-        })
+        });
     }
 }

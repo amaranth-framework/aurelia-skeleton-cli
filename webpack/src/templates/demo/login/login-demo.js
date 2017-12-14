@@ -47,6 +47,6 @@ export class TemplateLogin extends Template {
             logo: {
                 style: 'logo--lg'
             }
-        })
+        });
     }
 }
