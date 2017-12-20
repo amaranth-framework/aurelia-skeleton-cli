@@ -5,7 +5,9 @@
         <div class="card__content">
             <div class="card__media">
                 <!-- Sample of lazy loading for images -->
-                <img alt="${model.name}" src="${model.image}" style="background-image: url(${model.smallImage})" class="card__img" />
+                <div class="card__avatar" style="background-image: url(${model.smallImage})">
+                  <img alt="${model.name}" src="${model.image}" class="card__img" />
+                </div>
             </div>
             <p class="card__name">${model.name}</p>
             <address class="card__contact">
@@ -36,6 +38,8 @@
             </div>
         </div>
 
-        <a repeat.for="action of settings.actions" class="card__cta" title="${action.title}"><i class="${action.icon}"></i></a>
+        <div class="card__ctas">
+          <a repeat.for="action of settings.actions" class="card__cta" title="${action.title}"><i class="${action.icon}"></i></a>
+        </div>
     </div>
 </template>
