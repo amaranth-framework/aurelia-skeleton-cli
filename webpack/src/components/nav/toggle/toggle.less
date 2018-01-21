@@ -1,0 +1,25 @@
+@import '../../../variables.less';
+
+.nav-toggle {
+    display: none;
+}
+
+nav-left.is-open {
+    .nav-toggle {
+        color: @color-900;
+        display: block;
+        font-size: @font-size-base;
+        height: 24px;
+        line-height: 24px;
+        position: absolute;
+        right: 12px;
+        text-align: center;
+        text-decoration: none;
+        width: 24px;
+        top: 64px; // top menu's height + 12px
+        &:before {
+            content: '\f053';
+            font-family: FontAwesome;
+        }
+    }
+}

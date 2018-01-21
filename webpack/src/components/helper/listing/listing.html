@@ -1,0 +1,41 @@
+  <template>
+    <require from="./listing.less"></require>
+
+    <div class="listing" class.bind="settings.style">
+        <!-- <div class="listing-options"> -->
+        <!-- </div> -->
+
+        <div if.bind="settings.view === 'list'" class.bind="style" id="listing-${__uuid}" class="list">
+            <div repeat.for="model of list" id="listing-${__uuid}-card-${model.id}" class="list__item" class.bind="settings.styles.card">
+                <compose containerless view.bind="settings.card.view" view-model.bind="settings.card.model" model.bind="{ model: model, settings: settings.card }" ></compose>
+            </div>
+        </div>
+
+        <table if.bind="settings.view === 'table'" class.bind="style" id="listing-${__uuid}" class="table">
+            <caption if.bind="settings.content.caption" >${settings.content.caption}</caption>
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" click.trigger="selectAll()">
+                    </th>
+                    <th repeat.for="row of settings.rows">${row.head}</th>
+                    <th if.bind="settings.actions && settings.actions.length"><i class="fa fa-cogs"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="model of list" id="table-${__uuid}-row-${model.id}">
+                    <th scope="row">
+                        <input type="checkbox" value="${model.id}">
+                    </th>
+                    <td repeat.for="row of settings.rows" innerhtml.bind='mapModelValue(model, row.map)'></td>
+                    <td if.bind="settings.actions && settings.actions.length">
+                        <a repeat.for="action of settings.actions" click.trigger="publishEvent(action.event, { model: row.model, listing: $parent.$parent })" href="#" title="${action.title}"><i class="${action.icon}"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- <div if.bind="settings.pagination" class="table-options"> -->
+		<!-- </div> -->
+    </div>
+</template>

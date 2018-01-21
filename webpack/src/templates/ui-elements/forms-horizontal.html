@@ -1,0 +1,18 @@
+<template>
+  <require from="./forms.less"></require>
+  <compose containerless view-model="components/helper/page-title/page-title" model.bind="{ settings: settings.pageTitle }" ></compose>
+  
+  <div class="container forms-demo">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Horizontal Forms</h3>
+        <p>Individual form controls automatically receive some global styling.</p>
+        
+        <compose containerless view-model="components/helper/form/form" model.bind="{ settings: settings.form, inputs: inputs }" ></compose>
+        
+        <button click.trigger="publishEvent('form:default:validate')" class="btn btn-primary" type="submit">Submit</button>
+        <button click.trigger="publishEvent('form:default:reset')" class="btn btn-default" type="reset">Reset</button>
+      </div>
+    </div>
+  </div>
+</template>

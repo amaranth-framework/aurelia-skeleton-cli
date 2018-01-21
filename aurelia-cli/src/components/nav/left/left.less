@@ -1,0 +1,27 @@
+@import '../../../variables.less';
+
+.component {
+	&--left {
+		&-nav {
+
+		}
+
+		&-toggle {
+			overflow: hidden;
+			position: absolute;
+			right: 0;
+			height: @left-nav-toggle;
+			top: 50%;
+			transform: translate(100%, -50%);
+			background-color: inherit;
+			width: 0;
+			text-align: center;
+			border-radius: 0 @left-nav-toggle @left-nav-toggle 0;
+			transition: width .2s ease-in-out;
+
+			&.toggle {
+				width: @left-nav-toggle/2;
+			}
+		}
+	}
+}

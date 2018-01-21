@@ -1,0 +1,21 @@
+@import '../../../variables.less';
+
+
+.nav-toggle {
+	display: block;
+	text-align: center;
+	font-size: @font-large;
+	line-height: @left-nav-toggle;
+	margin-left: -@font-large/4;
+	color: inherit;
+
+	&:hover, &:focus, &:active {
+		color: inherit;
+		text-decoration: none;
+	}
+
+    &::before {
+        content: '\f104';
+		font-family: FontAwesome;
+    }
+}

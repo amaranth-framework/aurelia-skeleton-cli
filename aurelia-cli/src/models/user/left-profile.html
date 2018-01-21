@@ -1,0 +1,13 @@
+<template>
+    <require from="./left-profile.css"></require>
+	
+    <div class="left-nav__profile clearfix">
+        <div class="left-nav__profile-pic">
+            <img src.bind="image || 'images/img.jpg'" alt="..." class="img-circle profile_img">
+        </div>
+        <div class="left-nav__profile-info">
+            <span>Welcome,</span>
+            <h2>${name}</h2>
+        </div>
+    </div>
+</template>

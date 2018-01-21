@@ -1,0 +1,89 @@
+<template>
+    <require from="./table.css"></require>
+	
+    <div class="table">
+        <div class="table-options">
+            <div if.bind="settings.export" class="btn-toolbar table-export" role="toolbar">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn disabled">Export as: </button>
+                    <button if.bind="settings.export.includes('csv')" type="button" class="btn" click.trigger="exportToCSV()">CSV</button>
+                    <button if.bind="settings.export.includes('xls')" type="button" class="btn">Excel</button>
+                    <button if.bind="settings.export.includes('pdf')"type="button" class="btn">PDF</button>
+                    <button if.bind="settings.export.includes('prt')"type="button" class="btn">Print</button>
+                </div>
+            </div>
+            <form if.bind="settings.perpage" class="form-inline table-perpage">
+                <div class="form-group">
+                    <label for="table-perpage-${__uuid}">Per page</label>
+                    <select id="table-perpage-${__uuid}">
+                    	<option value="">10</option>
+                    	<option value="">20</option>
+                    	<option value="">30</option>
+                    </select>
+                </div>
+            </form>
+            <form if.bind="settings.sortby" class="form-inline table-sortby">
+                <div class="form-group">
+                    <label for="table-sortby-${__uuid}">Sort by</label>
+                    <select id="table-sortby-${__uuid}">
+                    	<option value="">X</option>
+                    	<option value="">Y</option>
+                    	<option value="">Z</option>
+                    </select>
+                </div>
+            </form>
+            <form if.bind="settings.tableStyle" class="form-inline table-style">
+                <div class="form-style">
+                    <label for="table-style-${__uuid}">Style</label>
+                    <select id="table-style-${__uuid}">
+                    	<option value="">Stack</option>
+                    	<option value="">Swipe</option>
+                    	<option value="">Toggle</option>
+                    </select>
+                </div>
+            </form>
+            <form if.bind="settings.search" class="form-inline table-search">
+                <div class="form-group">
+                    <label for="table-search-${__uuid}">Search</label>
+                    <input type="text" class="form-control" id="table-search-${__uuid}" placeholder="Search">
+                </div>
+            </form>
+        </div>
+        <table class.bind="style" id="table-${__uuid}" class="table table--loading">
+            <caption if.bind="settings.content.caption" >${settings.content.caption}</caption>
+            <thead>
+                <tr>
+                    <th repeat.for="label of thead">${label}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="row of tbody">
+                    <th scope="row">${row[0]}</th>
+                    <td repeat.for="item of row.slice(1)">${item}</td>
+                </tr>
+            </tbody>
+        </table>
+		<div if.bind="settings.pagination" class="table-options">
+	        <div class="btn-toolbar table-pagination pagination" role="toolbar" aria-label="Toolbar with button groups">
+	            <div class="btn-group" role="group">
+	                <button type="button" class="btn btn-secondary"><i class="fa fa-angle-double-left"></i></button>
+	                <button type="button" class="btn btn-secondary">1</button>
+	                <button type="button" class="btn btn-info">2</button>
+	                <button type="button" class="btn btn-secondary">3</button>
+	            </div>
+	            <div class="btn-group" role="group">
+	                <button type="button" class="btn btn-secondary">7</button>
+	                <button type="button" class="btn btn-secondary">8</button>
+	                <button type="button" class="btn btn-secondary">9</button>
+	            </div>
+	            <div class="btn-group" role="group">
+	                <button type="button" class="btn btn-secondary">7</button>
+	                <button type="button" class="btn btn-secondary">8</button>
+	                <button type="button" class="btn btn-secondary">9</button>
+	                <button type="button" class="btn btn-secondary"><i class="fa fa-angle-double-right"></i></button>
+	            </div>
+	        </div>
+		</div>
+    </div>
+    <!-- <p><a href="#" click.trigger="setTableLoading()">Show Loading</a> <a href="#" click.trigger="setTableLoaded()">Show Loaded</a></p> -->
+</template>

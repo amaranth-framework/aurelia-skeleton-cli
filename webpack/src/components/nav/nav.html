@@ -1,0 +1,35 @@
+<template>
+    <ul if.bind="filteredRoutes.length" class="nav" class.bind="style">
+        <li repeat.for="route of filteredRoutes" class.bind="route.active ? 'active': ''" class="nav__item">
+            <a if.bind="!isNavbarNav" click.trigger="router.navigateToRoute(route.name, route.params || {})" href="#">
+                <i if.bind="route.icon" class="fa ${route.icon}"></i>                
+                <span innerhtml.bind="route.title"></span>
+                <span if.bind="route.routes && route.routes.length" class="caret"></span>
+            </a>
+            <a if.bind="isNavbarNav && !route.routes.length" click.trigger="router.navigateToRoute(route.name, route.params || {})" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                ${route.title}
+            </a>
+            <a if.bind="isNavbarNav && route.routes.length" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                ${route.title}
+                <span if.bind="route.routes && route.routes.length" class="caret"></span>
+            </a>
+            <ul if.bind="route.routes && route.routes.length" class.bind="isNavbarNav ? 'dropdown-menu' : 'nav'">
+                <li repeat.for="subroute of findRoutes(route.routes || [])" class.bind="subroute.active ? 'active': ''">
+                    <a if.bind="!isNavbarNav" click.trigger="router.navigateToRoute(subroute.name, subroute.params || {})" href="#">
+                        ${subroute.title}
+                        <span if.bind="subroute.routes && subroute.routes.length" class="caret"></span>
+                    </a>
+                    <a if.bind="isNavbarNav" click.trigger="router.navigateToRoute(subroute.name, subroute.params || {})" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        ${subroute.title}
+                        <span if.bind="subroute.routes && subroute.routes.length" class="caret"></span>
+                    </a>
+                    <ul if.bind="subroute.routes && subroute.routes.length" class.bind="isNavbarNav ? 'dropdown-menu' : 'nav'">
+                        <li repeat.for="subsubroute of findRoutes(subroute.routes || [])">
+                            <a href="#" click.trigger="router.navigateToRoute(subsubroute.name, subsubroute.params || {})">${subsubroute.title}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</template>

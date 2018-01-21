@@ -1,0 +1,25 @@
+
+@import "../../../variables.less";
+
+.breadcrumb {
+	background: transparent;
+	font-size: 12px;
+	padding: 0;
+	&__item {
+		& + &::before {
+			content: "\f105";
+		    font: normal normal normal 14px/1 FontAwesome;
+		}
+		a {
+			color: @color-dark;
+			&:hover {
+				text-decoration: none;
+			}
+		}
+		&--active {
+			a {
+				color: @color-semi-dark;
+			}
+		}
+	}
+}
