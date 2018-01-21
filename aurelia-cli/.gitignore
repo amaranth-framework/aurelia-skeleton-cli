@@ -1,9 +1,0 @@
-node_modules
-.idea
-.DS_STORE
-npm-debug.log*
-yarn-error.log
-scripts
-test/*coverage
-test/coverage*
-.chrome

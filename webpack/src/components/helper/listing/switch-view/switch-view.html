@@ -1,9 +1,0 @@
-<template>
-    <require from="./switch-view.less"></require>
-
-    <ul class="listing-switch">
-        <li repeat.for="item of settings.views" class.bind="(settings.view === item.view) ? 'is-active' : ''" class="listing-switch__item">
-            <button click.trigger="switchView(item.view, event.target)" ><i class="fa ${item.icon}"></i></button>
-        </li>
-    </ul>
-</template>

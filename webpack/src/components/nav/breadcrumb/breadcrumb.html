@@ -1,9 +1,0 @@
-<template>
-	<require from="./breadcrumb.less"></require>
-	
-	<ol class="breadcrumb">
-		<li repeat.for="route of routes" class.bind="route.active ? 'breadcrumb__item--active' : ''" class="breadcrumb__item">
-			<a route-href="route.bind: route.name; params.bind: route.params">${route.title}</a>
-		</li>
-	</ol>
-</template>

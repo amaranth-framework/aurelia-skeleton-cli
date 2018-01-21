@@ -1,7 +1,0 @@
-{
-  "test": true,
-  "rest": {
-    "http-endpoint": "http://domain:8080/graphql",
-    "ws-endpoint": "ws://domain:4040/subscriptions"
-  }
-}
